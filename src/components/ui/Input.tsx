@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils";
-import { forwardRef, useState } from "react";
+import { forwardRef, useEffect, useState } from "react";
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   icon?: React.ReactNode;
@@ -12,8 +12,19 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
  * Features a blinking cursor effect in the placeholder.
  */
 export const Input = forwardRef<HTMLInputElement, InputProps>(
-  ({ className, icon, onIconClick, placeholder, onChange, ...props }, ref) => {
-    const [hasValue, setHasValue] = useState(false);
+  ({ className, icon, onIconClick, placeholder, onChange, value, ...props }, ref) => {
+    const [hasValue, setHasValue] = useState(
+      typeof value === "string" ? value.length > 0 : false
+    );
+
+    useEffect(() => {
+      if (value === undefined || value === null) {
+        return;
+      }
+
+      const nextValue = Array.isArray(value) ? value.join("") : value.toString();
+      setHasValue(nextValue.length > 0);
+    }, [value]);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       setHasValue(e.target.value.length > 0);
@@ -32,6 +43,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             className
           )}
           onChange={handleChange}
+          value={value}
           {...props}
         />
         {/* Custom placeholder with blinking cursor */}
