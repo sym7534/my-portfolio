@@ -162,7 +162,7 @@ export default function Home() {
                   alt="WARG logo"
                   width={50}
                   height={50}
-                  className="rounded-md object-cover"
+                  className="rounded-md object-cover bg-white"
                 />
               }
               title="Waterloo Aerial Robotics Group"

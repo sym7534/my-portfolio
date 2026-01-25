@@ -100,7 +100,7 @@ export function TiltedCard({
         {(title || caption) && (
           <div className="bg-card-caption px-3 py-2 sm:px-4 sm:py-3 -mt-px">
             {title && (
-              <h3 className="font-serif text-[clamp(14px,4vw,25px)] text-black leading-tight">
+              <h3 className="font-serif text-[clamp(14px,4vw,25px)] text-text-primary leading-tight">
                 {title}
               </h3>
             )}
