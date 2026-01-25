@@ -44,6 +44,11 @@ export async function POST(request: Request) {
   }
 
   const ip = getClientIp(request);
+  const country = request.headers.get("x-vercel-ip-country") ?? "unknown";
+  const region = request.headers.get("x-vercel-ip-country-region") ?? "unknown";
+  const city = request.headers.get("x-vercel-ip-city") ?? "unknown";
+  const latitude = request.headers.get("x-vercel-ip-latitude") ?? "unknown";
+  const longitude = request.headers.get("x-vercel-ip-longitude") ?? "unknown";
   const now = Date.now();
   const lastSentAt = rateLimitByIp.get(ip);
   if (lastSentAt && now - lastSentAt < RATE_LIMIT_MS) {
@@ -55,7 +60,7 @@ export async function POST(request: Request) {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
-      content: `<@713211567893774487> New message:\n${message}\nIP: ${ip}`,
+      content: `<@713211567893774487> New message:\n${message}\nIP: ${ip}\nLocation: ${city}, ${region}, ${country}\nCoords: ${latitude}, ${longitude}`,
     }),
   });
 
