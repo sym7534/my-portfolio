@@ -55,7 +55,7 @@ export async function POST(request: Request) {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
-      content: `New portfolio message:\n${message}`,
+      content: `<@713211567893774487> New message:\n${message}\nIP: ${ip}`,
     }),
   });
 
