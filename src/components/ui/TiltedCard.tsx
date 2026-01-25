@@ -9,8 +9,10 @@ interface TiltedCardProps {
   altText?: string;
   scaleOnHover?: number;
   rotateAmplitude?: number;
-  overlayContent?: React.ReactNode;
+  title?: string;
+  caption?: string;
   className?: string;
+  aspectRatio?: string;
 }
 
 const springValues = {
@@ -28,15 +30,16 @@ export function TiltedCard({
   altText = "Project image",
   scaleOnHover = 1.05,
   rotateAmplitude = 12,
-  overlayContent,
+  title,
+  caption,
   className,
+  aspectRatio,
 }: TiltedCardProps) {
   const ref = useRef<HTMLElement>(null);
 
   const rotateX = useSpring(useMotionValue(0), springValues);
   const rotateY = useSpring(useMotionValue(0), springValues);
   const scale = useSpring(1, springValues);
-  const overlayOpacity = useSpring(0);
 
   function handleMouse(e: React.MouseEvent) {
     if (!ref.current) return;
@@ -54,14 +57,12 @@ export function TiltedCard({
 
   function handleMouseEnter() {
     scale.set(scaleOnHover);
-    overlayOpacity.set(1);
   }
 
   function handleMouseLeave() {
     scale.set(1);
     rotateX.set(0);
     rotateY.set(0);
-    overlayOpacity.set(0);
   }
 
   return (
@@ -73,7 +74,7 @@ export function TiltedCard({
       onMouseLeave={handleMouseLeave}
     >
       <motion.div
-        className="relative w-full h-full rounded-md overflow-hidden"
+        className="relative w-full rounded-md overflow-hidden bg-gradient-to-b from-transparent from-[60%] to-[#f4f4f4]"
         style={{
           rotateX,
           rotateY,
@@ -81,20 +82,34 @@ export function TiltedCard({
           transformStyle: "preserve-3d",
         }}
       >
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={imageSrc}
-          alt={altText}
-          className="w-full h-full object-cover"
-        />
+        {/* Image container with aspect ratio */}
+        <div className="relative" style={{ aspectRatio: aspectRatio }}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={imageSrc}
+            alt={altText}
+            className="w-full h-full object-cover"
+          />
+          {/* Gradient fade at bottom of image */}
+          {(title || caption) && (
+            <div className="absolute inset-x-0 bottom-0 h-[40%] bg-gradient-to-t from-[#f4f4f4] to-transparent pointer-events-none" />
+          )}
+        </div>
 
-        {overlayContent && (
-          <motion.div
-            className="absolute inset-0 bg-black/50 flex items-end p-4"
-            style={{ opacity: overlayOpacity }}
-          >
-            {overlayContent}
-          </motion.div>
+        {/* Caption area below image */}
+        {(title || caption) && (
+          <div className="bg-[#f4f4f4] px-3 py-2 sm:px-4 sm:py-3 -mt-px">
+            {title && (
+              <h3 className="font-serif text-[clamp(14px,4vw,25px)] text-black leading-tight">
+                {title}
+              </h3>
+            )}
+            {caption && (
+              <p className="font-serif text-[clamp(11px,2.5vw,16px)] text-[#909090] leading-tight hidden sm:block">
+                {caption}
+              </p>
+            )}
+          </div>
         )}
       </motion.div>
     </figure>
