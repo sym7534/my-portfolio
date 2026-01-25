@@ -74,7 +74,7 @@ export function TiltedCard({
       onMouseLeave={handleMouseLeave}
     >
       <motion.div
-        className="relative w-full rounded-md overflow-hidden bg-gradient-to-b from-transparent from-[60%] to-[#f4f4f4]"
+        className="relative w-full rounded-md overflow-hidden bg-gradient-to-b from-transparent from-[60%] to-card-caption"
         style={{
           rotateX,
           rotateY,
@@ -92,20 +92,20 @@ export function TiltedCard({
           />
           {/* Gradient fade at bottom of image */}
           {(title || caption) && (
-            <div className="absolute inset-x-0 bottom-0 h-[40%] bg-gradient-to-t from-[#f4f4f4] to-transparent pointer-events-none" />
+            <div className="absolute inset-x-0 bottom-0 h-[40%] bg-gradient-to-t from-card-caption to-transparent pointer-events-none" />
           )}
         </div>
 
         {/* Caption area below image */}
         {(title || caption) && (
-          <div className="bg-[#f4f4f4] px-3 py-2 sm:px-4 sm:py-3 -mt-px">
+          <div className="bg-card-caption px-3 py-2 sm:px-4 sm:py-3 -mt-px">
             {title && (
               <h3 className="font-serif text-[clamp(14px,4vw,25px)] text-black leading-tight">
                 {title}
               </h3>
             )}
             {caption && (
-              <p className="font-serif text-[clamp(11px,2.5vw,16px)] text-[#909090] leading-tight hidden sm:block">
+              <p className="font-serif text-[clamp(11px,2.5vw,16px)] text-text-secondary leading-tight hidden sm:block">
                 {caption}
               </p>
             )}

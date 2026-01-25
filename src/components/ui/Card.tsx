@@ -68,7 +68,7 @@ const MIN_TITLE_SIZE = 14;
  */
 function SkillTag({ children }: { children: React.ReactNode }) {
   return (
-    <span className="bg-white rounded-sm px-2 py-0.5 text-[12px] text-[#777] font-serif">
+    <span className="bg-bg-white rounded-sm px-2 py-0.5 text-[12px] text-skill-tag-text font-serif">
       {children}
     </span>
   );
@@ -177,7 +177,7 @@ export function ExperienceCard({
       variant="gradient"
       className={cn(
         "[container-type:inline-size] border transition-colors duration-200 cursor-pointer p-2",
-        isExpanded ? "border-[#e7e7e7]" : "border-transparent hover:border-text-secondary/30",
+        isExpanded ? "border-border-card" : "border-transparent hover:border-text-secondary/30",
         className
       )}
       onMouseEnter={onMouseEnter}
