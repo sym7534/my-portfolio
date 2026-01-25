@@ -101,7 +101,7 @@ export function ExperienceCard({
           {logo}
         </div>
         <div className="flex-1 min-w-0">
-          <h3 className="font-serif text-base text-text-primary leading-normal">
+          <h3 className="font-serif text-[clamp(14px,3.5vw,24px)] text-text-primary leading-normal whitespace-nowrap">
             {title}
           </h3>
           <p className="font-serif text-xs text-text-muted italic">
