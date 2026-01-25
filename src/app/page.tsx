@@ -14,6 +14,7 @@ import {
   LinkedInIcon,
   GitHubIcon,
   TiltedCard,
+  ThemeToggle,
 } from "@/components";
 import Image from "next/image";
 import Link from "next/link";
@@ -125,7 +126,10 @@ export default function Home() {
           </Section>
 
           {/* Social Links - fixed below bio */}
-          <Navbar items={socialLinks} className="mb-8" />
+          <div className="flex items-center gap-4 mb-8">
+            <Navbar items={socialLinks} />
+            <ThemeToggle />
+          </div>
 
           {/* Experience Section */}
           <Section className="space-y-4">

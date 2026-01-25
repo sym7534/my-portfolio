@@ -1,11 +1,14 @@
 @import "tailwindcss";
 
+/* Enable class-based dark mode for Tailwind v4 */
+@variant dark (&:where(.dark, .dark *));
+
 /* ============================================
    DESIGN TOKENS - Portfolio v3
    Extracted from Figma design
    ============================================ */
 
-@theme inline {
+@theme {
   /* === COLORS === */
 
   /* Background Colors */
@@ -13,12 +16,17 @@
   --color-bg-light: #f6f6f6;
   --color-bg-card: #f9f9f9;
   --color-card-translucent: rgba(217, 217, 217, 0.29);
+  --color-card-caption: #f4f4f4;
 
   /* Text Colors */
   --color-text-primary: #000000;
   --color-text-secondary: #909090;
   --color-text-muted: #919191;
   --color-text-section: #7d7575;
+
+  /* Border Colors */
+  --color-border-card: #e7e7e7;
+  --color-skill-tag-text: #777777;
 
   /* === TYPOGRAPHY === */
 
@@ -27,6 +35,7 @@
 
   /* Font Sizes */
   --text-xs: 0.9375rem;   /* 15px - Small text, dates */
+  --text-sm: 1.125rem;    /* 18px - Small body text */
   --text-base: 1.5rem;    /* 24px - Body text */
   --text-lg: 1.875rem;    /* 30px - Section headers */
   --text-xl: 3.125rem;    /* 50px - Name heading */
@@ -38,6 +47,21 @@
   --radius-md: 0.625rem;  /* 10px */
 }
 
+/* === DARK MODE OVERRIDES === */
+html.dark {
+  --color-bg-white: #0a0a0a;
+  --color-bg-light: #141414;
+  --color-bg-card: #1a1a1a;
+  --color-card-translucent: rgba(40, 40, 40, 0.5);
+  --color-card-caption: #1a1a1a;
+  --color-text-primary: #f0f0f0;
+  --color-text-secondary: #b8b8b8;
+  --color-text-muted: #a8a8a8;
+  --color-text-section: #c0b6b6;
+  --color-border-card: #2a2a2a;
+  --color-skill-tag-text: #a0a0a0;
+}
+
 /* === NON-UTILITY VARIABLES === */
 :root {
   /* Icon sizes */
@@ -47,6 +71,18 @@
 
   /* Gradient for experience cards */
   --gradient-card: linear-gradient(to right, #f9f9f9, #ffffff);
+
+  /* Shimmer colors */
+  --shimmer-color-1: #efefef;
+  --shimmer-color-2: #f8f8f8;
+  --shimmer-color-3: #ffffff;
+}
+
+html.dark {
+  --gradient-card: linear-gradient(to right, #1a1a1a, #0a0a0a);
+  --shimmer-color-1: #1a1a1a;
+  --shimmer-color-2: #252525;
+  --shimmer-color-3: #2a2a2a;
 }
 
 /* === BASE STYLES === */
@@ -94,11 +130,11 @@
 .animate-shimmer {
   background: linear-gradient(
     90deg,
-    #efefef 0%,
-    #f8f8f8 25%,
-    #ffffff 50%,
-    #f8f8f8 75%,
-    #efefef 100%
+    var(--shimmer-color-1) 0%,
+    var(--shimmer-color-2) 25%,
+    var(--shimmer-color-3) 50%,
+    var(--shimmer-color-2) 75%,
+    var(--shimmer-color-1) 100%
   );
   background-size: 200% 100%;
   animation: shimmer 4s ease-in-out infinite;
