@@ -4,6 +4,9 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "Ryan Wang | Portfolio",
   description: "Mechatronics engineering @ UWaterloo",
+  icons: {
+    icon: "/cat.png",
+  },
 };
 
 export default function RootLayout({
