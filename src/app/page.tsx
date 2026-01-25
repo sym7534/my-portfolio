@@ -5,7 +5,6 @@ import {
   Container,
   Panel,
   Section,
-  Card,
   ExperienceCard,
   Input,
   ArrowIcon,
@@ -24,6 +23,7 @@ import {
   RosIcon,
   UnrealIcon,
   UbuntuIcon,
+  TiltedCard,
 } from "@/components";
 import Image from "next/image";
 
@@ -139,9 +139,6 @@ export default function Home() {
             />
           </Section>
         </div>
-
-        {/* Social Links - at bottom of left panel */}
-        <Navbar items={socialLinks} className="mt-8" />
       </Panel>
 
       {/* Right Panel - Projects & Skills */}
@@ -165,9 +162,72 @@ export default function Home() {
 
         <Section title="PROJECTS" className="mt-12">
           <div className="grid grid-cols-2 gap-4">
-            <Card variant="translucent" className="h-60" />
-            <Card variant="translucent" className="h-72 row-span-2" />
-            <Card variant="translucent" className="h-72" />
+            <TiltedCard
+              imageSrc="https://picsum.photos/seed/proj1/400/300"
+              altText="Project 1"
+              className="h-60"
+              overlayContent={
+                <div className="text-white">
+                  <h3 className="font-serif text-base font-medium">Project 1</h3>
+                  <p className="font-serif text-xs opacity-80">Description placeholder</p>
+                </div>
+              }
+            />
+            <TiltedCard
+              imageSrc="https://picsum.photos/seed/proj2/400/450"
+              altText="Project 2"
+              className="h-72 row-span-2"
+              overlayContent={
+                <div className="text-white">
+                  <h3 className="font-serif text-base font-medium">Project 2</h3>
+                  <p className="font-serif text-xs opacity-80">Description placeholder</p>
+                </div>
+              }
+            />
+            <TiltedCard
+              imageSrc="https://picsum.photos/seed/proj3/400/450"
+              altText="Project 3"
+              className="h-72"
+              overlayContent={
+                <div className="text-white">
+                  <h3 className="font-serif text-base font-medium">Project 3</h3>
+                  <p className="font-serif text-xs opacity-80">Description placeholder</p>
+                </div>
+              }
+            />
+            <TiltedCard
+              imageSrc="https://picsum.photos/seed/proj4/400/250"
+              altText="Project 4"
+              className="h-48"
+              overlayContent={
+                <div className="text-white">
+                  <h3 className="font-serif text-base font-medium">Project 4</h3>
+                  <p className="font-serif text-xs opacity-80">Description placeholder</p>
+                </div>
+              }
+            />
+            <TiltedCard
+              imageSrc="https://picsum.photos/seed/proj5/400/400"
+              altText="Project 5"
+              className="h-64"
+              overlayContent={
+                <div className="text-white">
+                  <h3 className="font-serif text-base font-medium">Project 5</h3>
+                  <p className="font-serif text-xs opacity-80">Description placeholder</p>
+                </div>
+              }
+            />
+            <TiltedCard
+              imageSrc="https://picsum.photos/seed/proj6/400/350"
+              altText="Project 6"
+              className="h-56"
+              overlayContent={
+                <div className="text-white">
+                  <h3 className="font-serif text-base font-medium">Project 6</h3>
+                  <p className="font-serif text-xs opacity-80">Description placeholder</p>
+                </div>
+              }
+            />
           </div>
         </Section>
       </Panel>

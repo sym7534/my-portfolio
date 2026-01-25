@@ -18,7 +18,7 @@ interface NavbarProps {
  */
 export function Navbar({ items, className }: NavbarProps) {
   return (
-    <nav className={cn("flex items-center gap-20", className)}>
+    <nav className={cn("flex items-center gap-6", className)}>
       {items.map((item) => (
         <a
           key={item.label}

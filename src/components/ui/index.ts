@@ -20,3 +20,4 @@ export {
   UnrealIcon,
   UbuntuIcon,
 } from "./Navbar";
+export { TiltedCard } from "./TiltedCard";
