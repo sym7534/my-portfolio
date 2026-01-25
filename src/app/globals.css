@@ -1,0 +1,105 @@
+@import "tailwindcss";
+
+/* ============================================
+   DESIGN TOKENS - Portfolio v3
+   Extracted from Figma design
+   ============================================ */
+
+@theme inline {
+  /* === COLORS === */
+
+  /* Background Colors */
+  --color-bg-white: #ffffff;
+  --color-bg-light: #f6f6f6;
+  --color-bg-card: #f9f9f9;
+  --color-card-translucent: rgba(217, 217, 217, 0.29);
+
+  /* Text Colors */
+  --color-text-primary: #000000;
+  --color-text-secondary: #909090;
+  --color-text-muted: #919191;
+  --color-text-section: #7d7575;
+
+  /* === TYPOGRAPHY === */
+
+  /* Font Families */
+  --font-serif: "Times New Roman", Times, serif;
+
+  /* Font Sizes */
+  --text-xs: 0.9375rem;   /* 15px - Small text, dates */
+  --text-base: 1.5rem;    /* 24px - Body text */
+  --text-lg: 1.875rem;    /* 30px - Section headers */
+  --text-xl: 3.125rem;    /* 50px - Name heading */
+
+  /* === SPACING === */
+
+  /* Border Radius */
+  --radius-sm: 0.3125rem; /* 5px */
+  --radius-md: 0.625rem;  /* 10px */
+}
+
+/* === NON-UTILITY VARIABLES === */
+:root {
+  /* Icon sizes */
+  --icon-social: 1.5rem;    /* 24px */
+  --icon-skill: 2.1875rem;  /* 35px */
+  --icon-logo: 3.125rem;    /* 50px */
+
+  /* Gradient for experience cards */
+  --gradient-card: linear-gradient(to right, #f9f9f9, #ffffff);
+}
+
+/* === BASE STYLES === */
+@layer base {
+  html {
+    font-family: var(--font-serif);
+    color: var(--color-text-primary);
+    background-color: var(--color-bg-white);
+  }
+
+  body {
+    font-size: var(--text-base);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+/* === ANIMATIONS === */
+@keyframes blink {
+  0%, 50% {
+    opacity: 1;
+  }
+  51%, 100% {
+    opacity: 0;
+  }
+}
+
+.animate-blink {
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  50% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.animate-shimmer {
+  background: linear-gradient(
+    90deg,
+    #efefef 0%,
+    #f8f8f8 25%,
+    #ffffff 50%,
+    #f8f8f8 75%,
+    #efefef 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 4s ease-in-out infinite;
+}
