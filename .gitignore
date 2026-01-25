@@ -39,3 +39,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# reference docs
+claude.md
+bulletpoints.md
+darkmode.md
+tiltedcard.md
