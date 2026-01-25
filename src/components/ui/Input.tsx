@@ -36,8 +36,8 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
         <input
           ref={ref}
           className={cn(
-            "w-full animate-shimmer rounded-sm px-4 py-3",
-            "font-serif text-base text-text-primary",
+            "w-full animate-shimmer rounded-sm px-4 py-2",
+            "font-serif text-sm text-text-primary",
             "focus:outline-none focus:ring-1 focus:ring-text-secondary",
             icon && "pr-14",
             className
@@ -48,7 +48,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
         />
         {/* Custom placeholder with blinking cursor */}
         {!hasValue && placeholder && (
-          <span className="absolute left-4 pointer-events-none font-serif text-base text-text-muted opacity-75">
+          <span className="absolute left-4 pointer-events-none font-serif text-sm text-text-muted opacity-75">
             {placeholder}
             <span className="animate-blink">_</span>
           </span>

@@ -1,4 +1,7 @@
+"use client";
+
 import { cn } from "@/lib/utils";
+import { useEffect, useRef, useState } from "react";
 
 interface CardProps {
   children?: React.ReactNode;
@@ -49,11 +52,16 @@ interface ExperienceCardProps {
   description?: string;
   skills?: string[];
   isExpanded?: boolean;
+  titleSize?: number;
+  onTitleSizeChange?: (size: number) => void;
   onMouseEnter?: () => void;
   onMouseLeave?: () => void;
   onClick?: () => void;
   className?: string;
 }
+
+const MAX_TITLE_SIZE = 30;
+const MIN_TITLE_SIZE = 14;
 
 /**
  * Skill tag pill for experience cards.
@@ -78,16 +86,97 @@ export function ExperienceCard({
   description,
   skills,
   isExpanded = false,
+  titleSize,
+  onTitleSizeChange,
   onMouseEnter,
   onMouseLeave,
   onClick,
   className,
 }: ExperienceCardProps) {
+  const titleRef = useRef<HTMLHeadingElement>(null);
+  const isControlled = typeof titleSize === "number";
+  const [titleFontSize, setTitleFontSize] = useState(MAX_TITLE_SIZE);
+  const effectiveTitleSize = isControlled ? titleSize : titleFontSize;
+  const currentSizeRef = useRef(effectiveTitleSize);
+
+  useEffect(() => {
+    currentSizeRef.current = effectiveTitleSize;
+  }, [effectiveTitleSize]);
+
+  useEffect(() => {
+    const element = titleRef.current;
+    if (!element) {
+      return;
+    }
+
+    let frameId: number | null = null;
+
+    const fitTitle = () => {
+      frameId = null;
+      const available = element.clientWidth;
+      const required = element.scrollWidth;
+      if (!available || !required) {
+        return;
+      }
+
+      const currentSize = currentSizeRef.current;
+      const requiredAtMax = required * (MAX_TITLE_SIZE / currentSize);
+      if (requiredAtMax <= available) {
+        if (!isControlled && currentSize !== MAX_TITLE_SIZE) {
+          setTitleFontSize(MAX_TITLE_SIZE);
+        }
+        return;
+      }
+
+      const nextSize = Math.max(
+        MIN_TITLE_SIZE,
+        Math.floor(currentSize * (available / required))
+      );
+
+      if (nextSize < currentSize) {
+        if (isControlled) {
+          onTitleSizeChange?.(nextSize);
+          return;
+        }
+
+        setTitleFontSize(nextSize);
+        onTitleSizeChange?.(nextSize);
+      }
+    };
+
+    const scheduleFit = () => {
+      if (frameId !== null) {
+        return;
+      }
+      frameId = window.requestAnimationFrame(fitTitle);
+    };
+
+    scheduleFit();
+
+    if (typeof ResizeObserver !== "undefined") {
+      const observer = new ResizeObserver(scheduleFit);
+      observer.observe(element);
+
+      return () => {
+        if (frameId !== null) {
+          window.cancelAnimationFrame(frameId);
+        }
+        observer.disconnect();
+      };
+    }
+
+    return () => {
+      if (frameId !== null) {
+        window.cancelAnimationFrame(frameId);
+      }
+    };
+  }, [isControlled, onTitleSizeChange, title, titleSize]);
+
   return (
     <Card
       variant="gradient"
       className={cn(
-        "[container-type:inline-size] border transition-colors duration-200 cursor-pointer",
+        "[container-type:inline-size] border transition-colors duration-200 cursor-pointer p-2",
         isExpanded ? "border-[#e7e7e7]" : "border-transparent hover:border-text-secondary/30",
         className
       )}
@@ -101,7 +190,11 @@ export function ExperienceCard({
           {logo}
         </div>
         <div className="flex-1 min-w-0">
-          <h3 className="font-serif text-[clamp(18px,6cqw,30px)] text-text-primary leading-snug break-words">
+          <h3
+            ref={titleRef}
+            className="font-serif text-text-primary leading-snug whitespace-nowrap"
+            style={{ fontSize: `${effectiveTitleSize}px` }}
+          >
             {title}
           </h3>
           <p className="font-serif text-xs text-text-muted italic">

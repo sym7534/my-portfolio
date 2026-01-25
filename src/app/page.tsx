@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Container,
   Panel,
@@ -27,8 +27,13 @@ import {
 } from "@/components";
 import Image from "next/image";
 
+const MAX_EXPERIENCE_TITLE_SIZE = 30;
+
 export default function Home() {
   const [expandedId, setExpandedId] = useState<string | null>(null);
+  const [experienceTitleSize, setExperienceTitleSize] = useState(
+    MAX_EXPERIENCE_TITLE_SIZE
+  );
   const [message, setMessage] = useState("");
   const [isSending, setIsSending] = useState(false);
 
@@ -37,6 +42,19 @@ export default function Home() {
   const handleClick = (id: string) => {
     // For mobile tap-to-toggle
     setExpandedId((prev) => (prev === id ? null : id));
+  };
+
+  useEffect(() => {
+    const handleResize = () => {
+      setExperienceTitleSize(MAX_EXPERIENCE_TITLE_SIZE);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const handleExperienceTitleSize = (size: number) => {
+    setExperienceTitleSize((current) => Math.min(current, size));
   };
 
   const handleSendMessage = async () => {
@@ -87,12 +105,15 @@ export default function Home() {
               hey, i&apos;m <span className="text-text-primary">Ryan Wang</span>
             </h1>
             <div className="w-full max-w-md h-px bg-text-secondary/20 my-6" />
-            <p className="text-base text-text-secondary">
+            <p className="text-sm text-text-secondary">
               <span className="underline">mechatronics engineering</span> @ UWaterloo
             </p>
-            <p className="text-base text-text-secondary mt-2">
+            <p className="text-sm text-text-secondary mt-2">
               I&apos;m passionate about robotics systems, building useful tools, and
-              bringing experiences to life.
+              bringing experiences to life. I love working at the intersection of
+              hardware and software, from embedded sensing to autonomy, and I&apos;m
+              always chasing projects that turn messy ideas into clean, reliable
+              systems people can actually use.
             </p>
           </Section>
 
@@ -117,6 +138,8 @@ export default function Home() {
               description="Developing perception and autonomous pathing software for Rover on Waterloo's AV design team."
               skills={["c++", "python", "ROS 2", "docker"]}
               isExpanded={expandedId === "watonomous"}
+              titleSize={experienceTitleSize}
+              onTitleSizeChange={handleExperienceTitleSize}
               onMouseEnter={() => handleMouseEnter("watonomous")}
               onMouseLeave={handleMouseLeave}
               onClick={() => handleClick("watonomous")}
@@ -137,6 +160,8 @@ export default function Home() {
               description="Developing a competition firefighting drone."
               skills={["solidworks", "CAD"]}
               isExpanded={expandedId === "warg"}
+              titleSize={experienceTitleSize}
+              onTitleSizeChange={handleExperienceTitleSize}
               onMouseEnter={() => handleMouseEnter("warg")}
               onMouseLeave={handleMouseLeave}
               onClick={() => handleClick("warg")}
@@ -157,6 +182,8 @@ export default function Home() {
               description="Directed a robotics club of 10+ teams totalling 150+ members, built world-class competition robots."
               skills={["c++", "onshape", "fusion360", "PID", "pure pursuit"]}
               isExpanded={expandedId === "churchill"}
+              titleSize={experienceTitleSize}
+              onTitleSizeChange={handleExperienceTitleSize}
               onMouseEnter={() => handleMouseEnter("churchill")}
               onMouseLeave={handleMouseLeave}
               onClick={() => handleClick("churchill")}
