@@ -13,19 +13,14 @@ import {
   EmailIcon,
   LinkedInIcon,
   GitHubIcon,
-  CppIcon,
-  PythonIcon,
-  TypeScriptIcon,
-  HtmlIcon,
-  SolidWorksIcon,
-  NextJsIcon,
-  TailwindIcon,
-  RosIcon,
-  UnrealIcon,
-  UbuntuIcon,
   TiltedCard,
 } from "@/components";
 import Image from "next/image";
+import Link from "next/link";
+import UWaterlooLogo from "../../public/assets/icons/UWaterloo.png";
+import BalatroLogo from "../../public/assets/icons/balatro.png";
+import MinecraftLogo from "../../public/assets/icons/minecraft icon.svg";
+import CanadaLogo from "../../public/assets/icons/canada.jpg";
 
 const MAX_EXPERIENCE_TITLE_SIZE = 30;
 
@@ -106,7 +101,19 @@ export default function Home() {
             </h1>
             <div className="w-full max-w-md h-px bg-text-secondary/20 my-6" />
             <p className="text-sm text-text-secondary">
-              <span className="underline">mechatronics engineering</span> @ UWaterloo
+              <span className="underline">mechatronics engineering</span> @
+              <span className="inline-flex items-baseline gap-1 ml-2">
+                <Image
+                  src={UWaterlooLogo}
+                  alt="UWaterloo Logo"
+                  width={14}
+                  height={14}
+                  className="object-contain relative top-[2px]"
+                />
+                <Link href="https://uwaterloo.ca" className="font-medium">
+                  UWaterloo
+                </Link>
+              </span>
             </p>
             <p className="text-sm text-text-secondary mt-2">
               I&apos;m passionate about robotics systems, building useful tools, and
@@ -216,21 +223,154 @@ export default function Home() {
 
       {/* Right Panel - Projects & Skills */}
       <Panel side="right">
-        <Section title="TECHNICAL SKILLS">
-          <div className="flex flex-wrap gap-4">
-            <CppIcon />
-            <PythonIcon />
-            <TypeScriptIcon />
-            <HtmlIcon />
-          </div>
-          <div className="flex flex-wrap gap-4 mt-4">
-            <SolidWorksIcon />
-            <NextJsIcon />
-            <TailwindIcon />
-            <RosIcon />
-            <UnrealIcon />
-            <UbuntuIcon />
-          </div>
+        <Section title="ABOUT ME">
+          <ul className="space-y-2 text-sm text-text-secondary">
+            <li className="group relative flex items-start gap-4 pl-4">
+              <div className="absolute left-0 top-[8px] w-[6px] h-[6px] bg-text-secondary rotate-45 transform transition-all duration-300 group-hover:rotate-90 group-hover:scale-110" />
+              <div className="flex flex-col gap-1 transition-transform duration-200 group-hover:translate-x-1">
+                <span>
+                  Proud
+                  <span className="inline-flex items-baseline gap-1 ml-2">
+                    <Image
+                      src={CanadaLogo}
+                      alt="Canada flag"
+                      width={14}
+                      height={14}
+                      className="object-contain relative top-[2px]"
+                    />
+                    Canadian citizen.
+                  </span>
+                </span>
+                <span className="pl-4">↳ Currently in Waterloo, grew up in Calgary.</span>
+              </div>
+            </li>
+            <li className="group relative flex items-start gap-4 pl-4 hover:translate-x-1 transition-transform duration-200">
+              <div className="absolute left-0 top-[8px] w-[6px] h-[6px] bg-text-secondary rotate-45 transform transition-all duration-300 group-hover:rotate-90 group-hover:scale-110" />
+              <span>
+                Favorite game:
+                <span className="inline-flex items-baseline gap-1 ml-2">
+                  <Image
+                    src={MinecraftLogo}
+                    alt="Minecraft"
+                    width={14}
+                    height={14}
+                    className="object-contain relative top-[2px]"
+                  />
+                  Minecraft
+                </span>
+                ; currently playing
+                <span className="inline-flex items-baseline gap-1 ml-2">
+                  <Image
+                    src={BalatroLogo}
+                    alt="Balatro"
+                    width={14}
+                    height={14}
+                    className="object-contain relative top-[2px]"
+                  />
+                  Balatro
+                </span>
+                .
+              </span>
+            </li>
+            <li className="group relative flex items-start gap-4 pl-4 hover:translate-x-1 transition-transform duration-200">
+              <div className="absolute left-0 top-[8px] w-[6px] h-[6px] bg-text-secondary rotate-45 transform transition-all duration-300 group-hover:rotate-90 group-hover:scale-110" />
+              <span>Skilled in 🎹 piano, 🎻 violin, 🪈 flute, and 🎷 alto sax.</span>
+            </li>
+            <li className="group relative flex items-start gap-4 pl-4 hover:translate-x-1 transition-transform duration-200">
+              <div className="absolute left-0 top-[8px] w-[6px] h-[6px] bg-text-secondary rotate-45 transform transition-all duration-300 group-hover:rotate-90 group-hover:scale-110" />
+              <span>When I have time, I like to 🎨 paint.</span>
+            </li>
+          </ul>
+        </Section>
+
+        <Section title="TECH STACK">
+          <ul className="space-y-2 text-sm text-text-secondary">
+            <li className="group relative flex items-start gap-4 pl-4 hover:translate-x-1 transition-transform duration-200">
+              <div className="absolute left-0 top-[8px] w-[6px] h-[6px] bg-text-secondary rotate-45 transform transition-all duration-300 group-hover:rotate-90 group-hover:scale-110" />
+              <span>
+                <span className="text-text-secondary">Languages:</span>{" "}
+                <span className="inline-flex items-baseline gap-1">
+                  <Image
+                    src="/assets/icons/skill-cpp.svg"
+                    alt="C++"
+                    width={14}
+                    height={14}
+                    className="object-contain relative top-[2px]"
+                  />
+                  C++
+                </span>
+                ,{" "}
+                <span className="inline-flex items-baseline gap-1">
+                  <Image
+                    src="/assets/icons/skill-python.svg"
+                    alt="Python"
+                    width={14}
+                    height={14}
+                    className="object-contain relative top-[2px]"
+                  />
+                  Python
+                </span>
+                , Java,{" "}
+                <span className="inline-flex items-baseline gap-1">
+                  <Image
+                    src="/assets/icons/skill-typescript.svg"
+                    alt="TypeScript"
+                    width={14}
+                    height={14}
+                    className="object-contain relative top-[2px]"
+                  />
+                  JavaScript/TypeScript
+                </span>
+                ,{" "}
+                <span className="inline-flex items-baseline gap-1">
+                  <Image
+                    src="/assets/icons/skill-html.svg"
+                    alt="HTML"
+                    width={14}
+                    height={14}
+                    className="object-contain relative top-[2px]"
+                  />
+                  HTML/CSS
+                </span>
+              </span>
+            </li>
+            <li className="group relative flex items-start gap-4 pl-4 hover:translate-x-1 transition-transform duration-200">
+              <div className="absolute left-0 top-[8px] w-[6px] h-[6px] bg-text-secondary rotate-45 transform transition-all duration-300 group-hover:rotate-90 group-hover:scale-110" />
+              <span>
+                <span className="text-text-secondary">Robotics/Controls:</span> ROS 2,
+                OpenCV, PID control, Odometry, A* Path Planning, Pure Pursuit
+              </span>
+            </li>
+            <li className="group relative flex items-start gap-4 pl-4 hover:translate-x-1 transition-transform duration-200">
+              <div className="absolute left-0 top-[8px] w-[6px] h-[6px] bg-text-secondary rotate-45 transform transition-all duration-300 group-hover:rotate-90 group-hover:scale-110" />
+              <span>
+                <span className="text-text-secondary">Backend/Systems:</span> Node.js,
+                Flask, Docker, Linux, REST APIs
+              </span>
+            </li>
+            <li className="group relative flex items-start gap-4 pl-4 hover:translate-x-1 transition-transform duration-200">
+              <div className="absolute left-0 top-[8px] w-[6px] h-[6px] bg-text-secondary rotate-45 transform transition-all duration-300 group-hover:rotate-90 group-hover:scale-110" />
+              <span>
+                <span className="text-text-secondary">Tools:</span> Git, GitHub, VS Code,
+                MATLAB, Arduino
+              </span>
+            </li>
+            <li className="group relative flex items-start gap-4 pl-4 hover:translate-x-1 transition-transform duration-200">
+              <div className="absolute left-0 top-[8px] w-[6px] h-[6px] bg-text-secondary rotate-45 transform transition-all duration-300 group-hover:rotate-90 group-hover:scale-110" />
+              <span>
+                <span className="text-text-secondary">CAD &amp; Manufacturing:</span>{" "}
+                SolidWorks (
+                <Link
+                  href="https://cv.virtualtester.com/qr/?b=SLDWRKS&i=C-ZEANMHFSWG"
+                  className="underline text-text-secondary"
+                >
+                  CSWP
+                </Link>
+                ), AutoCAD, Fusion 360, Onshape,
+                GD&amp;T/Technical Drawings, 3D Printing
+              </span>
+            </li>
+          </ul>
         </Section>
 
         <Section title="PROJECTS" className="mt-12">
