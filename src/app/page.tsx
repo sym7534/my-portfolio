@@ -161,72 +161,48 @@ export default function Home() {
         </Section>
 
         <Section title="PROJECTS" className="mt-12">
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 gap-4 auto-rows-auto">
             <TiltedCard
-              imageSrc="https://picsum.photos/seed/proj1/400/300"
-              altText="Project 1"
-              className="h-60"
-              overlayContent={
-                <div className="text-white">
-                  <h3 className="font-serif text-base font-medium">Project 1</h3>
-                  <p className="font-serif text-xs opacity-80">Description placeholder</p>
-                </div>
-              }
+              imageSrc="/assets/projects/smart home image.png"
+              altText="Smart Home"
+              aspectRatio="3/2"
+              title="Smart Home Sensor System"
+              caption="esp32 sensor network connected to a pi"
             />
             <TiltedCard
-              imageSrc="https://picsum.photos/seed/proj2/400/450"
-              altText="Project 2"
-              className="h-72 row-span-2"
-              overlayContent={
-                <div className="text-white">
-                  <h3 className="font-serif text-base font-medium">Project 2</h3>
-                  <p className="font-serif text-xs opacity-80">Description placeholder</p>
-                </div>
-              }
+              imageSrc="/assets/projects/vex.png"
+              altText="VEX Robotics"
+              aspectRatio="3/4"
+              title="VEX Robotics"
+              caption="competition robot design and programming"
             />
             <TiltedCard
-              imageSrc="https://picsum.photos/seed/proj3/400/450"
-              altText="Project 3"
-              className="h-72"
-              overlayContent={
-                <div className="text-white">
-                  <h3 className="font-serif text-base font-medium">Project 3</h3>
-                  <p className="font-serif text-xs opacity-80">Description placeholder</p>
-                </div>
-              }
+              imageSrc="/assets/projects/card dealer.png"
+              altText="Card Dealer"
+              aspectRatio="16/9"
+              title="Card Dealer"
+              caption="automated card dealing robot"
             />
             <TiltedCard
-              imageSrc="https://picsum.photos/seed/proj4/400/250"
-              altText="Project 4"
-              className="h-48"
-              overlayContent={
-                <div className="text-white">
-                  <h3 className="font-serif text-base font-medium">Project 4</h3>
-                  <p className="font-serif text-xs opacity-80">Description placeholder</p>
-                </div>
-              }
+              imageSrc="/assets/projects/waterloowash.png"
+              altText="WaterlooWash"
+              aspectRatio="2/1"
+              title="WaterlooWash"
+              caption="laundry tracking mobile app"
             />
             <TiltedCard
-              imageSrc="https://picsum.photos/seed/proj5/400/400"
-              altText="Project 5"
-              className="h-64"
-              overlayContent={
-                <div className="text-white">
-                  <h3 className="font-serif text-base font-medium">Project 5</h3>
-                  <p className="font-serif text-xs opacity-80">Description placeholder</p>
-                </div>
-              }
+              imageSrc="https://picsum.photos/seed/placeholder1/400/300"
+              altText="Coming Soon"
+              aspectRatio="4/3"
+              title="Coming Soon"
+              caption="future project"
             />
             <TiltedCard
-              imageSrc="https://picsum.photos/seed/proj6/400/350"
-              altText="Project 6"
-              className="h-56"
-              overlayContent={
-                <div className="text-white">
-                  <h3 className="font-serif text-base font-medium">Project 6</h3>
-                  <p className="font-serif text-xs opacity-80">Description placeholder</p>
-                </div>
-              }
+              imageSrc="https://picsum.photos/seed/placeholder2/400/350"
+              altText="Coming Soon"
+              aspectRatio="4/3"
+              title="Coming Soon"
+              caption="future project"
             />
           </div>
         </Section>
