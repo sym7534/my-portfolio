@@ -87,7 +87,7 @@ export function ExperienceCard({
     <Card
       variant="gradient"
       className={cn(
-        "border transition-colors duration-200 cursor-pointer",
+        "[container-type:inline-size] border transition-colors duration-200 cursor-pointer",
         isExpanded ? "border-[#e7e7e7]" : "border-transparent hover:border-text-secondary/30",
         className
       )}
@@ -101,14 +101,14 @@ export function ExperienceCard({
           {logo}
         </div>
         <div className="flex-1 min-w-0">
-          <h3 className="font-serif text-[clamp(14px,3.5vw,24px)] text-text-primary leading-normal whitespace-nowrap">
+          <h3 className="font-serif text-[clamp(18px,6cqw,30px)] text-text-primary leading-snug break-words">
             {title}
           </h3>
           <p className="font-serif text-xs text-text-muted italic">
             {subtitle}
           </p>
         </div>
-        <span className="flex-shrink-0 font-serif text-xs text-text-secondary underline">
+        <span className="flex-shrink-0 font-serif text-xs text-text-secondary underline text-nowrap">
           {date}
         </span>
       </div>
