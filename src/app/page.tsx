@@ -29,12 +29,44 @@ import Image from "next/image";
 
 export default function Home() {
   const [expandedId, setExpandedId] = useState<string | null>(null);
+  const [message, setMessage] = useState("");
+  const [isSending, setIsSending] = useState(false);
 
   const handleMouseEnter = (id: string) => setExpandedId(id);
   const handleMouseLeave = () => setExpandedId(null);
   const handleClick = (id: string) => {
     // For mobile tap-to-toggle
     setExpandedId((prev) => (prev === id ? null : id));
+  };
+
+  const handleSendMessage = async () => {
+    if (isSending) {
+      return;
+    }
+
+    const trimmedMessage = message.trim();
+    if (!trimmedMessage) {
+      return;
+    }
+
+    setIsSending(true);
+    try {
+      const response = await fetch("/api/message", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: trimmedMessage }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Message send failed: ${response.status}`);
+      }
+
+      setMessage("");
+    } catch (error) {
+      console.error("Failed to send message", error);
+    } finally {
+      setIsSending(false);
+    }
   };
 
   const socialLinks = [
@@ -136,6 +168,20 @@ export default function Home() {
             <Input
               placeholder="leave me a message"
               icon={<ArrowIcon />}
+              value={message}
+              onChange={(event) => setMessage(event.target.value)}
+              onKeyDown={(event) => {
+                if (event.key === "Enter") {
+                  event.preventDefault();
+                  void handleSendMessage();
+                }
+              }}
+              onIconClick={() => {
+                void handleSendMessage();
+              }}
+              maxLength={500}
+              aria-label="Leave a message"
+              aria-busy={isSending}
             />
           </Section>
         </div>
