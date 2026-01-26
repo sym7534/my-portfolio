@@ -96,11 +96,11 @@ export default function Home() {
       <Panel side="left" className="flex flex-col">
         <div>
           {/* Hero Section */}
-          <Section className="mb-8">
+          <Section className="mb-[clamp(1rem,3vh,2rem)]">
             <h1 className="text-xl text-text-secondary leading-tight">
               hey, i&apos;m <span className="text-text-primary">Ryan Wang</span>
             </h1>
-            <div className="w-full max-w-md h-px bg-text-secondary/20 my-6" />
+            <div className="w-full max-w-md h-px bg-text-secondary/20 my-[clamp(0.75rem,2.5vh,1.5rem)]" />
             <p className="text-sm text-text-secondary">
               <span className="underline">mechatronics engineering</span> @
               <span className="inline-flex items-baseline gap-1 ml-2">
@@ -126,13 +126,13 @@ export default function Home() {
           </Section>
 
           {/* Social Links - fixed below bio */}
-          <div className="flex items-center gap-4 mb-8">
+          <div className="flex items-center gap-4 mb-[clamp(1rem,3vh,2rem)]">
             <Navbar items={socialLinks} />
             <ThemeToggle />
           </div>
 
           {/* Experience Section */}
-          <Section className="space-y-4">
+          <Section className="space-y-[clamp(0.5rem,2vh,1rem)]">
             <ExperienceCard
               logo={
                 <Image
@@ -202,7 +202,7 @@ export default function Home() {
           </Section>
 
           {/* Message Input */}
-          <Section className="mt-12">
+          <Section className="mt-[clamp(1.5rem,4vh,3rem)]">
             <Input
               placeholder="leave me a message"
               icon={<ArrowIcon />}
