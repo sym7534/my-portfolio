@@ -5,12 +5,13 @@ import { motion, useMotionValue, useSpring } from "motion/react";
 import { cn } from "@/lib/utils";
 
 interface TiltedCardProps {
-  imageSrc: string;
+  imageSrc?: string;
   altText?: string;
   scaleOnHover?: number;
   rotateAmplitude?: number;
   title?: string;
   caption?: string;
+  href?: string;
   className?: string;
   aspectRatio?: string;
 }
@@ -32,6 +33,7 @@ export function TiltedCard({
   rotateAmplitude = 12,
   title,
   caption,
+  href,
   className,
   aspectRatio,
 }: TiltedCardProps) {
@@ -74,7 +76,10 @@ export function TiltedCard({
       onMouseLeave={handleMouseLeave}
     >
       <motion.div
-        className="relative w-full rounded-md overflow-hidden bg-gradient-to-b from-transparent from-[60%] to-card-caption"
+        className={cn(
+          "relative w-full rounded-md overflow-hidden",
+          imageSrc && "bg-gradient-to-b from-transparent from-[60%] to-card-caption"
+        )}
         style={{
           rotateX,
           rotateY,
@@ -82,30 +87,60 @@ export function TiltedCard({
           transformStyle: "preserve-3d",
         }}
       >
-        {/* Image container with aspect ratio */}
-        <div className="relative" style={{ aspectRatio: aspectRatio }}>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={imageSrc}
-            alt={altText}
-            className="w-full h-full object-cover"
-          />
-          {/* Gradient fade at bottom of image */}
-          {(title || caption) && (
-            <div className="absolute inset-x-0 bottom-0 h-[40%] bg-gradient-to-t from-card-caption to-transparent pointer-events-none" />
-          )}
-        </div>
+        {imageSrc ? (
+          <>
+            {/* Image container with aspect ratio */}
+            <div className="relative" style={{ aspectRatio: aspectRatio }}>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={imageSrc}
+                alt={altText}
+                className="w-full h-full object-cover"
+              />
+              {/* Gradient fade at bottom of image */}
+              {(title || caption) && (
+                <div className="absolute inset-x-0 bottom-0 h-[40%] bg-gradient-to-t from-card-caption to-transparent pointer-events-none" />
+              )}
+            </div>
 
-        {/* Caption area below image */}
-        {(title || caption) && (
-          <div className="bg-card-caption px-3 py-2 sm:px-4 sm:py-3 -mt-px">
+            {/* Caption area below image */}
+            {(title || caption) && (
+              <div className="bg-card-caption px-3 py-2 sm:px-4 sm:py-3 -mt-px">
+                {title && (
+                  <h3 className="font-serif text-[clamp(14px,4vw,25px)] text-text-primary leading-tight">
+                    {title}
+                  </h3>
+                )}
+                {caption && (
+                  <p className="font-serif text-[clamp(11px,2.5vw,16px)] text-text-secondary leading-tight hidden sm:block">
+                    {href ? (
+                      <a
+                        href={href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="underline hover:text-text-primary transition-colors"
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        {caption}
+                      </a>
+                    ) : (
+                      caption
+                    )}
+                  </p>
+                )}
+              </div>
+            )}
+          </>
+        ) : (
+          /* No-image variant: compact horizontal rectangle */
+          <div className="bg-card-caption px-4 py-3">
             {title && (
               <h3 className="font-serif text-[clamp(14px,4vw,25px)] text-text-primary leading-tight">
                 {title}
               </h3>
             )}
             {caption && (
-              <p className="font-serif text-[clamp(11px,2.5vw,16px)] text-text-secondary leading-tight hidden sm:block">
+              <p className="font-serif text-[clamp(11px,2.5vw,16px)] text-text-secondary leading-tight mt-1">
                 {caption}
               </p>
             )}

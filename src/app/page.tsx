@@ -32,6 +32,80 @@ export default function Home() {
   );
   const [message, setMessage] = useState("");
   const [isSending, setIsSending] = useState(false);
+  const [projectFilter, setProjectFilter] = useState<"all" | "software" | "mechanical">("all");
+
+  const projects = [
+    {
+      category: "mechanical" as const,
+      imageSrc: "/assets/projects/robot hand.png",
+      altText: "Anthropomorphic Robot Hand",
+      aspectRatio: "3/2",
+      title: "Anthropomorphic Robot Hand",
+      caption: "realistic robot hand controlled by OpenCV",
+    },
+    {
+      category: "both" as const,
+      imageSrc: "/assets/projects/smart home image.png",
+      altText: "Smart Home",
+      aspectRatio: "3/2",
+      title: "Smart Home Sensor System",
+      caption: "esp32 sensor network connected to a pi",
+    },
+    {
+      category: "both" as const,
+      imageSrc: "/assets/projects/vex.png",
+      altText: "VEX Robotics",
+      aspectRatio: "3/4",
+      title: "VEX Robotics",
+      caption: "competition robot design and programming",
+    },
+    {
+      category: "mechanical" as const,
+      imageSrc: "/assets/projects/card dealer.png",
+      altText: "Card Dealer",
+      aspectRatio: "16/9",
+      title: "Card Dealer",
+      caption: "automated card dealing robot",
+    },
+    {
+      category: "software" as const,
+      imageSrc: "/assets/projects/waterloowash.png",
+      altText: "WaterlooWash",
+      aspectRatio: "2/1",
+      title: "WaterlooWash",
+      caption: "laundry tracking mobile app",
+    },
+    {
+      category: "software" as const,
+      imageSrc: "/assets/projects/wato asd.png",
+      altText: "WATonomous ASD Assignment",
+      aspectRatio: "4/3",
+      title: "WATonomous ASD Assignment",
+      caption: "watch video",
+      href: "https://www.youtube.com/watch?v=mIYiKe8uu4Q",
+    },
+    {
+      category: "software" as const,
+      title: "Valorant Fantasy",
+      caption: "'fantasy football' style app for VCT",
+    },
+    {
+      category: "software" as const,
+      imageSrc: "/assets/projects/personal site.png",
+      altText: "Personal Portfolio",
+      aspectRatio: "3/2",
+      title: "Personal Portfolio",
+      caption: "this website",
+    },
+    {
+      category: "software" as const,
+      imageSrc: "/assets/projects/molehunt.png",
+      altText: "Molehunt",
+      aspectRatio: "16/9",
+      title: "Molehunt",
+      caption: "custom minecraft minigame datapack",
+    },
+  ];
 
   const handleMouseEnter = (id: string) => setExpandedId(id);
   const handleMouseLeave = () => setExpandedId(null);
@@ -377,50 +451,45 @@ export default function Home() {
           </ul>
         </Section>
 
-        <Section title="PROJECTS" className="mt-12">
-          <div className="grid grid-cols-2 gap-4 auto-rows-auto">
-            <TiltedCard
-              imageSrc="/assets/projects/smart home image.png"
-              altText="Smart Home"
-              aspectRatio="3/2"
-              title="Smart Home Sensor System"
-              caption="esp32 sensor network connected to a pi"
-            />
-            <TiltedCard
-              imageSrc="/assets/projects/vex.png"
-              altText="VEX Robotics"
-              aspectRatio="3/4"
-              title="VEX Robotics"
-              caption="competition robot design and programming"
-            />
-            <TiltedCard
-              imageSrc="/assets/projects/card dealer.png"
-              altText="Card Dealer"
-              aspectRatio="16/9"
-              title="Card Dealer"
-              caption="automated card dealing robot"
-            />
-            <TiltedCard
-              imageSrc="/assets/projects/waterloowash.png"
-              altText="WaterlooWash"
-              aspectRatio="2/1"
-              title="WaterlooWash"
-              caption="laundry tracking mobile app"
-            />
-            <TiltedCard
-              imageSrc="https://picsum.photos/seed/placeholder1/400/300"
-              altText="Coming Soon"
-              aspectRatio="4/3"
-              title="Coming Soon"
-              caption="future project"
-            />
-            <TiltedCard
-              imageSrc="https://picsum.photos/seed/placeholder2/400/350"
-              altText="Coming Soon"
-              aspectRatio="4/3"
-              title="Coming Soon"
-              caption="future project"
-            />
+        <Section className="mt-12">
+          <div className="flex items-center gap-4 mb-6">
+            <h2 className="font-serif text-lg text-text-section tracking-wide">PROJECTS</h2>
+            <button
+              onClick={() => setProjectFilter(projectFilter === "software" ? "all" : "software")}
+              className={`font-serif text-sm transition-colors ${
+                projectFilter === "software"
+                  ? "text-text-primary"
+                  : "text-text-secondary hover:text-text-primary"
+              }`}
+            >
+              software
+            </button>
+            <button
+              onClick={() => setProjectFilter(projectFilter === "mechanical" ? "all" : "mechanical")}
+              className={`font-serif text-sm transition-colors ${
+                projectFilter === "mechanical"
+                  ? "text-text-primary"
+                  : "text-text-secondary hover:text-text-primary"
+              }`}
+            >
+              mechanical
+            </button>
+          </div>
+          <div className="columns-2 gap-4">
+            {projects
+              .filter(p => projectFilter === "all" || p.category === projectFilter || p.category === "both")
+              .map(project => (
+                <TiltedCard
+                  key={project.title}
+                  imageSrc={project.imageSrc}
+                  altText={project.altText}
+                  aspectRatio={project.aspectRatio}
+                  title={project.title}
+                  caption={project.caption}
+                  href={project.href}
+                  className="mb-4 break-inside-avoid"
+                />
+              ))}
           </div>
         </Section>
       </Panel>
