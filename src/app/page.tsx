@@ -191,11 +191,7 @@ export default function Home() {
               </span>
             </p>
             <p className="text-sm text-text-secondary mt-2">
-              I&apos;m passionate about robotics systems, building useful tools, and
-              bringing experiences to life. I love working at the intersection of
-              hardware and software, from embedded sensing to autonomy, and I&apos;m
-              always chasing projects that turn messy ideas into clean, reliable
-              systems people can actually use.
+              I love robotics.
             </p>
           </Section>
 
