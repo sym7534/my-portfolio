@@ -5,9 +5,6 @@ import { ThemeProvider } from "@/components/ThemeProvider";
 export const metadata: Metadata = {
   title: "Ryan Wang | Portfolio",
   description: "Mechatronics engineering @ UWaterloo",
-  icons: {
-    icon: "/cat.png",
-  },
 };
 
 // Blocking script to prevent flash of wrong theme (FOUC)
