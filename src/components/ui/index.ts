@@ -21,3 +21,5 @@ export {
   UbuntuIcon,
 } from "./Navbar";
 export { TiltedCard } from "./TiltedCard";
+export { Modal } from "./Modal";
+export { ProjectDetailModal } from "./ProjectDetailModal";

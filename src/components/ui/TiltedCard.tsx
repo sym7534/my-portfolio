@@ -12,6 +12,7 @@ interface TiltedCardProps {
   title?: string;
   caption?: string;
   href?: string;
+  onClick?: () => void;
   className?: string;
   aspectRatio?: string;
 }
@@ -34,6 +35,7 @@ export function TiltedCard({
   title,
   caption,
   href,
+  onClick,
   className,
   aspectRatio,
 }: TiltedCardProps) {
@@ -74,6 +76,7 @@ export function TiltedCard({
       onMouseMove={handleMouse}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
+      onClick={onClick}
     >
       <motion.div
         className={cn(
@@ -113,7 +116,7 @@ export function TiltedCard({
                 )}
                 {caption && (
                   <p className="font-serif text-[clamp(11px,2.5vw,16px)] text-text-secondary leading-tight hidden sm:block">
-                    {href ? (
+                    {href && !onClick ? (
                       <a
                         href={href}
                         target="_blank"

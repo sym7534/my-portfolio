@@ -15,7 +15,9 @@ import {
   GitHubIcon,
   TiltedCard,
   ThemeToggle,
+  ProjectDetailModal,
 } from "@/components";
+import type { Project } from "@/types/project";
 import Image from "next/image";
 import Link from "next/link";
 import UWaterlooLogo from "../../public/assets/icons/UWaterloo.png";
@@ -33,8 +35,9 @@ export default function Home() {
   const [message, setMessage] = useState("");
   const [isSending, setIsSending] = useState(false);
   const [projectFilter, setProjectFilter] = useState<"all" | "software" | "mechanical">("all");
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
-  const projects = [
+  const projects: Project[] = [
     {
       category: "mechanical" as const,
       imageSrc: "/assets/projects/robot hand.png",
@@ -191,7 +194,11 @@ export default function Home() {
               </span>
             </p>
             <p className="text-sm text-text-secondary mt-2">
-              I love robotics.
+              I&apos;m passionate about robotics systems, building useful tools, and
+              bringing experiences to life. I love working at the intersection of
+              hardware and software, from embedded sensing to autonomy, and I&apos;m
+              always chasing projects that turn messy ideas into clean, reliable
+              systems people can actually use.
             </p>
           </Section>
 
@@ -274,7 +281,7 @@ export default function Home() {
           {/* Message Input */}
           <Section className="mt-[clamp(1.5rem,4vh,3rem)]">
             <Input
-              placeholder="leave me a message"
+              placeholder="leave me a message"                                                                                    
               icon={<ArrowIcon />}
               value={message}
               onChange={(event) => setMessage(event.target.value)}
@@ -483,12 +490,18 @@ export default function Home() {
                   title={project.title}
                   caption={project.caption}
                   href={project.href}
+                  onClick={() => setSelectedProject(project)}
                   className="mb-4 break-inside-avoid"
                 />
               ))}
           </div>
         </Section>
       </Panel>
+
+      <ProjectDetailModal
+        project={selectedProject}
+        onClose={() => setSelectedProject(null)}
+      />
     </Container>
   );
 }
