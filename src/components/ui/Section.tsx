@@ -22,7 +22,7 @@ export function Section({
       {title && (
         <h2
           className={cn(
-            "mb-6 font-serif text-lg text-text-section tracking-wide",
+            "mb-6 font-serif text-lg text-text-primary tracking-wide",
             titleClassName
           )}
         >

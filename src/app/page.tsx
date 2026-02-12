@@ -456,7 +456,7 @@ export default function Home() {
 
         <Section className="mt-12">
           <div className="flex items-center gap-4 mb-6">
-            <h2 className="font-serif text-lg text-text-section tracking-wide">PROJECTS</h2>
+            <h2 className="font-serif text-lg text-text-primary tracking-wide">PROJECTS</h2>
             <button
               onClick={() => setProjectFilter(projectFilter === "software" ? "all" : "software")}
               className={`font-serif text-sm transition-colors ${
