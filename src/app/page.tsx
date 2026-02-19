@@ -40,11 +40,14 @@ export default function Home() {
   const projects: Project[] = [
     {
       category: "mechanical" as const,
-      imageSrc: "/assets/projects/robot hand.png",
+      imageSrc: "/assets/projects/robothand.jpg",
       altText: "Anthropomorphic Robot Hand",
       aspectRatio: "3/2",
       title: "Anthropomorphic Robot Hand",
       caption: "realistic robot hand controlled by OpenCV",
+      description:
+        "• Designed a human-proportioned robotic hand in SolidWorks, using configurations to generate multiple finger variants.\n• Validated range of motion and interference in assemblies with evaluation tools; applied tolerance and DFM principles to improve 3D-printed joint performance.\n• Developing a 5-DOF actuation system using Arduino Nano + ESP32 + PCA9685 servo shields; integrating OpenCV-based hand tracking to map real hand motion to robot motion.",
+      techStack: ["SolidWorks", "Arduino", "ESP32", "C++", "Python", "OpenCV"],
     },
     {
       category: "both" as const,
@@ -53,6 +56,9 @@ export default function Home() {
       aspectRatio: "3/2",
       title: "Smart Home Sensor System",
       caption: "esp32 sensor network connected to a pi",
+      description:
+        "• Built an ESP32 sensor network streaming room data to a Raspberry Pi hub; validated data within ±1°C and ±5% RH.\n• Implemented a Flask REST API to receive, store, and process telemetry; sustained 1000+ data points/hour.\n• Designed tolerance-driven enclosures in SolidWorks; iterated 4 revisions for cable routing, airflow, fit, and aesthetics.\n• Built a repeatable deployment workflow with sensor calibration, schema versioning, and basic trend/anomaly visualizations.",
+      techStack: ["SolidWorks", "ESP32", "C++", "Python", "Flask", "Raspberry Pi"],
     },
     {
       category: "both" as const,
@@ -61,6 +67,9 @@ export default function Home() {
       aspectRatio: "3/4",
       title: "VEX Robotics",
       caption: "competition robot design and programming",
+      description:
+        "• Led mechanical design for V5RC teams (3388N, 3388C); won 2024 Alberta Provincial Championship, competed at World Championship, and ranked 11th at Canada's largest robotics tournament.\n• Designed and fabricated mechanisms (pneumatics, gearboxes, flywheels, PTO); machined custom polycarbonate and acetal parts for competition robots.\n• Developed autonomous routines in C++ using PID, odometry, and Pure Pursuit; deployed reliably at competitions.\n• Maintained 300+ pages of engineering documentation and mentored 15+ junior members.",
+      techStack: ["C++", "PID", "Odometry", "Pure Pursuit", "Onshape", "Fusion 360"],
     },
     {
       category: "mechanical" as const,
@@ -69,6 +78,9 @@ export default function Home() {
       aspectRatio: "16/9",
       title: "Card Dealer",
       caption: "automated card dealing robot",
+      description:
+        "• Designed a VEX-based robot that deals a customizable number of cards to automate card games.\n• Developed a dispenser over 4 iterations, achieving ~99.5% single-card success (about 1 misdeal per 200 deals).\n• Built C++ software using 5 input sources and PID; able to sort cards with ~99% accuracy and built a modular UI.\n• Implemented a custom randomized dealing-path algorithm to simulate card shuffling through software.",
+      techStack: ["C++", "PID", "VEX"],
     },
     {
       category: "software" as const,
@@ -77,20 +89,40 @@ export default function Home() {
       aspectRatio: "2/1",
       title: "WaterlooWash",
       caption: "laundry tracking mobile app",
+      description:
+        "• Designed a Figma prototype that gamifies residence laundry; applied HTML/CSS skills to refine UI/UX.\n• Built a component-driven React UI (hooks, responsive layout, accessibility) with Tailwind CSS.\n• Building a SQLite-backed API, WebSockets for live updates and auth so only residents can claim/rate machines.",
+      techStack: ["React", "TypeScript", "Tailwind CSS", "Figma", "SQLite", "WebSockets"],
     },
     {
       category: "software" as const,
       imageSrc: "/assets/projects/wato asd.png",
-      altText: "WATonomous ASD Assignment",
+      altText: "Self-Driving Car Sim",
       aspectRatio: "4/3",
-      title: "WATonomous ASD Assignment",
+      title: "Self-Driving Car Sim",
       caption: "watch video",
       href: "https://www.youtube.com/watch?v=mIYiKe8uu4Q",
+      description:
+        "• Developing ROS 2 robot navigation stack in C++ on Linux, using LiDAR data to assist autonomous pathing.\n• Implement and test A* pathfinding and Pure Pursuit; debug multi-node behavior via logs/telemetry and Foxglove.\n• Containerize builds and runtime dependencies with Docker to improve reproducibility across team environments.",
+      techStack: ["C++", "ROS 2", "LiDAR", "A*", "Pure Pursuit", "Docker", "Linux", "Foxglove"],
+    },
+    {
+      category: "both" as const,
+      imageSrc: "/assets/projects/rover.png",
+      altText: "Autonomous Mars Rover",
+      aspectRatio: "3/2",
+      title: "Autonomous Mars Rover",
+      caption: "ROS 2 autonomy stack for a competition Mars rover",
+      description:
+        "• Built a ROS 2 autonomous navigation stack in C++ on Linux; generated LiDAR-based occupancy grids/costmaps and integrated A* planning with Pure Pursuit control.\n• Designed and tuned a PID controller for a Mars rover; implemented adaptive speed reduction to improve path tracking.\n• Built a URDF model with STL meshes for Foxglove visualization; calibrated a Gazebo physics simulation to better match real rover properties.",
+      techStack: ["C++", "Python", "ROS 2", "LiDAR", "PID", "A*", "Pure Pursuit", "Gazebo", "Docker", "Linux"],
     },
     {
       category: "software" as const,
       title: "Valorant Fantasy",
       caption: "'fantasy football' style app for VCT",
+      description:
+        "• Built a full-stack fantasy esports platform with Next.js, React and TypeScript.\n• Developed a Python scraper to automate data collection, parsing HTML into structured datasets for analysis.\n• Designed a database in SQLite with SQLAlchemy ORM to store stats; automated fantasy points calculation.\n• Implemented a responsive UI with Tailwind CSS; enforced code quality with ESLint; deployed on Vercel.",
+      techStack: ["Next.js", "React", "TypeScript", "Python", "SQLAlchemy", "SQLite", "Tailwind CSS"],
     },
     {
       category: "software" as const,
@@ -99,6 +131,8 @@ export default function Home() {
       aspectRatio: "3/2",
       title: "Personal Portfolio",
       caption: "this website",
+      description: "This portfolio website — built from scratch with a focus on clean design and performance.",
+      techStack: ["Next.js", "React", "TypeScript", "Tailwind CSS"],
     },
     {
       category: "software" as const,
@@ -107,6 +141,17 @@ export default function Home() {
       aspectRatio: "16/9",
       title: "Molehunt",
       caption: "custom minecraft minigame datapack",
+      description:
+        "• Built and hosted custom minigames for 20+ users, supporting 200+ total hours of gameplay.\n• Developed Java server plugins and custom mcfunction datapack logic; iterated mechanics using playtesting feedback.",
+      techStack: ["Java", "mcfunction"],
+    },
+    {
+      category: "both" as const,
+      title: "Autonomous ATV",
+      caption: "ROS 2 autonomy stack for electric outdoor ATV",
+      description:
+        "• Modified existing ATV steering system for electric power steering compatibility with ODrive motor controller; designed mechanical integration for actuator mounting and linkage geometry.\n• Contributed to overall system architecture for ROS 2 autonomy stack targeting full outdoor autonomous operation.",
+      techStack: ["SolidWorks", "ROS 2", "ODrive", "Arduino", "Jetson Orin Nano"],
     },
   ];
 
@@ -205,7 +250,17 @@ export default function Home() {
           {/* Social Links - fixed below bio */}
           <div className="flex items-center gap-4 mb-[clamp(1rem,3vh,2rem)]">
             <Navbar items={socialLinks} />
-            <ThemeToggle />
+            <div className="ml-auto flex items-center gap-3">
+              <Link
+                href="/resume.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-serif text-sm text-text-secondary underline hover:text-text-primary transition-colors"
+              >
+                my resume
+              </Link>
+              <ThemeToggle />
+            </div>
           </div>
 
           {/* Experience Section */}
@@ -266,7 +321,7 @@ export default function Home() {
               }
               title="Churchill Robotics"
               subtitle="robotics coach, V5RC competitor"
-              date="oct 23' - may 25'"
+              date="sept 22' - june 25'"
               description="Directed a robotics club of 10+ teams totalling 150+ members, built world-class competition robots."
               skills={["c++", "onshape", "fusion360", "PID", "pure pursuit"]}
               isExpanded={expandedId === "churchill"}
