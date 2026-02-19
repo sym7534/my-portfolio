@@ -63,17 +63,6 @@ export default function Home() {
       ],
     },
     {
-      slug: "smart-home",
-      category: "both" as const,
-      imageSrc: "/assets/projects/smart-home/cover.png",
-      altText: "Smart Home",
-      title: "Smart Home Sensor System",
-      caption: "esp32 sensor network connected to a pi",
-      description:
-        "• Built an ESP32 sensor network streaming room data to a Raspberry Pi hub; validated data within ±1°C and ±5% RH.\n• Implemented a Flask REST API to receive, store, and process telemetry; sustained 1000+ data points/hour.\n• Designed tolerance-driven enclosures in SolidWorks; iterated 4 revisions for cable routing, airflow, fit, and aesthetics.\n• Built a repeatable deployment workflow with sensor calibration, schema versioning, and basic trend/anomaly visualizations.",
-      techStack: ["SolidWorks", "ESP32", "C++", "Python", "Flask", "Raspberry Pi"],
-    },
-    {
       slug: "vex",
       category: "both" as const,
       imageSrc: "/assets/projects/vex/cover.png",
@@ -94,6 +83,17 @@ export default function Home() {
       description:
         "• Designed a VEX-based robot that deals a customizable number of cards to automate card games.\n• Developed a dispenser over 4 iterations, achieving ~99.5% single-card success (about 1 misdeal per 200 deals).\n• Built C++ software using 5 input sources and PID; able to sort cards with ~99% accuracy and built a modular UI.\n• Implemented a custom randomized dealing-path algorithm to simulate card shuffling through software.",
       techStack: ["C++", "PID", "VEX"],
+    },
+    {
+      slug: "smart-home",
+      category: "both" as const,
+      imageSrc: "/assets/projects/smart-home/cover.png",
+      altText: "Smart Home",
+      title: "Smart Home Sensor System",
+      caption: "esp32 sensor network connected to a pi",
+      description:
+        "• Built an ESP32 sensor network streaming room data to a Raspberry Pi hub; validated data within ±1°C and ±5% RH.\n• Implemented a Flask REST API to receive, store, and process telemetry; sustained 1000+ data points/hour.\n• Designed tolerance-driven enclosures in SolidWorks; iterated 4 revisions for cable routing, airflow, fit, and aesthetics.\n• Built a repeatable deployment workflow with sensor calibration, schema versioning, and basic trend/anomaly visualizations.",
+      techStack: ["SolidWorks", "ESP32", "C++", "Python", "Flask", "Raspberry Pi"],
     },
     {
       slug: "waterloowash",
@@ -286,10 +286,10 @@ export default function Home() {
               </span>
             </p>
             <p className="font-sans font-light text-sm text-text-secondary mt-2">
-              I like building things that actually work — robots, tools, whatever
+              I like building things that actually work; robots, tools, whatever
               sounds interesting. Most of my projects sit somewhere between
               hardware and software, and I&apos;m happiest when I&apos;m figuring
-              out why something doesn&apos;t.
+              out why something doesn&apos;t work.
             </p>
           </Section>
 
@@ -298,7 +298,7 @@ export default function Home() {
             <Navbar items={socialLinks} />
             <div className="ml-auto flex items-center gap-3">
               <Link
-                href="/resume.pdf"
+                href="/ryanwang_roboticsresume.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="font-sans text-sm text-text-secondary underline hover:text-text-primary transition-colors"
