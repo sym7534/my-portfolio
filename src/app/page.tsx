@@ -210,7 +210,7 @@ export default function Home() {
         <div>
           {/* Hero Section */}
           <Section className="mb-[clamp(1rem,3vh,2rem)]">
-            <h1 className="text-xl text-text-secondary leading-tight">
+            <h1 className="font-serif text-xl text-text-secondary leading-tight">
               hey, i&apos;m <span className="text-text-primary">Ryan Wang</span>
             </h1>
             <div className="w-full max-w-md h-px bg-text-secondary/20 my-[clamp(0.75rem,2.5vh,1.5rem)]" />
