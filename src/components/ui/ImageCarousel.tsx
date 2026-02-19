@@ -1,12 +1,18 @@
 "use client";
 
+import { useState } from "react";
 import type { ProjectImage } from "@/types/project";
 
 interface ImageCarouselProps {
   images: ProjectImage[];
 }
 
+const COLS = 4;
+const EXPAND_FR = 3;
+
 export function ImageCarousel({ images }: ImageCarouselProps) {
+  const [hovered, setHovered] = useState<{ col: number; row: number } | null>(null);
+
   // 4 or fewer images: show at full natural aspect ratio
   if (images.length <= 4) {
     return (
@@ -25,13 +31,19 @@ export function ImageCarousel({ images }: ImageCarouselProps) {
     );
   }
 
-  // 5+ images: manual 4-column layout with hover expand
+  // 5+ images: grid with hover expand
   const largeImages = images.filter((img) => img.span === "large");
   const smallImages = images.filter((img) => img.span !== "large");
+  const rowCount = Math.ceil(smallImages.length / COLS);
 
-  // Distribute small images round-robin into 4 columns
-  const columns: ProjectImage[][] = [[], [], [], []];
-  smallImages.forEach((img, i) => columns[i % 4].push(img));
+  // Build grid templates
+  const colTemplate = Array.from({ length: COLS }, (_, c) =>
+    hovered && hovered.col === c ? `${EXPAND_FR}fr` : "1fr"
+  ).join(" ");
+
+  const rowTemplate = Array.from({ length: rowCount }, (_, r) =>
+    hovered && hovered.row === r ? `${EXPAND_FR}fr` : "1fr"
+  ).join(" ");
 
   return (
     <div className="flex flex-col gap-2">
@@ -47,25 +59,38 @@ export function ImageCarousel({ images }: ImageCarouselProps) {
         </div>
       ))}
 
-      {/* Small images: 4 fixed-height columns, hover to claim 3/4 of space */}
-      <div className="flex gap-2 h-[50vh]">
-        {columns.map((col, colIdx) => (
-          <div key={colIdx} className="flex-1 flex flex-col gap-2 min-w-0">
-            {col.map((img, i) => (
-              <div
-                key={i}
-                className="relative flex-1 min-h-0 rounded-lg overflow-hidden transition-[flex] duration-300 ease-out hover:flex-[6] hover:z-10"
-              >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={img.src}
-                  alt={img.alt ?? ""}
-                  className="w-full h-full object-cover"
-                />
-              </div>
-            ))}
-          </div>
-        ))}
+      {/* Small images: CSS Grid with animated templates */}
+      <div
+        className="grid gap-2 h-[50vh] transition-[grid-template-columns,grid-template-rows] duration-300 ease-out"
+        style={{
+          gridTemplateColumns: colTemplate,
+          gridTemplateRows: rowTemplate,
+        }}
+        onMouseLeave={() => setHovered(null)}
+      >
+        {smallImages.map((img, i) => {
+          const col = i % COLS;
+          const row = Math.floor(i / COLS);
+
+          return (
+            <div
+              key={i}
+              className="rounded-lg overflow-hidden"
+              style={{
+                gridColumn: col + 1,
+                gridRow: row + 1,
+              }}
+              onMouseEnter={() => setHovered({ col, row })}
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={img.src}
+                alt={img.alt ?? ""}
+                className="w-full h-full object-cover"
+              />
+            </div>
+          );
+        })}
       </div>
     </div>
   );
