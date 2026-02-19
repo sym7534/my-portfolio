@@ -60,7 +60,7 @@ export function Modal({
         <>
           {/* Overlay */}
           <motion.div
-            className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm"
+            className="fixed inset-0 z-50 bg-black/50"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -77,21 +77,11 @@ export function Modal({
             exit={{ opacity: 0, scale: 0.95, y: 10 }}
             transition={{ duration: 0.2, ease: "easeOut" }}
           >
-            <div
-              ref={contentRef}
-              role="dialog"
-              aria-modal="true"
-              aria-label={ariaLabel}
-              className={cn(
-                "relative pointer-events-auto bg-bg-white rounded-md border border-border-card shadow-lg max-h-[90vh] overflow-y-auto w-full max-w-2xl [scrollbar-width:none] [&::-webkit-scrollbar]:hidden",
-                className
-              )}
-              onClick={(e) => e.stopPropagation()}
-            >
-              {/* Close button */}
+            <div className="relative pointer-events-auto w-full max-w-2xl">
+              {/* Close button - floats outside top-right corner */}
               <button
                 onClick={onClose}
-                className="absolute top-3 right-3 z-10 w-8 h-8 flex items-center justify-center rounded-sm text-text-secondary hover:text-text-primary transition-colors"
+                className="absolute -top-10 -right-1 z-10 w-8 h-8 flex items-center justify-center rounded-sm text-white/70 hover:text-white transition-colors"
                 aria-label="Close"
               >
                 <svg
@@ -108,7 +98,19 @@ export function Modal({
                 </svg>
               </button>
 
-              {children}
+              <div
+                ref={contentRef}
+                role="dialog"
+                aria-modal="true"
+                aria-label={ariaLabel}
+                className={cn(
+                  "bg-bg-white rounded-md border border-border-card shadow-lg max-h-[80vh] overflow-y-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden",
+                  className
+                )}
+                onClick={(e) => e.stopPropagation()}
+              >
+                {children}
+              </div>
             </div>
           </motion.div>
         </>

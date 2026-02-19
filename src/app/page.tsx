@@ -214,8 +214,8 @@ export default function Home() {
               hey, i&apos;m <span className="text-text-primary">Ryan Wang</span>
             </h1>
             <div className="w-full max-w-md h-px bg-text-secondary/20 my-[clamp(0.75rem,2.5vh,1.5rem)]" />
-            <p className="font-sans text-sm text-text-secondary">
-              <span className="underline">mechatronics engineering</span> @
+            <p className="font-sans font-light text-sm text-text-secondary">
+              <span>mechatronics engineering</span> @
               <span className="inline-flex items-baseline gap-1 ml-2">
                 <Image
                   src={UWaterlooLogo}
@@ -229,12 +229,11 @@ export default function Home() {
                 </Link>
               </span>
             </p>
-            <p className="font-sans text-sm text-text-secondary mt-2">
-              I&apos;m passionate about robotics systems, building useful tools, and
-              bringing experiences to life. I love working at the intersection of
-              hardware and software, from embedded sensing to autonomy, and I&apos;m
-              always chasing projects that turn messy ideas into clean, reliable
-              systems people can actually use.
+            <p className="font-sans font-light text-sm text-text-secondary mt-2">
+              I like building things that actually work — robots, tools, whatever
+              sounds interesting. Most of my projects sit somewhere between
+              hardware and software, and I&apos;m happiest when I&apos;m figuring
+              out why something doesn&apos;t.
             </p>
           </Section>
 
@@ -267,7 +266,7 @@ export default function Home() {
                 />
               }
               title="WATonomous"
-              subtitle="software engineering member"
+              subtitle="software engineering"
               date="jan 26' - present"
               description="Developing perception and autonomous pathing software for Rover on Waterloo's AV design team."
               skills={["c++", "python", "ROS 2", "docker"]}
@@ -289,7 +288,7 @@ export default function Home() {
                 />
               }
               title="Waterloo Aerial Robotics Group"
-              subtitle="mechanical engineering member"
+              subtitle="mechanical engineering"
               date="dec 25' - present"
               description="Developing a competition firefighting drone."
               skills={["solidworks", "CAD"]}
@@ -311,7 +310,7 @@ export default function Home() {
                 />
               }
               title="Churchill Robotics"
-              subtitle="robotics coach, V5RC competitor"
+              subtitle="mechanical lead, mentor"
               date="sept 22' - june 25'"
               description="Directed a robotics club of 10+ teams totalling 150+ members, built world-class competition robots."
               skills={["c++", "onshape", "fusion360", "PID", "pure pursuit"]}
@@ -351,7 +350,7 @@ export default function Home() {
       {/* Right Panel - Projects & Skills */}
       <Panel side="right">
         <Section title="ABOUT ME">
-          <ul className="font-sans space-y-2 text-sm text-text-secondary">
+          <ul className="font-sans font-light space-y-2 text-sm text-text-secondary">
             <li className="group relative flex items-start gap-4 pl-4">
               <div className="absolute left-0 top-[8px] w-[6px] h-[6px] bg-text-secondary rotate-45 transform transition-all duration-300 group-hover:rotate-90 group-hover:scale-110" />
               <div className="flex flex-col gap-1 transition-transform duration-200 group-hover:translate-x-1">
@@ -411,7 +410,7 @@ export default function Home() {
         </Section>
 
         {/* <Section title="TECH STACK">
-          <ul className="font-sans space-y-2 text-sm text-text-secondary">
+          <ul className="font-sans font-light space-y-2 text-sm text-text-secondary">
             <li className="group relative flex items-start gap-4 pl-4 hover:translate-x-1 transition-transform duration-200">
               <div className="absolute left-0 top-[8px] w-[6px] h-[6px] bg-text-secondary rotate-45 transform transition-all duration-300 group-hover:rotate-90 group-hover:scale-110" />
               <span>
