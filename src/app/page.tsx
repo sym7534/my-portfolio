@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import {
   Container,
   Panel,
@@ -39,18 +39,33 @@ export default function Home() {
 
   const projects: Project[] = [
     {
+      slug: "robot-hand",
       category: "mechanical" as const,
-      imageSrc: "/assets/projects/finalhand.png",
+      imageSrc: "/assets/projects/robot-hand/finalhand.png",
       altText: "Anthropomorphic Robot Hand",
       title: "Anthropomorphic Robot Hand",
       caption: "realistic robot hand controlled by OpenCV",
       description:
         "• Designed a human-proportioned robotic hand in SolidWorks, using configurations to generate multiple finger variants.\n• Validated range of motion and interference in assemblies with evaluation tools; applied tolerance and DFM principles to improve 3D-printed joint performance.\n• Developing a 5-DOF actuation system using Arduino Nano + ESP32 + PCA9685 servo shields; integrating OpenCV-based hand tracking to map real hand motion to robot motion.",
       techStack: ["SolidWorks", "Arduino", "ESP32", "C++", "Python", "OpenCV"],
+      images: [
+        { src: "/assets/projects/robot-hand/finalhand.png", alt: "Final assembled robot hand", span: "large" },
+        { src: "/assets/projects/robot-hand/assembly.png", alt: "Hand assembly process" },
+        { src: "/assets/projects/robot-hand/laidontable.png", alt: "Robot hand laid on table" },
+        { src: "/assets/projects/robot-hand/peacesign.png", alt: "Robot hand making peace sign" },
+        { src: "/assets/projects/robot-hand/v2assembled.png", alt: "V2 assembled hand" },
+        { src: "/assets/projects/robot-hand/programming.png", alt: "Programming the robot hand" },
+        { src: "/assets/projects/robot-hand/forearmlid.png", alt: "Forearm lid detail" },
+        { src: "/assets/projects/robot-hand/v1 fist.png", alt: "V1 hand making a fist" },
+        { src: "/assets/projects/robot-hand/v1cad.png", alt: "V1 CAD model" },
+        { src: "/assets/projects/robot-hand/v3cad.png", alt: "V3 CAD model" },
+        { src: "/assets/projects/robot-hand/holding.jpg", alt: "Robot hand holding an object" },
+      ],
     },
     {
+      slug: "smart-home",
       category: "both" as const,
-      imageSrc: "/assets/projects/smart home image.png",
+      imageSrc: "/assets/projects/smart-home/cover.png",
       altText: "Smart Home",
       title: "Smart Home Sensor System",
       caption: "esp32 sensor network connected to a pi",
@@ -59,18 +74,20 @@ export default function Home() {
       techStack: ["SolidWorks", "ESP32", "C++", "Python", "Flask", "Raspberry Pi"],
     },
     {
+      slug: "vex",
       category: "both" as const,
-      imageSrc: "/assets/projects/vex.png",
+      imageSrc: "/assets/projects/vex/cover.png",
       altText: "VEX Robotics",
       title: "VEX Robotics",
       caption: "competition robot design and programming",
       description:
-        "• Led mechanical design for V5RC teams (3388N, 3388C); won 2024 Alberta Provincial Championship, competed at World Championship, and ranked 11th at Canada's largest robotics tournament.\n• Designed and fabricated mechanisms (pneumatics, gearboxes, flywheels, PTO); machined custom polycarbonate and acetal parts for competition robots.\n• Developed autonomous routines in C++ using PID, odometry, and Pure Pursuit; deployed reliably at competitions.\n• Maintained 300+ pages of engineering documentation and mentored 15+ junior members.",
+        "• Lead mechanical design for V5RC teams, competing at provincial, national, and international tournaments. Ranked 11th at Canada's largest robotics tournament.\n• Designed and fabricated mechanisms (pneumatics, gearboxes, flywheels, PTO); machined custom polycarbonate and acetal parts for competition robots.\n• Developed autonomous routines in C++ using PID, odometry, and Pure Pursuit; deployed reliably at competitions.\n• Maintained 300+ pages of engineering documentation and mentored 15+ junior members.",
       techStack: ["C++", "PID", "Odometry", "Pure Pursuit", "Onshape", "Fusion 360"],
     },
     {
+      slug: "card-dealer",
       category: "mechanical" as const,
-      imageSrc: "/assets/projects/card dealer.png",
+      imageSrc: "/assets/projects/card-dealer/cover.png",
       altText: "Card Dealer",
       title: "Card Dealer",
       caption: "automated card dealing robot",
@@ -79,8 +96,9 @@ export default function Home() {
       techStack: ["C++", "PID", "VEX"],
     },
     {
+      slug: "waterloowash",
       category: "software" as const,
-      imageSrc: "/assets/projects/waterloowash.png",
+      imageSrc: "/assets/projects/waterloowash/cover.png",
       altText: "WaterlooWash",
       title: "WaterlooWash",
       caption: "laundry tracking mobile app",
@@ -89,8 +107,9 @@ export default function Home() {
       techStack: ["React", "TypeScript", "Tailwind CSS", "Figma", "SQLite", "WebSockets"],
     },
     {
+      slug: "self-driving-car",
       category: "software" as const,
-      imageSrc: "/assets/projects/wato asd.png",
+      imageSrc: "/assets/projects/self-driving-car/cover.png",
       altText: "Self-Driving Car Sim",
       title: "Self-Driving Car Sim",
       caption: "watch video",
@@ -100,8 +119,9 @@ export default function Home() {
       techStack: ["C++", "ROS 2", "LiDAR", "A*", "Pure Pursuit", "Docker", "Linux", "Foxglove"],
     },
     {
+      slug: "mars-rover",
       category: "both" as const,
-      imageSrc: "/assets/projects/rover.png",
+      imageSrc: "/assets/projects/rover/cover.png",
       altText: "Autonomous Mars Rover",
       title: "Autonomous Mars Rover",
       caption: "ROS 2 autonomy stack for a competition Mars rover",
@@ -110,6 +130,7 @@ export default function Home() {
       techStack: ["C++", "Python", "ROS 2", "LiDAR", "PID", "A*", "Pure Pursuit", "Gazebo", "Docker", "Linux"],
     },
     {
+      slug: "valorant-fantasy",
       category: "software" as const,
       title: "Valorant Fantasy",
       caption: "'fantasy football' style app for VCT",
@@ -118,8 +139,9 @@ export default function Home() {
       techStack: ["Next.js", "React", "TypeScript", "Python", "SQLAlchemy", "SQLite", "Tailwind CSS"],
     },
     {
+      slug: "portfolio",
       category: "software" as const,
-      imageSrc: "/assets/projects/personal site.png",
+      imageSrc: "/assets/projects/personal-site/cover.png",
       altText: "Personal Portfolio",
       title: "Personal Portfolio",
       caption: "this website",
@@ -127,8 +149,9 @@ export default function Home() {
       techStack: ["Next.js", "React", "TypeScript", "Tailwind CSS"],
     },
     {
+      slug: "molehunt",
       category: "software" as const,
-      imageSrc: "/assets/projects/molehunt.png",
+      imageSrc: "/assets/projects/molehunt/cover.png",
       altText: "Molehunt",
       title: "Molehunt",
       caption: "custom minecraft minigame datapack",
@@ -137,6 +160,7 @@ export default function Home() {
       techStack: ["Java", "mcfunction"],
     },
     {
+      slug: "atv",
       category: "both" as const,
       title: "Autonomous ATV",
       caption: "ROS 2 autonomy stack for electric outdoor ATV",
@@ -145,6 +169,36 @@ export default function Home() {
       techStack: ["SolidWorks", "ROS 2", "ODrive", "Arduino", "Jetson Orin Nano"],
     },
   ];
+
+  // URL ↔ modal sync
+  const openProject = useCallback((project: Project | null) => {
+    setSelectedProject(project);
+    const url = project ? `?project=${project.slug}` : window.location.pathname;
+    window.history.pushState({}, "", url);
+  }, []);
+
+  // Open modal from URL on mount
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const slug = params.get("project");
+    if (slug) {
+      const match = projects.find((p) => p.slug === slug);
+      if (match) setSelectedProject(match);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // Handle browser back/forward
+  useEffect(() => {
+    const onPopState = () => {
+      const params = new URLSearchParams(window.location.search);
+      const slug = params.get("project");
+      setSelectedProject(slug ? projects.find((p) => p.slug === slug) ?? null : null);
+    };
+    window.addEventListener("popstate", onPopState);
+    return () => window.removeEventListener("popstate", onPopState);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleMouseEnter = (id: string) => setExpandedId(id);
   const handleMouseLeave = () => setExpandedId(null);
@@ -523,28 +577,38 @@ export default function Home() {
               mechanical
             </button>
           </div>
-          <div className="columns-2 gap-4">
-            {projects
-              .filter(p => projectFilter === "all" || p.category === projectFilter || p.category === "both")
-              .map(project => (
-                <TiltedCard
-                  key={project.title}
-                  imageSrc={project.imageSrc}
-                  altText={project.altText}
-                  title={project.title}
-                  caption={project.caption}
-                  href={project.href}
-                  onClick={() => setSelectedProject(project)}
-                  className="mb-4 break-inside-avoid"
-                />
-              ))}
-          </div>
+          {(() => {
+            const filtered = projects.filter(p => projectFilter === "all" || p.category === projectFilter || p.category === "both");
+            const marsRover = filtered.find(p => p.slug === "mars-rover");
+            const rest = filtered.filter(p => p.slug !== "mars-rover");
+            const mid = Math.ceil(rest.length / 2);
+            const leftCol = rest.slice(0, mid);
+            const rightCol = marsRover ? [marsRover, ...rest.slice(mid)] : rest.slice(mid);
+            const renderCard = (project: Project) => (
+              <TiltedCard
+                key={project.title}
+                imageSrc={project.imageSrc}
+                altText={project.altText}
+                title={project.title}
+                caption={project.caption}
+                href={project.href}
+                onClick={() => openProject(project)}
+                className="mb-4"
+              />
+            );
+            return (
+              <div className="flex gap-4">
+                <div className="flex-1 flex flex-col">{leftCol.map(renderCard)}</div>
+                <div className="flex-1 flex flex-col">{rightCol.map(renderCard)}</div>
+              </div>
+            );
+          })()}
         </Section>
       </Panel>
 
       <ProjectDetailModal
         project={selectedProject}
-        onClose={() => setSelectedProject(null)}
+        onClose={() => openProject(null)}
       />
     </Container>
   );
