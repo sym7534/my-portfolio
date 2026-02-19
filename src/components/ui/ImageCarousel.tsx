@@ -1,17 +1,15 @@
 "use client";
 
 import { useState } from "react";
+import { motion } from "motion/react";
 import type { ProjectImage } from "@/types/project";
 
 interface ImageCarouselProps {
   images: ProjectImage[];
 }
 
-const COLS = 4;
-const EXPAND_FR = 3;
-
 export function ImageCarousel({ images }: ImageCarouselProps) {
-  const [hovered, setHovered] = useState<{ col: number; row: number } | null>(null);
+  const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
 
   // 4 or fewer images: show at full natural aspect ratio
   if (images.length <= 4) {
@@ -31,19 +29,9 @@ export function ImageCarousel({ images }: ImageCarouselProps) {
     );
   }
 
-  // 5+ images: grid with hover expand
+  // 5+ images: grid with hover expand (span 3 cols + 2 rows)
   const largeImages = images.filter((img) => img.span === "large");
   const smallImages = images.filter((img) => img.span !== "large");
-  const rowCount = Math.ceil(smallImages.length / COLS);
-
-  // Build grid templates
-  const colTemplate = Array.from({ length: COLS }, (_, c) =>
-    hovered && hovered.col === c ? `${EXPAND_FR}fr` : "1fr"
-  ).join(" ");
-
-  const rowTemplate = Array.from({ length: rowCount }, (_, r) =>
-    hovered && hovered.row === r ? `${EXPAND_FR}fr` : "1fr"
-  ).join(" ");
 
   return (
     <div className="flex flex-col gap-2">
@@ -59,38 +47,32 @@ export function ImageCarousel({ images }: ImageCarouselProps) {
         </div>
       ))}
 
-      {/* Small images: CSS Grid with animated templates */}
+      {/* Small images: CSS Grid, hovered image spans 3/4 cols */}
       <div
-        className="grid gap-2 h-[50vh] transition-[grid-template-columns,grid-template-rows] duration-300 ease-out"
-        style={{
-          gridTemplateColumns: colTemplate,
-          gridTemplateRows: rowTemplate,
-        }}
-        onMouseLeave={() => setHovered(null)}
+        className="grid grid-cols-4 gap-2"
+        style={{ gridAutoFlow: "dense", gridAutoRows: "minmax(120px, auto)" }}
+        onMouseLeave={() => setHoveredIdx(null)}
       >
-        {smallImages.map((img, i) => {
-          const col = i % COLS;
-          const row = Math.floor(i / COLS);
-
-          return (
-            <div
-              key={i}
-              className="rounded-lg overflow-hidden"
-              style={{
-                gridColumn: col + 1,
-                gridRow: row + 1,
-              }}
-              onMouseEnter={() => setHovered({ col, row })}
-            >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={img.src}
-                alt={img.alt ?? ""}
-                className="w-full h-full object-cover"
-              />
-            </div>
-          );
-        })}
+        {smallImages.map((img, i) => (
+          <motion.div
+            key={img.src}
+            layout
+            transition={{ type: "spring", damping: 25, stiffness: 200 }}
+            className="rounded-lg overflow-hidden"
+            style={{
+              gridColumn: hoveredIdx === i ? "span 3" : "span 1",
+              gridRow: hoveredIdx === i ? "span 2" : "span 1",
+            }}
+            onMouseEnter={() => setHoveredIdx(i)}
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={img.src}
+              alt={img.alt ?? ""}
+              className={`w-full ${hoveredIdx === i ? "h-auto" : "h-full object-cover"}`}
+            />
+          </motion.div>
+        ))}
       </div>
     </div>
   );
