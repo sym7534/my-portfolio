@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useTheme } from "@/components/ThemeProvider";
+import DotGrid from "@/components/ui/DotGrid";
 import {
   Container,
   Panel,
@@ -28,6 +30,9 @@ import CanadaLogo from "../../public/assets/icons/canada.jpg";
 const MAX_EXPERIENCE_TITLE_SIZE = 30;
 
 export default function Home() {
+  const { theme } = useTheme();
+  const isDark = theme === "dark";
+
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const [experienceTitleSize, setExperienceTitleSize] = useState(
     MAX_EXPERIENCE_TITLE_SIZE
@@ -358,7 +363,21 @@ export default function Home() {
       </Panel>
 
       {/* Right Panel - Projects & Skills */}
-      <Panel side="right">
+      <Panel side="right" className="relative">
+        <div className="absolute inset-0 pointer-events-none" style={{ zIndex: 0 }}>
+          <DotGrid
+            dotSize={3}
+            gap={30}
+            baseColor={isDark ? "#44403c" : "#d6d3d1"}
+            activeColor={isDark ? "#78716c" : "#a8a29e"}
+            proximity={120}
+            shockRadius={250}
+            shockStrength={5}
+            resistance={750}
+            returnDuration={1.5}
+          />
+        </div>
+        <div className="relative" style={{ zIndex: 1 }}>
         <Section title="ABOUT ME">
           <ul className="space-y-2 text-sm text-text-secondary">
             <li className="group relative flex items-start gap-4 pl-4">
@@ -551,6 +570,7 @@ export default function Home() {
               ))}
           </div>
         </Section>
+        </div>
       </Panel>
 
       <ProjectDetailModal
