@@ -37,6 +37,11 @@ export default function Home() {
   const [projectFilter, setProjectFilter] = useState<"all" | "software" | "mechanical">("all");
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
+  // Fire-and-forget visit notification
+  useEffect(() => {
+    fetch("/api/visit", { method: "POST" });
+  }, []);
+
   const projects: Project[] = [
     {
       slug: "robot-hand",
