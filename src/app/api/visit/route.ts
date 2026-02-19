@@ -33,14 +33,7 @@ export async function POST(request: Request) {
   const userAgent = request.headers.get("user-agent") ?? "unknown";
   const timestamp = new Date(now).toISOString();
 
-  const content = [
-    `<@713211567893774487> 👀 Site visit`,
-    `🕐 ${timestamp}`,
-    `📍 ${city}, ${region}, ${country}`,
-    `🌐 Referrer: ${referrer}`,
-    `💻 ${userAgent}`,
-    `🔗 IP: ${ip}`,
-  ].join("\n");
+  const content = `<@713211567893774487> Site visit\nTime: ${timestamp}\nLocation: ${city}, ${region}, ${country}\nReferrer: ${referrer}\nBrowser: ${userAgent}\nIP: ${ip}`;
 
   await fetch(webhookUrl, {
     method: "POST",
