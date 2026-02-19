@@ -340,7 +340,7 @@ export default function Home() {
               }
               title="WATonomous"
               subtitle="software engineering"
-              date="jan 26' - present"
+              date="dec 25' - present"
               description="Developing perception and autonomous pathing software for Rover on Waterloo's AV design team."
               skills={["c++", "python", "ROS 2", "docker"]}
               isExpanded={expandedId === "watonomous"}
