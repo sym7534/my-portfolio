@@ -74,6 +74,14 @@ export default function Home() {
       altText: "VEX Robotics",
       title: "VEX Robotics",
       caption: "competition robot design and programming",
+      images: [
+        { src: "/assets/projects/vex/cover.png", alt: "VEX robot cover", span: "large" },
+        { src: "/assets/projects/vex/gtier.png", alt: "Competition robot" },
+        { src: "/assets/projects/vex/worlds.png", alt: "Worlds competition" },
+        { src: "/assets/projects/vex/old.png", alt: "Earlier robot design" },
+        { src: "/assets/projects/vex/ptohang.png", alt: "PTO hang mechanism" },
+        { src: "/assets/projects/vex/prototype.png", alt: "Prototype" },
+      ],
       description:
         "• Lead mechanical design for V5RC teams, competing at provincial, national, and international tournaments. Ranked 11th at Canada's largest robotics tournament.\n• Designed and fabricated mechanisms (pneumatics, gearboxes, flywheels, PTO); machined custom polycarbonate and acetal parts for competition robots.\n• Developed autonomous routines in C++ using PID, odometry, and Pure Pursuit; deployed reliably at competitions.\n• Maintained 300+ pages of engineering documentation and mentored 15+ junior members.",
       techStack: ["C++", "PID", "Odometry", "Pure Pursuit", "Onshape", "Fusion 360"],
@@ -133,7 +141,7 @@ export default function Home() {
       title: "Autonomous Mars Rover",
       caption: "ROS 2 autonomy stack for a competition Mars rover",
       description:
-        "• Built a ROS 2 autonomous navigation stack in C++ on Linux; generated LiDAR-based occupancy grids/costmaps and integrated A* planning with Pure Pursuit control.\n• Designed and tuned a PID controller for a Mars rover; implemented adaptive speed reduction to improve path tracking.\n• Built a URDF model with STL meshes for Foxglove visualization; calibrated a Gazebo physics simulation to better match real rover properties.",
+        "• Designed and tuned a PID controller for a Mars rover; implemented adaptive speed reduction to improve path tracking.\n• Built a URDF model with STL meshes for Foxglove visualization; calibrated a Gazebo physics simulation to better match real rover properties.",
       techStack: ["C++", "Python", "ROS 2", "LiDAR", "PID", "A*", "Pure Pursuit", "Gazebo", "Docker", "Linux"],
     },
     {
