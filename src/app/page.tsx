@@ -182,6 +182,10 @@ export default function Home() {
       description:
         "• Modified existing ATV steering system for electric power steering compatibility with ODrive motor controller; designed mechanical integration for actuator mounting and linkage geometry.\n• Contributed to overall system architecture for ROS 2 autonomy stack targeting full outdoor autonomous operation.",
       techStack: ["SolidWorks", "ROS 2", "ODrive", "Arduino", "Jetson Orin Nano"],
+      images: [
+        { src: "/assets/projects/atv/atv.png", alt: "ATV chassis with steering and suspension components", span: "large" as const },
+        { src: "/assets/projects/atv/platedatv.png", alt: "Autonomous ATV with body panels in the field" },
+      ],
     },
   ];
 
@@ -593,7 +597,7 @@ export default function Home() {
             </button>
           </div>
           {(() => {
-            const filtered = projects.filter(p => projectFilter === "all" || p.category === projectFilter || p.category === "both");
+            const filtered = projects.filter(p => p.slug !== "atv" && (projectFilter === "all" || p.category === projectFilter || p.category === "both"));
             const marsRover = filtered.find(p => p.slug === "mars-rover");
             const rest = filtered.filter(p => p.slug !== "mars-rover");
             const mid = Math.ceil(rest.length / 2);
