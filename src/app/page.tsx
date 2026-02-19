@@ -223,7 +223,7 @@ export default function Home() {
               hey, i&apos;m <span className="text-text-primary">Ryan Wang</span>
             </h1>
             <div className="w-full max-w-md h-px bg-text-secondary/20 my-[clamp(0.75rem,2.5vh,1.5rem)]" />
-            <p className="text-sm text-text-secondary">
+            <p className="font-sans text-sm text-text-secondary">
               <span className="underline">mechatronics engineering</span> @
               <span className="inline-flex items-baseline gap-1 ml-2">
                 <Image
@@ -238,7 +238,7 @@ export default function Home() {
                 </Link>
               </span>
             </p>
-            <p className="text-sm text-text-secondary mt-2">
+            <p className="font-sans text-sm text-text-secondary mt-2">
               I&apos;m passionate about robotics systems, building useful tools, and
               bringing experiences to life. I love working at the intersection of
               hardware and software, from embedded sensing to autonomy, and I&apos;m
@@ -255,7 +255,7 @@ export default function Home() {
                 href="/resume.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-serif text-sm text-text-secondary underline hover:text-text-primary transition-colors"
+                className="font-sans text-sm text-text-secondary underline hover:text-text-primary transition-colors"
               >
                 my resume
               </Link>
@@ -360,7 +360,7 @@ export default function Home() {
       {/* Right Panel - Projects & Skills */}
       <Panel side="right">
         <Section title="ABOUT ME">
-          <ul className="space-y-2 text-sm text-text-secondary">
+          <ul className="font-sans space-y-2 text-sm text-text-secondary">
             <li className="group relative flex items-start gap-4 pl-4">
               <div className="absolute left-0 top-[8px] w-[6px] h-[6px] bg-text-secondary rotate-45 transform transition-all duration-300 group-hover:rotate-90 group-hover:scale-110" />
               <div className="flex flex-col gap-1 transition-transform duration-200 group-hover:translate-x-1">
@@ -420,7 +420,7 @@ export default function Home() {
         </Section>
 
         <Section title="TECH STACK">
-          <ul className="space-y-2 text-sm text-text-secondary">
+          <ul className="font-sans space-y-2 text-sm text-text-secondary">
             <li className="group relative flex items-start gap-4 pl-4 hover:translate-x-1 transition-transform duration-200">
               <div className="absolute left-0 top-[8px] w-[6px] h-[6px] bg-text-secondary rotate-45 transform transition-all duration-300 group-hover:rotate-90 group-hover:scale-110" />
               <span>
@@ -514,7 +514,7 @@ export default function Home() {
             <h2 className="font-serif text-lg text-text-primary tracking-wide">PROJECTS</h2>
             <button
               onClick={() => setProjectFilter(projectFilter === "software" ? "all" : "software")}
-              className={`font-serif text-sm transition-colors ${
+              className={`font-sans text-sm transition-colors ${
                 projectFilter === "software"
                   ? "text-text-primary"
                   : "text-text-secondary hover:text-text-primary"
@@ -524,7 +524,7 @@ export default function Home() {
             </button>
             <button
               onClick={() => setProjectFilter(projectFilter === "mechanical" ? "all" : "mechanical")}
-              className={`font-serif text-sm transition-colors ${
+              className={`font-sans text-sm transition-colors ${
                 projectFilter === "mechanical"
                   ? "text-text-primary"
                   : "text-text-secondary hover:text-text-primary"

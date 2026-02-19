@@ -68,7 +68,7 @@ const MIN_TITLE_SIZE = 14;
  */
 function SkillTag({ children }: { children: React.ReactNode }) {
   return (
-    <span className="bg-bg-white rounded-sm px-2 py-0.5 text-[12px] text-skill-tag-text font-serif">
+    <span className="bg-bg-white rounded-sm px-2 py-0.5 text-[12px] text-skill-tag-text font-sans">
       {children}
     </span>
   );
@@ -197,11 +197,11 @@ export function ExperienceCard({
           >
             {title}
           </h3>
-          <p className="font-serif text-xs text-text-muted italic">
+          <p className="font-sans text-xs text-text-muted italic">
             {subtitle}
           </p>
         </div>
-        <span className="flex-shrink-0 font-serif text-xs text-text-secondary underline text-nowrap">
+        <span className="flex-shrink-0 font-sans text-xs text-text-secondary underline text-nowrap">
           {date}
         </span>
       </div>
@@ -217,7 +217,7 @@ export function ExperienceCard({
           <div className="overflow-hidden">
             <div className="pt-3">
               {description && (
-                <p className="font-serif text-[14px] text-text-secondary leading-normal mb-2">
+                <p className="font-sans text-[14px] text-text-secondary leading-normal mb-2">
                   {description}
                 </p>
               )}
