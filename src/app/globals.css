@@ -106,6 +106,14 @@ html.dark {
   body::-webkit-scrollbar {
     display: none;
   }
+
+  * {
+    scrollbar-width: none;
+  }
+
+  *::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 /* === ANIMATIONS === */
