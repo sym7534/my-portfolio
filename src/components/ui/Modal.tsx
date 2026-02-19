@@ -83,7 +83,7 @@ export function Modal({
               aria-modal="true"
               aria-label={ariaLabel}
               className={cn(
-                "relative pointer-events-auto bg-bg-white rounded-md border border-border-card shadow-lg max-h-[90vh] overflow-y-auto w-full max-w-2xl",
+                "relative pointer-events-auto bg-bg-white rounded-md border border-border-card shadow-lg max-h-[90vh] overflow-y-auto w-full max-w-2xl [scrollbar-width:none] [&::-webkit-scrollbar]:hidden",
                 className
               )}
               onClick={(e) => e.stopPropagation()}
