@@ -197,7 +197,7 @@ export function ExperienceCard({
           >
             {title}
           </h3>
-          <p className="font-sans text-xs text-text-muted italic">
+          <p className="font-sans font-light text-xs text-text-muted italic">
             {subtitle}
           </p>
         </div>
@@ -217,7 +217,7 @@ export function ExperienceCard({
           <div className="overflow-hidden">
             <div className="pt-3">
               {description && (
-                <p className="font-sans text-[14px] text-text-secondary leading-normal mb-2">
+                <p className="font-sans font-light text-[14px] text-text-secondary leading-normal mb-2">
                   {description}
                 </p>
               )}

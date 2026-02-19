@@ -16,7 +16,7 @@ export function ProjectDetailModal({
 
   return (
     <Modal isOpen ariaLabel={project.title} onClose={onClose}>
-      <div className="p-6 pt-10">
+      <div className="p-6">
         {/* Image */}
         {project.imageSrc && (
           <div className="relative w-full rounded-md overflow-hidden mb-5">
@@ -40,18 +40,18 @@ export function ProjectDetailModal({
         </div>
 
         {/* Caption */}
-        <p className="font-sans text-sm text-text-secondary mb-4">
+        <p className="font-sans font-light text-sm text-text-secondary mb-4">
           {project.caption}
         </p>
 
         {/* Description */}
         <div className="mb-4">
-{project.description ? (
-            <p className="font-sans text-sm text-text-secondary leading-relaxed whitespace-pre-line">
+          {project.description ? (
+            <p className="font-sans font-light text-sm text-text-secondary leading-relaxed whitespace-pre-line">
               {project.description}
             </p>
           ) : (
-            <p className="font-sans text-sm text-text-muted italic">
+            <p className="font-sans font-light text-sm text-text-muted italic">
               Detailed project description coming soon...
             </p>
           )}
@@ -59,7 +59,7 @@ export function ProjectDetailModal({
 
         {/* Tech Stack */}
         <div className="mb-4">
-{project.techStack && project.techStack.length > 0 ? (
+          {project.techStack && project.techStack.length > 0 ? (
             <div className="flex flex-wrap gap-2">
               {project.techStack.map((tech) => (
                 <span
@@ -71,7 +71,7 @@ export function ProjectDetailModal({
               ))}
             </div>
           ) : (
-            <p className="font-sans text-sm text-text-muted italic">
+            <p className="font-sans font-light text-sm text-text-muted italic">
               Tech stack coming soon...
             </p>
           )}

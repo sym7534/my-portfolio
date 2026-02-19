@@ -113,7 +113,7 @@ export function TiltedCard({
                   </h3>
                 )}
                 {caption && (
-                  <p className="font-sans text-[clamp(11px,2.5vw,16px)] text-text-secondary leading-tight hidden sm:block">
+                  <p className="font-sans font-light text-[clamp(11px,2.5vw,16px)] text-text-secondary leading-tight hidden sm:block">
                     {href && !onClick ? (
                       <a
                         href={href}
@@ -141,7 +141,7 @@ export function TiltedCard({
               </h3>
             )}
             {caption && (
-              <p className="font-sans text-[clamp(11px,2.5vw,16px)] text-text-secondary leading-tight mt-1">
+              <p className="font-sans font-light text-[clamp(11px,2.5vw,16px)] text-text-secondary leading-tight mt-1">
                 {caption}
               </p>
             )}
