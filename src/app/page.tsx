@@ -40,9 +40,8 @@ export default function Home() {
   const projects: Project[] = [
     {
       category: "mechanical" as const,
-      imageSrc: "/assets/projects/robothand.jpg",
+      imageSrc: "/assets/projects/finalhand.png",
       altText: "Anthropomorphic Robot Hand",
-      aspectRatio: "3/2",
       title: "Anthropomorphic Robot Hand",
       caption: "realistic robot hand controlled by OpenCV",
       description:
@@ -53,7 +52,6 @@ export default function Home() {
       category: "both" as const,
       imageSrc: "/assets/projects/smart home image.png",
       altText: "Smart Home",
-      aspectRatio: "3/2",
       title: "Smart Home Sensor System",
       caption: "esp32 sensor network connected to a pi",
       description:
@@ -64,7 +62,6 @@ export default function Home() {
       category: "both" as const,
       imageSrc: "/assets/projects/vex.png",
       altText: "VEX Robotics",
-      aspectRatio: "3/4",
       title: "VEX Robotics",
       caption: "competition robot design and programming",
       description:
@@ -75,7 +72,6 @@ export default function Home() {
       category: "mechanical" as const,
       imageSrc: "/assets/projects/card dealer.png",
       altText: "Card Dealer",
-      aspectRatio: "16/9",
       title: "Card Dealer",
       caption: "automated card dealing robot",
       description:
@@ -86,7 +82,6 @@ export default function Home() {
       category: "software" as const,
       imageSrc: "/assets/projects/waterloowash.png",
       altText: "WaterlooWash",
-      aspectRatio: "2/1",
       title: "WaterlooWash",
       caption: "laundry tracking mobile app",
       description:
@@ -97,7 +92,6 @@ export default function Home() {
       category: "software" as const,
       imageSrc: "/assets/projects/wato asd.png",
       altText: "Self-Driving Car Sim",
-      aspectRatio: "4/3",
       title: "Self-Driving Car Sim",
       caption: "watch video",
       href: "https://www.youtube.com/watch?v=mIYiKe8uu4Q",
@@ -109,7 +103,6 @@ export default function Home() {
       category: "both" as const,
       imageSrc: "/assets/projects/rover.png",
       altText: "Autonomous Mars Rover",
-      aspectRatio: "3/2",
       title: "Autonomous Mars Rover",
       caption: "ROS 2 autonomy stack for a competition Mars rover",
       description:
@@ -128,7 +121,6 @@ export default function Home() {
       category: "software" as const,
       imageSrc: "/assets/projects/personal site.png",
       altText: "Personal Portfolio",
-      aspectRatio: "3/2",
       title: "Personal Portfolio",
       caption: "this website",
       description: "This portfolio website — built from scratch with a focus on clean design and performance.",
@@ -138,7 +130,6 @@ export default function Home() {
       category: "software" as const,
       imageSrc: "/assets/projects/molehunt.png",
       altText: "Molehunt",
-      aspectRatio: "16/9",
       title: "Molehunt",
       caption: "custom minecraft minigame datapack",
       description:
@@ -419,7 +410,7 @@ export default function Home() {
           </ul>
         </Section>
 
-        <Section title="TECH STACK">
+        {/* <Section title="TECH STACK">
           <ul className="font-sans space-y-2 text-sm text-text-secondary">
             <li className="group relative flex items-start gap-4 pl-4 hover:translate-x-1 transition-transform duration-200">
               <div className="absolute left-0 top-[8px] w-[6px] h-[6px] bg-text-secondary rotate-45 transform transition-all duration-300 group-hover:rotate-90 group-hover:scale-110" />
@@ -507,7 +498,7 @@ export default function Home() {
               </span>
             </li>
           </ul>
-        </Section>
+        </Section> */}
 
         <Section className="mt-12">
           <div className="flex items-center gap-4 mb-6">
@@ -541,7 +532,6 @@ export default function Home() {
                   key={project.title}
                   imageSrc={project.imageSrc}
                   altText={project.altText}
-                  aspectRatio={project.aspectRatio}
                   title={project.title}
                   caption={project.caption}
                   href={project.href}

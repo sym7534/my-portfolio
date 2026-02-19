@@ -10,5 +10,9 @@
       "Bash(powershell -Command:*)",
       "Bash(npm run build:*)"
     ]
-  }
+  },
+  "enabledMcpjsonServers": [
+    "figma-desktop"
+  ],
+  "enableAllProjectMcpServers": true
 }

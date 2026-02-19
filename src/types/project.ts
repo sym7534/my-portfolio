@@ -2,7 +2,6 @@ export interface Project {
   category: "software" | "mechanical" | "both";
   imageSrc?: string;
   altText?: string;
-  aspectRatio?: string;
   title: string;
   caption: string;
   href?: string;

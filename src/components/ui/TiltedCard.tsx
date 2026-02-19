@@ -14,7 +14,6 @@ interface TiltedCardProps {
   href?: string;
   onClick?: () => void;
   className?: string;
-  aspectRatio?: string;
 }
 
 const springValues = {
@@ -37,7 +36,6 @@ export function TiltedCard({
   href,
   onClick,
   className,
-  aspectRatio,
 }: TiltedCardProps) {
   const ref = useRef<HTMLElement>(null);
 
@@ -92,13 +90,13 @@ export function TiltedCard({
       >
         {imageSrc ? (
           <>
-            {/* Image container with aspect ratio */}
-            <div className="relative" style={{ aspectRatio: aspectRatio }}>
+            {/* Image container */}
+            <div className="relative">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={imageSrc}
                 alt={altText}
-                className="w-full h-full object-cover"
+                className="w-full h-auto"
               />
               {/* Gradient fade at bottom of image */}
               {(title || caption) && (
