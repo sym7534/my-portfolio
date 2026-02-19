@@ -1,3 +1,4 @@
+import { forwardRef } from "react";
 import { cn } from "@/lib/utils";
 
 interface ContainerProps {
@@ -14,7 +15,7 @@ export function Container({ children, className }: ContainerProps) {
   return (
     <div
       className={cn(
-        "grid min-h-screen grid-cols-1 lg:grid-cols-[2fr_3fr]",
+        "grid min-h-screen lg:h-screen lg:overflow-hidden grid-cols-1 lg:grid-cols-[2fr_3fr]",
         className
       )}
     >
@@ -33,17 +34,18 @@ interface PanelProps {
  * Panel component for left/right sections of the split layout
  * Left panel is sticky (doesn't scroll), right panel scrolls independently
  */
-export function Panel({ children, className, side }: PanelProps) {
-  return (
+export const Panel = forwardRef<HTMLDivElement, PanelProps>(
+  ({ children, className, side }, ref) => (
     <div
+      ref={ref}
       className={cn(
         "p-8 lg:p-16",
-        side === "left" && "bg-bg-white lg:sticky lg:top-0 lg:h-screen lg:overflow-hidden",
-        side === "right" && "bg-bg-light",
+        side === "left" && "bg-bg-white lg:h-full lg:overflow-y-auto",
+        side === "right" && "bg-bg-light lg:h-full lg:overflow-y-auto",
         className
       )}
     >
       {children}
     </div>
-  );
-}
+  )
+);

@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import {
   Container,
   Panel,
@@ -16,6 +16,7 @@ import {
   TiltedCard,
   ThemeToggle,
   ProjectDetailModal,
+  ScrollIndicator,
 } from "@/components";
 import type { Project } from "@/types/project";
 import Image from "next/image";
@@ -28,6 +29,7 @@ import CanadaLogo from "../../public/assets/icons/canada.jpg";
 const MAX_EXPERIENCE_TITLE_SIZE = 30;
 
 export default function Home() {
+  const rightPanelRef = useRef<HTMLDivElement>(null);
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const [experienceTitleSize, setExperienceTitleSize] = useState(
     MAX_EXPERIENCE_TITLE_SIZE
@@ -418,10 +420,14 @@ export default function Home() {
             />
           </Section>
         </div>
+
+        <p className="font-sans text-xs text-text-secondary/50 mt-auto pt-4 pl-1 select-none">
+          2026 &copy; Ryan Wang
+        </p>
       </Panel>
 
       {/* Right Panel - Projects & Skills */}
-      <Panel side="right">
+      <Panel side="right" ref={rightPanelRef}>
         <Section title="ABOUT ME">
           <ul className="font-sans font-light space-y-2 text-sm text-text-secondary">
             <li className="group relative flex items-start gap-4 pl-4 hover:translate-x-1 transition-transform duration-200">
@@ -624,6 +630,8 @@ export default function Home() {
           })()}
         </Section>
       </Panel>
+
+      <ScrollIndicator scrollRef={rightPanelRef} />
 
       <ProjectDetailModal
         project={selectedProject}

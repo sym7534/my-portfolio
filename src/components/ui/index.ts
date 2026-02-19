@@ -24,3 +24,4 @@ export { TiltedCard } from "./TiltedCard";
 export { Modal } from "./Modal";
 export { ProjectDetailModal } from "./ProjectDetailModal";
 export { ImageCarousel } from "./ImageCarousel";
+export { ScrollIndicator } from "./ScrollIndicator";
