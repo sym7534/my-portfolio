@@ -58,7 +58,7 @@ export function ProjectDetailModal({
             DESCRIPTION
           </h3>
           {project.description ? (
-            <p className="font-serif text-sm text-text-secondary leading-relaxed">
+            <p className="font-serif text-sm text-text-secondary leading-relaxed whitespace-pre-line">
               {project.description}
             </p>
           ) : (
