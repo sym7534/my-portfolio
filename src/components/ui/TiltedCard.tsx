@@ -114,7 +114,7 @@ export function TiltedCard({
                 )}
                 {caption && (
                   <p className="font-sans font-light text-[clamp(11px,2.5vw,16px)] text-text-secondary leading-tight hidden sm:block">
-                    {href && !onClick ? (
+                    {href ? (
                       <a
                         href={href}
                         target="_blank"
@@ -142,7 +142,19 @@ export function TiltedCard({
             )}
             {caption && (
               <p className="font-sans font-light text-[clamp(11px,2.5vw,16px)] text-text-secondary leading-tight mt-1">
-                {caption}
+                {href ? (
+                  <a
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="underline hover:text-text-primary transition-colors"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    {caption}
+                  </a>
+                ) : (
+                  caption
+                )}
               </p>
             )}
           </div>

@@ -17,4 +17,6 @@ export interface Project {
   techStack?: string[];
   links?: { label: string; url: string }[];
   images?: ProjectImage[];
+  videoUrl?: string;
+  videoAspect?: string;
 }

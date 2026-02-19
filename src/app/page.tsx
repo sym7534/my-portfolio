@@ -115,8 +115,10 @@ export default function Home() {
       caption: "watch video",
       href: "https://www.youtube.com/watch?v=mIYiKe8uu4Q",
       description:
-        "• Developing ROS 2 robot navigation stack in C++ on Linux, using LiDAR data to assist autonomous pathing.\n• Implement and test A* pathfinding and Pure Pursuit; debug multi-node behavior via logs/telemetry and Foxglove.\n• Containerize builds and runtime dependencies with Docker to improve reproducibility across team environments.",
+        "• Developed a ROS 2 robot navigation stack in C++ on Linux, using LiDAR data to assist autonomous pathing.\n• Implemented and tested A* pathfinding and Pure Pursuit; debugged multi-node behavior via logs/telemetry and Foxglove.\n• Containerized builds and runtime dependencies with Docker to improve reproducibility across team environments.",
       techStack: ["C++", "ROS 2", "LiDAR", "A*", "Pure Pursuit", "Docker", "Linux", "Foxglove"],
+        videoUrl: "https://www.youtube.com/embed/mIYiKe8uu4Q",
+        videoAspect: "4 / 3",
     },
     {
       slug: "mars-rover",
@@ -405,9 +407,9 @@ export default function Home() {
       <Panel side="right">
         <Section title="ABOUT ME">
           <ul className="font-sans font-light space-y-2 text-sm text-text-secondary">
-            <li className="group relative flex items-start gap-4 pl-4">
+            <li className="group relative flex items-start gap-4 pl-4 hover:translate-x-1 transition-transform duration-200">
               <div className="absolute left-0 top-[8px] w-[6px] h-[6px] bg-text-secondary rotate-45 transform transition-all duration-300 group-hover:rotate-90 group-hover:scale-110" />
-              <div className="flex flex-col gap-1 transition-transform duration-200 group-hover:translate-x-1">
+              <div className="flex flex-col gap-1">
                 <span>
                   Proud
                   <span className="inline-flex items-baseline gap-1 ml-2">

@@ -70,8 +70,21 @@ export function ProjectDetailModal({
   return (
     <Modal isOpen ariaLabel={project.title} onClose={onClose} aside={aside}>
       <div className="p-4">
-        {/* Image(s) */}
-        {project.images && project.images.length > 0 ? (
+        {/* Video embed, images, or fallback cover */}
+        {project.videoUrl ? (
+          <div
+            className="relative w-full rounded-lg overflow-hidden"
+            style={{ aspectRatio: project.videoAspect ?? "16 / 9" }}
+          >
+            <iframe
+              src={project.videoUrl}
+              title={project.title}
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+              className="absolute inset-0 w-full h-full"
+            />
+          </div>
+        ) : project.images && project.images.length > 0 ? (
           <ImageCarousel images={project.images} />
         ) : project.imageSrc ? (
           <div className="relative w-full rounded-lg overflow-hidden">
