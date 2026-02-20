@@ -6,9 +6,6 @@ export { Input, ArrowIcon } from "./Input";
 export {
   Navbar,
   DevpostIcon,
-  EmailIcon,
-  LinkedInIcon,
-  GitHubIcon,
   CppIcon,
   PythonIcon,
   TypeScriptIcon,
