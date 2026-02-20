@@ -8,11 +8,12 @@
       "Bash(xcopy:*)",
       "Bash(npm install:*)",
       "Bash(powershell -Command:*)",
-      "Bash(npm run build:*)"
+      "Bash(npm run build:*)",
+      "Bash(python3:*)"
     ]
   },
+  "enableAllProjectMcpServers": true,
   "enabledMcpjsonServers": [
     "figma-desktop"
-  ],
-  "enableAllProjectMcpServers": true
+  ]
 }
