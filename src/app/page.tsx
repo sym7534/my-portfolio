@@ -10,6 +10,10 @@ import {
   ArrowIcon,
   Navbar,
   DevpostIcon,
+  EmailIcon,
+  LinkedInIcon,
+  GitHubIcon,
+  TwitterIcon,
   TiltedCard,
   ThemeToggle,
   ProjectDetailModal,
@@ -18,7 +22,6 @@ import {
 import type { Project } from "@/types/project";
 import Image from "next/image";
 import Link from "next/link";
-import { Mail, Linkedin, Github, Twitter } from "lucide-react";
 import UWaterlooLogo from "../../public/assets/icons/UWaterloo.png";
 import BalatroLogo from "../../public/assets/icons/balatro.png";
 import MinecraftLogo from "../../public/assets/icons/minecraft icon.svg";
@@ -271,10 +274,10 @@ export default function Home() {
 
   const socialLinks = [
     { label: "Devpost", href: "https://devpost.com/ryan-muxiwang", icon: <DevpostIcon /> },
-    { label: "Email", href: "mailto:ryan.muxiwang@gmail.com", icon: <Mail className="w-6 h-6" /> },
-    { label: "LinkedIn", href: "https://www.linkedin.com/in/ryan-muxi-wang/", icon: <Linkedin className="w-6 h-6" /> },
-    { label: "GitHub", href: "https://github.com/sym7534", icon: <Github className="w-6 h-6" /> },
-    { label: "Twitter", href: "https://x.com/symm7534", icon: <Twitter className="w-6 h-6" /> },
+    { label: "Email", href: "mailto:ryan.muxiwang@gmail.com", icon: <EmailIcon /> },
+    { label: "LinkedIn", href: "https://www.linkedin.com/in/ryan-muxi-wang/", icon: <LinkedInIcon /> },
+    { label: "GitHub", href: "https://github.com/sym7534", icon: <GitHubIcon /> },
+    { label: "Twitter", href: "https://x.com/symm7534", icon: <TwitterIcon /> },
   ];
 
   return (
