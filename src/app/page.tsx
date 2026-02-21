@@ -31,7 +31,7 @@ const MAX_EXPERIENCE_TITLE_SIZE = 30;
 
 export default function Home() {
   const WEBRING_BASE_URL =
-    process.env.NEXT_PUBLIC_WEBRING_BASE_URL ?? "https://tronring.vercel.app";
+    process.env.NEXT_PUBLIC_WEBRING_BASE_URL ?? "https://tronring.com";
   const WEBRING_SITE = "wangdynasty.ca";
   const rightPanelRef = useRef<HTMLDivElement>(null);
   const [expandedId, setExpandedId] = useState<string | null>(null);
@@ -460,15 +460,10 @@ export default function Home() {
               aria-label="Tron Webring home"
               className="group"
             >
-              <span
-                className="block w-9 h-9 bg-current opacity-70 group-hover:opacity-100 transition-opacity"
-                style={{
-                  maskImage: "url('/tronblack.png')",
-                  WebkitMaskImage: "url('/tronblack.png')",
-                  maskSize: "contain",
-                  maskRepeat: "no-repeat",
-                  maskPosition: "center",
-                }}
+              <img
+                src="/tronchrome.png"
+                alt="Tron Webring"
+                className="block w-9 h-9 object-contain opacity-70 group-hover:opacity-100 transition-opacity"
               />
             </Link>
             <Link
