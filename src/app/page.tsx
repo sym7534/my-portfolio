@@ -30,6 +30,9 @@ import CanadaLogo from "../../public/assets/icons/canada.jpg";
 const MAX_EXPERIENCE_TITLE_SIZE = 30;
 
 export default function Home() {
+  const WEBRING_BASE_URL =
+    process.env.NEXT_PUBLIC_WEBRING_BASE_URL ?? "https://tronring.vercel.app";
+  const WEBRING_SITE = "wangdynasty.ca";
   const rightPanelRef = useRef<HTMLDivElement>(null);
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const [experienceTitleSize, setExperienceTitleSize] = useState(
@@ -431,9 +434,61 @@ export default function Home() {
           </Section>
         </div>
 
-        <p className="font-sans text-xs text-text-secondary/50 mt-auto pt-4 pl-1 select-none">
-          2026 &copy; Ryan Wang
-        </p>
+        <div className="flex items-center justify-between gap-4 font-sans text-xs text-text-secondary/50 mt-auto pt-4 pl-1 select-none">
+          <span>2026 &copy; Ryan Wang</span>
+          <div className="flex items-center gap-3">
+            <Link
+              href={`${WEBRING_BASE_URL}/#${WEBRING_SITE}?nav=prev`}
+              aria-label="Previous site"
+              className="group"
+            >
+              <span
+                className="block w-[18px] h-[18px] bg-current opacity-60 group-hover:opacity-100 transition-opacity"
+                style={{
+                  maskImage: "url('/leftarrow.png')",
+                  WebkitMaskImage: "url('/leftarrow.png')",
+                  maskSize: "contain",
+                  maskRepeat: "no-repeat",
+                  maskPosition: "center",
+                }}
+              />
+            </Link>
+            <Link
+              href={`${WEBRING_BASE_URL}/#${WEBRING_SITE}`}
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Tron Webring home"
+              className="group"
+            >
+              <span
+                className="block w-9 h-9 bg-current opacity-70 group-hover:opacity-100 transition-opacity"
+                style={{
+                  maskImage: "url('/tronblack.png')",
+                  WebkitMaskImage: "url('/tronblack.png')",
+                  maskSize: "contain",
+                  maskRepeat: "no-repeat",
+                  maskPosition: "center",
+                }}
+              />
+            </Link>
+            <Link
+              href={`${WEBRING_BASE_URL}/#${WEBRING_SITE}?nav=next`}
+              aria-label="Next site"
+              className="group"
+            >
+              <span
+                className="block w-[18px] h-[18px] bg-current opacity-60 group-hover:opacity-100 transition-opacity"
+                style={{
+                  maskImage: "url('/rightarrow.png')",
+                  WebkitMaskImage: "url('/rightarrow.png')",
+                  maskSize: "contain",
+                  maskRepeat: "no-repeat",
+                  maskPosition: "center",
+                }}
+              />
+            </Link>
+          </div>
+        </div>
       </Panel>
 
       {/* Right Panel - Projects & Skills */}
