@@ -365,28 +365,7 @@ export default function Home() {
               onMouseLeave={handleMouseLeave}
               onClick={() => handleClick("watonomous")}
             />
-            <ExperienceCard
-              logo={
-                <Image
-                  src="/assets/images/warg-logo.png"
-                  alt="WARG logo"
-                  width={50}
-                  height={50}
-                  className="rounded-md object-cover bg-white"
-                />
-              }
-              title="Waterloo Aerial Robotics Group"
-              subtitle="mechanical engineering"
-              date="dec 25' - present"
-              description="Developing a competition firefighting drone."
-              skills={["solidworks", "CAD"]}
-              isExpanded={expandedId === "warg"}
-              titleSize={experienceTitleSize}
-              onTitleSizeChange={handleExperienceTitleSize}
-              onMouseEnter={() => handleMouseEnter("warg")}
-              onMouseLeave={handleMouseLeave}
-              onClick={() => handleClick("warg")}
-            />
+            {/* WARG experience card temporarily removed */}
             <ExperienceCard
               logo={
                 <Image
