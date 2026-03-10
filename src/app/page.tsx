@@ -50,6 +50,21 @@ export default function Home() {
 
   const projects: Project[] = [
     {
+      slug: "canopi",
+      category: "software" as const,
+      imageSrc: "/assets/projects/canopi/canopi.png",
+      altText: "Canopi",
+      title: "Canopi",
+      caption: "AI-powered rental discovery platform",
+      description:
+        "Made an AI-powered rental discovery app to tackle how frustrating apartment hunting is in Canada — instead of filtering by beds and price, you just have a conversation with an AI assistant that figures out your lifestyle and re-ranks 200+ real listings on a live map in real time.\n• Scraped and cleaned rental data from RentFaster, enriched each listing with nearby amenities like cafés, parks, transit, and groceries, and fed it all into Gemini as structured context for recommendations.\n• Built a 3D neighborhood explorer in React Three Fiber + Mapbox so you can actually visualize what life looks like around a given address.\n• Added voice input/output with ElevenLabs and shipped the whole thing in both English and French.\n\nCheck it out: https://canopi-ai.vercel.app/",
+      techStack: ["Next.js", "React", "TypeScript", "Python", "Three.js", "Mapbox GL", "Google Gemini", "Supabase", "ElevenLabs", "Tailwind CSS"],
+      images: [
+        { src: "/assets/projects/canopi/canopizoomedout.png", alt: "Canopi platform overview", span: "large" as const },
+        { src: "/assets/projects/canopi/canopi.png", alt: "Canopi interface" },
+      ],
+    },
+    {
       slug: "robot-hand",
       category: "mechanical" as const,
       imageSrc: "/assets/projects/robot-hand/finalhand.png",
