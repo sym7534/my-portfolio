@@ -78,8 +78,9 @@ export function TiltedCard({
     >
       <motion.div
         className={cn(
-          "relative w-full rounded-md overflow-hidden",
-          imageSrc && "bg-gradient-to-b from-transparent from-[60%] to-card-caption"
+          "relative w-full rounded-md overflow-hidden transition-shadow duration-300",
+          imageSrc && "bg-gradient-to-b from-transparent from-[60%] to-card-caption",
+          "hover:shadow-lg hover:shadow-black/8 dark:hover:shadow-black/30"
         )}
         style={{
           rotateX,
@@ -119,7 +120,7 @@ export function TiltedCard({
                         href={href}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="underline hover:text-text-primary transition-colors"
+                        className="hover:text-text-primary transition-colors"
                         onClick={(e) => e.stopPropagation()}
                       >
                         {caption}
@@ -147,7 +148,7 @@ export function TiltedCard({
                     href={href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="underline hover:text-text-primary transition-colors"
+                    className="hover:text-text-primary transition-colors"
                     onClick={(e) => e.stopPropagation()}
                   >
                     {caption}
