@@ -77,6 +77,9 @@ html.dark {
   --shimmer-color-1: #efefef;
   --shimmer-color-2: #f8f8f8;
   --shimmer-color-3: #ffffff;
+
+  /* Grid pattern */
+  --grid-color: rgba(0, 0, 0, 0.06);
 }
 
 html.dark {
@@ -84,6 +87,7 @@ html.dark {
   --shimmer-color-1: #1a1a1a;
   --shimmer-color-2: #252525;
   --shimmer-color-3: #2a2a2a;
+  --grid-color: rgba(255, 255, 255, 0.06);
 }
 
 /* === BASE STYLES === */
@@ -153,4 +157,28 @@ html.dark {
   );
   background-size: 200% 100%;
   animation: shimmer 4s ease-in-out infinite;
+}
+
+/* Divider grow animation */
+@keyframes divider-grow {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+.animate-divider {
+  transform-origin: left;
+  animation: divider-grow 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.3s both;
+}
+
+/* Subtle grid background for right panel */
+.bg-grid {
+  background-color: var(--color-bg-light);
+  background-image:
+    linear-gradient(var(--grid-color) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+  background-size: 48px 48px;
 }
