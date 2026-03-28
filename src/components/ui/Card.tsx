@@ -197,7 +197,7 @@ export function ExperienceCard({
           >
             {title}
           </h3>
-          <p className="font-sans font-light text-xs text-text-muted italic">
+          <p className="font-sans font-light text-xs text-text-muted">
             {subtitle}
           </p>
         </div>

@@ -634,10 +634,10 @@ export default function Home() {
                 .
               </span>
             </li>
-            <li className="group relative flex items-start gap-4 pl-4 hover:translate-x-1 transition-transform duration-200">
+            {/* <li className="group relative flex items-start gap-4 pl-4 hover:translate-x-1 transition-transform duration-200">
               <div className="absolute left-0 top-[8px] w-[6px] h-[6px] bg-text-secondary rotate-45 transform transition-all duration-300 group-hover:rotate-90 group-hover:scale-110" />
               <span>When I have time, I like to 🎨 paint.</span>
-            </li>
+            </li> */}
           </ul>
         </Section>
         </motion.div>
