@@ -415,9 +415,9 @@ export default function Home() {
                 />
               }
               title="AXIBO"
-              subtitle="Mechanical Engineer, May - Aug 2026"
-              date="Incoming Summer 2026"
-              description="Building humanoid robots designed and manufactured entirely in Canada."
+              subtitle="mechanical engineering"
+              date="may 25'"
+              description="Incoming s26"
               isExpanded={expandedId === "axibo"}
               titleSize={experienceTitleSize}
               onTitleSizeChange={handleExperienceTitleSize}
