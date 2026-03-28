@@ -407,6 +407,27 @@ export default function Home() {
             <ExperienceCard
               logo={
                 <Image
+                  src="/assets/images/AXIBO-logo.png"
+                  alt="AXIBO logo"
+                  width={50}
+                  height={50}
+                  className="rounded-md object-cover"
+                />
+              }
+              title="AXIBO"
+              subtitle="Mechanical Engineer, May - Aug 2026"
+              date="Incoming Summer 2026"
+              description="Building humanoid robots designed and manufactured entirely in Canada."
+              isExpanded={expandedId === "axibo"}
+              titleSize={experienceTitleSize}
+              onTitleSizeChange={handleExperienceTitleSize}
+              onMouseEnter={() => handleMouseEnter("axibo")}
+              onMouseLeave={handleMouseLeave}
+              onClick={() => handleClick("axibo")}
+            />
+            <ExperienceCard
+              logo={
+                <Image
                   src="/assets/images/wato-logo.png"
                   alt="WATonomous logo"
                   width={50}
