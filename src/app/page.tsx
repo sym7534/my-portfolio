@@ -26,6 +26,7 @@ import Link from "next/link";
 import UWaterlooLogo from "../../public/assets/icons/UWaterloo.png";
 import BalatroLogo from "../../public/assets/icons/balatro.png";
 import ClaudeLogo from "../../public/assets/icons/claude-color.svg";
+import SolidWorksLogo from "../../public/assets/icons/solidworks.svg";
 import MinecraftLogo from "../../public/assets/icons/minecraft icon.svg";
 import CanadaLogo from "../../public/assets/icons/canada.jpg";
 
@@ -611,6 +612,23 @@ export default function Home() {
                   Balatro
                 </span>
                 .
+              </span>
+            </li>
+            <li className="group relative flex items-start gap-4 pl-4 hover:translate-x-1 transition-transform duration-200">
+              <div className="absolute left-0 top-[8px] w-[6px] h-[6px] bg-text-secondary rotate-45 transform transition-all duration-300 group-hover:rotate-90 group-hover:scale-110" />
+              <span>
+                I have more hours on
+                <span className="inline-flex items-baseline gap-1 ml-2">
+                  <Image
+                    src={SolidWorksLogo}
+                    alt="SolidWorks"
+                    width={14}
+                    height={14}
+                    className="object-contain relative top-[2px]"
+                  />
+                  SolidWorks
+                </span>
+                {" "}than in class.
               </span>
             </li>
             <li className="group relative flex items-start gap-4 pl-4 hover:translate-x-1 transition-transform duration-200">
