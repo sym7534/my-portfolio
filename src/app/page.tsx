@@ -419,7 +419,7 @@ export default function Home() {
               }
               title="AXIBO"
               subtitle="mechanical engineering"
-              date="may 25' - sept 26'"
+              date="may 26' - sept 26'"
               description="Incoming s26"
               isExpanded={expandedId === "axibo"}
               titleSize={experienceTitleSize}
