@@ -378,10 +378,15 @@ export default function Home() {
               </span>
             </p>
             <p className="font-sans font-light text-sm text-text-secondary mt-2">
-              I like building things that actually work; robots, tools, whatever
-              sounds interesting. Most of my projects sit somewhere between
-              hardware and software, and I&apos;m happiest when I&apos;m figuring
-              out why something doesn&apos;t work.
+              
+              I&apos;m a full-stack engineer for robotics: ROS 2 to embedded
+              firmware to CAD to manufactured parts. My philosophy is that depth
+              in one layer makes you sharper in every other — you design better
+              hardware when you know how it&apos;ll be controlled, and write
+              better software when you&apos;ve machined the thing it runs on.
+              I&apos;ve taken autonomy systems from concept to working robot,
+              and diagnosed failures that turned out to be mechanical,
+              electrical, and software problems all at once.
             </p>
           </Section>
           </motion.div>
