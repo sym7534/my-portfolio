@@ -400,7 +400,7 @@ export default function Home() {
                 href="/ryanwang_roboticsresume.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-sans text-sm text-text-secondary underline hover:text-text-primary transition-colors"
+                className="font-sans text-sm text-text-secondary hover:text-text-primary transition-colors"
               >
                 my resume
               </Link>
