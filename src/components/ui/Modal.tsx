@@ -72,27 +72,34 @@ export function Modal({
             aria-hidden="true"
           />
 
+          {/* Close button — fixed top-left on mobile */}
+          <button
+            onClick={onClose}
+            className="fixed top-4 left-4 z-[60] lg:hidden w-10 h-10 flex items-center justify-center rounded-full bg-black/50 text-white/80 hover:text-white transition-colors pointer-events-auto"
+            aria-label="Close"
+          >
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+              <line x1="3" y1="3" x2="13" y2="13" />
+              <line x1="13" y1="3" x2="3" y2="13" />
+            </svg>
+          </button>
+
           {/* Content container */}
           <motion.div
-            className="fixed inset-0 z-50 flex items-start lg:items-center justify-start lg:justify-center overflow-y-auto lg:overflow-visible p-4 pointer-events-none [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+            className="fixed inset-0 z-50 overflow-y-auto lg:overflow-visible lg:flex lg:items-center lg:justify-center p-0 lg:p-4 pointer-events-none [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
             initial={{ opacity: 0, scale: 0.95, y: 10 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 10 }}
             transition={{ duration: 0.2, ease: "easeOut" }}
           >
-            {/* Close button — sticky top-right on mobile, absolute on desktop */}
-            <button
-              onClick={onClose}
-              className="sticky top-0 ml-auto lg:hidden z-20 w-10 h-10 flex items-center justify-center rounded-sm text-white/70 hover:text-white transition-colors pointer-events-auto shrink-0"
-              aria-label="Close"
-            >
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-                <line x1="3" y1="3" x2="13" y2="13" />
-                <line x1="13" y1="3" x2="3" y2="13" />
-              </svg>
-            </button>
+            <div className={cn("relative pointer-events-auto flex flex-col lg:flex-row lg:items-start gap-0 lg:gap-6", aside ? "w-full lg:max-w-4xl" : "w-full lg:max-w-2xl")}>
+              {/* Aside — top on mobile, right side on desktop */}
+              {aside && (
+                <div className="order-first lg:order-last shrink-0 w-full lg:w-96 lg:max-h-[80vh] lg:overflow-y-auto pointer-events-auto px-4 pt-14 pb-4 lg:p-0 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden" onClick={(e) => e.stopPropagation()}>
+                  {aside}
+                </div>
+              )}
 
-            <div className={cn("relative pointer-events-auto flex flex-col lg:flex-row lg:items-start gap-4 lg:gap-6", aside ? "w-full max-w-4xl" : "w-full max-w-2xl")}>
               {/* Modal box */}
               <div className={cn("relative", aside ? "flex-1 min-w-0" : "w-full")}>
                 {/* Close button — desktop only, floats outside top-right corner */}
@@ -121,7 +128,7 @@ export function Modal({
                   aria-modal="true"
                   aria-label={ariaLabel}
                   className={cn(
-                    "bg-bg-white rounded-md border border-border-card shadow-lg lg:max-h-[80vh] lg:overflow-y-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden",
+                    "bg-bg-white lg:rounded-md lg:border lg:border-border-card lg:shadow-lg lg:max-h-[80vh] lg:overflow-y-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden",
                     className
                   )}
                   onClick={(e) => e.stopPropagation()}
@@ -129,13 +136,6 @@ export function Modal({
                   {children}
                 </div>
               </div>
-
-              {/* Aside — below modal on mobile, floats to the right on desktop */}
-              {aside && (
-                <div className="shrink-0 w-full lg:w-96 lg:max-h-[80vh] lg:overflow-y-auto pointer-events-auto pb-8 lg:pb-0 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden" onClick={(e) => e.stopPropagation()}>
-                  {aside}
-                </div>
-              )}
             </div>
           </motion.div>
         </>
