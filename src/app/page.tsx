@@ -378,7 +378,7 @@ export default function Home() {
               </span>
             </p>
             <p className="font-sans font-light text-sm text-text-secondary mt-2">
-              
+
               I&apos;m a full-stack engineer for robotics: ROS 2 to embedded
               firmware to CAD to manufactured parts. My philosophy is that depth
               in one layer makes you sharper in every other — you design better

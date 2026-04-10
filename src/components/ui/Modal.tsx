@@ -80,13 +80,13 @@ export function Modal({
             exit={{ opacity: 0, scale: 0.95, y: 10 }}
             transition={{ duration: 0.2, ease: "easeOut" }}
           >
-            <div className={cn("relative pointer-events-auto flex items-start gap-6", aside ? "w-full max-w-4xl" : "w-full max-w-2xl")}>
+            <div className={cn("relative pointer-events-auto flex flex-col lg:flex-row lg:items-start gap-4 lg:gap-6", aside ? "w-full max-w-4xl" : "w-full max-w-2xl")}>
               {/* Modal box */}
               <div className={cn("relative", aside ? "flex-1 min-w-0" : "w-full")}>
-                {/* Close button - floats outside top-right corner */}
+                {/* Close button — inside modal on mobile, floats outside on desktop */}
                 <button
                   onClick={onClose}
-                  className="absolute -top-10 -right-1 z-10 w-8 h-8 flex items-center justify-center rounded-sm text-white/70 hover:text-white transition-colors"
+                  className="absolute top-2 right-2 lg:-top-10 lg:-right-1 z-10 w-10 h-10 lg:w-8 lg:h-8 flex items-center justify-center rounded-sm text-text-secondary lg:text-white/70 hover:text-text-primary lg:hover:text-white transition-colors"
                   aria-label="Close"
                 >
                   <svg
@@ -109,7 +109,7 @@ export function Modal({
                   aria-modal="true"
                   aria-label={ariaLabel}
                   className={cn(
-                    "bg-bg-white rounded-md border border-border-card shadow-lg max-h-[80vh] overflow-y-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden",
+                    "bg-bg-white rounded-md border border-border-card shadow-lg max-h-[90vh] lg:max-h-[80vh] overflow-y-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden",
                     className
                   )}
                   onClick={(e) => e.stopPropagation()}
@@ -118,9 +118,9 @@ export function Modal({
                 </div>
               </div>
 
-              {/* Aside — floats outside modal to the right */}
+              {/* Aside — below modal on mobile, floats to the right on desktop */}
               {aside && (
-                <div className="shrink-0 w-96 max-h-[80vh] overflow-y-auto pointer-events-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden" onClick={(e) => e.stopPropagation()}>
+                <div className="shrink-0 w-full lg:w-96 max-h-[40vh] lg:max-h-[80vh] overflow-y-auto pointer-events-auto border-t border-white/10 pt-4 lg:border-0 lg:pt-0 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden" onClick={(e) => e.stopPropagation()}>
                   {aside}
                 </div>
               )}
