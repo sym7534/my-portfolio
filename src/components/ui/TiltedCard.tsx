@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useEffect, useState } from "react";
 import { motion, useMotionValue, useSpring } from "motion/react";
 import { cn } from "@/lib/utils";
 
@@ -22,9 +22,22 @@ const springValues = {
   mass: 2,
 };
 
+function useIsMobile() {
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const mql = window.matchMedia("(max-width: 1023px)");
+    setIsMobile(mql.matches);
+    const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);
+    mql.addEventListener("change", handler);
+    return () => mql.removeEventListener("change", handler);
+  }, []);
+  return isMobile;
+}
+
 /**
  * 3D tilting card with spring physics.
  * Tilts based on mouse position, scales on hover, and shows overlay content.
+ * On mobile, renders as a static card (no 3D transforms) for scroll performance.
  */
 export function TiltedCard({
   imageSrc,
@@ -38,13 +51,14 @@ export function TiltedCard({
   className,
 }: TiltedCardProps) {
   const ref = useRef<HTMLElement>(null);
+  const isMobile = useIsMobile();
 
   const rotateX = useSpring(useMotionValue(0), springValues);
   const rotateY = useSpring(useMotionValue(0), springValues);
   const scale = useSpring(1, springValues);
 
   function handleMouse(e: React.MouseEvent) {
-    if (!ref.current) return;
+    if (isMobile || !ref.current) return;
 
     const rect = ref.current.getBoundingClientRect();
     const offsetX = e.clientX - rect.left - rect.width / 2;
@@ -58,10 +72,12 @@ export function TiltedCard({
   }
 
   function handleMouseEnter() {
+    if (isMobile) return;
     scale.set(scaleOnHover);
   }
 
   function handleMouseLeave() {
+    if (isMobile) return;
     scale.set(1);
     rotateX.set(0);
     rotateY.set(0);
@@ -70,7 +86,7 @@ export function TiltedCard({
   return (
     <figure
       ref={ref}
-      className={cn("relative cursor-pointer [perspective:800px]", className)}
+      className={cn("relative cursor-pointer", !isMobile && "[perspective:800px]", className)}
       onMouseMove={handleMouse}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
@@ -80,9 +96,9 @@ export function TiltedCard({
         className={cn(
           "relative w-full rounded-md overflow-hidden transition-shadow duration-300",
           imageSrc && "bg-gradient-to-b from-transparent from-[60%] to-card-caption",
-          "hover:shadow-lg hover:shadow-black/8 dark:hover:shadow-black/30"
+          !isMobile && "hover:shadow-lg hover:shadow-black/8 dark:hover:shadow-black/30"
         )}
-        style={{
+        style={isMobile ? undefined : {
           rotateX,
           rotateY,
           scale,
