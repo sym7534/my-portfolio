@@ -300,8 +300,12 @@ export default function Home() {
   };
 
   useEffect(() => {
+    let lastWidth = window.innerWidth;
     const handleResize = () => {
-      setExperienceTitleSize(MAX_EXPERIENCE_TITLE_SIZE);
+      if (window.innerWidth !== lastWidth) {
+        lastWidth = window.innerWidth;
+        setExperienceTitleSize(MAX_EXPERIENCE_TITLE_SIZE);
+      }
     };
 
     window.addEventListener("resize", handleResize);
