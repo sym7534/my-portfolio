@@ -75,7 +75,7 @@ export function Modal({
           {/* Close button — fixed top-left on mobile */}
           <button
             onClick={onClose}
-            className="fixed top-4 left-4 z-[60] lg:hidden w-10 h-10 flex items-center justify-center rounded-full bg-black/50 text-white/80 hover:text-white transition-colors pointer-events-auto"
+            className="fixed top-4 left-1 z-[60] lg:hidden w-10 h-10 flex items-center justify-center rounded-full bg-black/50 text-white/80 hover:text-white transition-colors pointer-events-auto"
             aria-label="Close"
           >
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
@@ -86,7 +86,7 @@ export function Modal({
 
           {/* Content container */}
           <motion.div
-            className="fixed inset-0 z-50 overflow-y-auto lg:overflow-visible lg:flex lg:items-center lg:justify-center p-0 lg:p-4 pointer-events-none [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+            className="fixed inset-0 z-50 overflow-y-auto lg:overflow-visible lg:flex lg:items-center lg:justify-center p-0 lg:p-4 pointer-events-auto lg:pointer-events-none [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
             initial={{ opacity: 0, scale: 0.95, y: 10 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 10 }}
