@@ -69,7 +69,7 @@ export function ProjectDetailModal({
 
   return (
     <Modal isOpen ariaLabel={project.title} onClose={onClose} aside={aside}>
-      <div className="p-4">
+      <div className="p-2 lg:p-4">
         {/* Video embed, images, or fallback cover */}
         {project.videoUrl ? (
           <div
