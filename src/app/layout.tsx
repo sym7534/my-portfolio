@@ -7,6 +7,19 @@ import { Analytics } from "@vercel/analytics/next";
 export const metadata: Metadata = {
   title: "Ryan Wang | Portfolio",
   description: "Mechatronics engineering @ UWaterloo",
+  metadataBase: new URL("https://wangdynasty.ca"),
+  openGraph: {
+    title: "Ryan Wang | Portfolio",
+    description: "Mechatronics engineering @ UWaterloo",
+    siteName: "Ryan Wang",
+    type: "website",
+    images: [],
+  },
+  twitter: {
+    card: "summary",
+    title: "Ryan Wang | Portfolio",
+    description: "Mechatronics engineering @ UWaterloo",
+  },
 };
 
 // Blocking script to prevent flash of wrong theme (FOUC)
