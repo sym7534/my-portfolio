@@ -168,6 +168,8 @@ export default function Home() {
       techStack: ["TypeScript", "JavaScript", "Tailwind CSS", "UI/UX"],
       images: [
         { src: "/assets/projects/tronring/image.png", alt: "Mechatronics Webring", span: "large" as const },
+        { src: "/assets/projects/tronring/faviconmaxsize.png", alt: "Tronring favicon" },
+        { src: "/assets/projects/tronring/icon design.png", alt: "Tronring icon design" },
       ],
     },
     {
