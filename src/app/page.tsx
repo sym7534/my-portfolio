@@ -431,7 +431,8 @@ export default function Home() {
               title="AXIBO"
               subtitle="mechanical engineering"
               date="may 26' - sept 26'"
-              description="Incoming s26"
+              description="Building humanoid robots at the forefront of Canadian robotics."
+              skills={["fusion360", "solidworks", "c", "c++", "python"]}
               isExpanded={expandedId === "axibo"}
               titleSize={experienceTitleSize}
               onTitleSizeChange={handleExperienceTitleSize}
