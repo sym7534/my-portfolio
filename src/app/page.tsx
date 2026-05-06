@@ -384,7 +384,7 @@ export default function Home() {
               </span>
             </p>
             <p className="font-sans font-light text-sm text-text-secondary mt-2">
-              I&apos;m a full-stack robotics engineer — from ROS 2 to firmware
+              full-stack robotics engineer — from ROS 2 to firmware
               to CAD to manufactured parts. I love taking systems from shower
               thought to fully fleshed autonomy.
             </p>
