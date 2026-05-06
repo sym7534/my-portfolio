@@ -581,7 +581,7 @@ export default function Home() {
         >
         <Section title="ABOUT ME">
           <ul className="font-sans font-light space-y-2 text-sm text-text-secondary">
-            <li className="group relative flex items-start gap-4 pl-4 hover:translate-x-1 transition-transform duration-200 after:content-[''] after:absolute after:inset-y-0 after:left-full after:w-screen">
+            <li className="group relative flex items-start gap-4 pl-4 hover:translate-x-1 transition-transform duration-200 after:content-[''] after:absolute after:-inset-y-1 after:left-full after:w-screen">
               <div className="absolute left-0 top-[8px] w-[6px] h-[6px] bg-text-secondary rotate-45 transform transition-all duration-300 group-hover:rotate-90 group-hover:scale-110" />
               <div className="flex flex-col gap-1">
                 <span>
@@ -600,7 +600,7 @@ export default function Home() {
                 <span className="pl-4">↳ Currently in Waterloo, grew up in Calgary.</span>
               </div>
             </li>
-            <li className="group relative flex items-start gap-4 pl-4 hover:translate-x-1 transition-transform duration-200 after:content-[''] after:absolute after:inset-y-0 after:left-full after:w-screen">
+            <li className="group relative flex items-start gap-4 pl-4 hover:translate-x-1 transition-transform duration-200 after:content-[''] after:absolute after:-inset-y-1 after:left-full after:w-screen">
               <div className="absolute left-0 top-[8px] w-[6px] h-[6px] bg-text-secondary rotate-45 transform transition-all duration-300 group-hover:rotate-90 group-hover:scale-110" />
               <span>
                 Favorite game:
@@ -628,7 +628,7 @@ export default function Home() {
                 .
               </span>
             </li>
-            <li className="group relative flex items-start gap-4 pl-4 hover:translate-x-1 transition-transform duration-200 after:content-[''] after:absolute after:inset-y-0 after:left-full after:w-screen">
+            <li className="group relative flex items-start gap-4 pl-4 hover:translate-x-1 transition-transform duration-200 after:content-[''] after:absolute after:-inset-y-1 after:left-full after:w-screen">
               <div className="absolute left-0 top-[8px] w-[6px] h-[6px] bg-text-secondary rotate-45 transform transition-all duration-300 group-hover:rotate-90 group-hover:scale-110" />
               <span>
                 I have more hours on
@@ -645,11 +645,11 @@ export default function Home() {
                 {" "}than in class.
               </span>
             </li>
-            <li className="group relative flex items-start gap-4 pl-4 hover:translate-x-1 transition-transform duration-200 after:content-[''] after:absolute after:inset-y-0 after:left-full after:w-screen">
+            <li className="group relative flex items-start gap-4 pl-4 hover:translate-x-1 transition-transform duration-200 after:content-[''] after:absolute after:-inset-y-1 after:left-full after:w-screen">
               <div className="absolute left-0 top-[8px] w-[6px] h-[6px] bg-text-secondary rotate-45 transform transition-all duration-300 group-hover:rotate-90 group-hover:scale-110" />
               <span>Skilled in 🎹 piano, 🎻 violin, 🪈 flute, and 🎷 alto sax.</span>
             </li>
-            <li className="group relative flex items-start gap-4 pl-4 hover:translate-x-1 transition-transform duration-200 after:content-[''] after:absolute after:inset-y-0 after:left-full after:w-screen">
+            <li className="group relative flex items-start gap-4 pl-4 hover:translate-x-1 transition-transform duration-200 after:content-[''] after:absolute after:-inset-y-1 after:left-full after:w-screen">
               <div className="absolute left-0 top-[8px] w-[6px] h-[6px] bg-text-secondary rotate-45 transform transition-all duration-300 group-hover:rotate-90 group-hover:scale-110" />
               <span>
                 My favourite model is
@@ -666,7 +666,7 @@ export default function Home() {
                 .
               </span>
             </li>
-            <li className="group relative flex items-start gap-4 pl-4 hover:translate-x-1 transition-transform duration-200 after:content-[''] after:absolute after:inset-y-0 after:left-full after:w-screen">
+            <li className="group relative flex items-start gap-4 pl-4 hover:translate-x-1 transition-transform duration-200 after:content-[''] after:absolute after:-inset-y-1 after:left-full after:w-screen">
               <div className="absolute left-0 top-[8px] w-[6px] h-[6px] bg-text-secondary rotate-45 transform transition-all duration-300 group-hover:rotate-90 group-hover:scale-110" />
               <span>
                 My current goal is to contribute to
@@ -683,7 +683,7 @@ export default function Home() {
                 .
               </span>
             </li>
-            {/* <li className="group relative flex items-start gap-4 pl-4 hover:translate-x-1 transition-transform duration-200 after:content-[''] after:absolute after:inset-y-0 after:left-full after:w-screen">
+            {/* <li className="group relative flex items-start gap-4 pl-4 hover:translate-x-1 transition-transform duration-200 after:content-[''] after:absolute after:-inset-y-1 after:left-full after:w-screen">
               <div className="absolute left-0 top-[8px] w-[6px] h-[6px] bg-text-secondary rotate-45 transform transition-all duration-300 group-hover:rotate-90 group-hover:scale-110" />
               <span>When I have time, I like to 🎨 paint.</span>
             </li> */}
@@ -693,7 +693,7 @@ export default function Home() {
 
         {/* <Section title="TECH STACK">
           <ul className="font-sans font-light space-y-2 text-sm text-text-secondary">
-            <li className="group relative flex items-start gap-4 pl-4 hover:translate-x-1 transition-transform duration-200 after:content-[''] after:absolute after:inset-y-0 after:left-full after:w-screen">
+            <li className="group relative flex items-start gap-4 pl-4 hover:translate-x-1 transition-transform duration-200 after:content-[''] after:absolute after:-inset-y-1 after:left-full after:w-screen">
               <div className="absolute left-0 top-[8px] w-[6px] h-[6px] bg-text-secondary rotate-45 transform transition-all duration-300 group-hover:rotate-90 group-hover:scale-110" />
               <span>
                 <span className="text-text-secondary">Languages:</span>{" "}
@@ -742,28 +742,28 @@ export default function Home() {
                 </span>
               </span>
             </li>
-            <li className="group relative flex items-start gap-4 pl-4 hover:translate-x-1 transition-transform duration-200 after:content-[''] after:absolute after:inset-y-0 after:left-full after:w-screen">
+            <li className="group relative flex items-start gap-4 pl-4 hover:translate-x-1 transition-transform duration-200 after:content-[''] after:absolute after:-inset-y-1 after:left-full after:w-screen">
               <div className="absolute left-0 top-[8px] w-[6px] h-[6px] bg-text-secondary rotate-45 transform transition-all duration-300 group-hover:rotate-90 group-hover:scale-110" />
               <span>
                 <span className="text-text-secondary">Robotics/Controls:</span> ROS 2,
                 OpenCV, PID control, Odometry, A* Path Planning, Pure Pursuit
               </span>
             </li>
-            <li className="group relative flex items-start gap-4 pl-4 hover:translate-x-1 transition-transform duration-200 after:content-[''] after:absolute after:inset-y-0 after:left-full after:w-screen">
+            <li className="group relative flex items-start gap-4 pl-4 hover:translate-x-1 transition-transform duration-200 after:content-[''] after:absolute after:-inset-y-1 after:left-full after:w-screen">
               <div className="absolute left-0 top-[8px] w-[6px] h-[6px] bg-text-secondary rotate-45 transform transition-all duration-300 group-hover:rotate-90 group-hover:scale-110" />
               <span>
                 <span className="text-text-secondary">Backend/Systems:</span> Node.js,
                 Flask, Docker, Linux, REST APIs
               </span>
             </li>
-            <li className="group relative flex items-start gap-4 pl-4 hover:translate-x-1 transition-transform duration-200 after:content-[''] after:absolute after:inset-y-0 after:left-full after:w-screen">
+            <li className="group relative flex items-start gap-4 pl-4 hover:translate-x-1 transition-transform duration-200 after:content-[''] after:absolute after:-inset-y-1 after:left-full after:w-screen">
               <div className="absolute left-0 top-[8px] w-[6px] h-[6px] bg-text-secondary rotate-45 transform transition-all duration-300 group-hover:rotate-90 group-hover:scale-110" />
               <span>
                 <span className="text-text-secondary">Tools:</span> Git, GitHub, VS Code,
                 MATLAB, Arduino
               </span>
             </li>
-            <li className="group relative flex items-start gap-4 pl-4 hover:translate-x-1 transition-transform duration-200 after:content-[''] after:absolute after:inset-y-0 after:left-full after:w-screen">
+            <li className="group relative flex items-start gap-4 pl-4 hover:translate-x-1 transition-transform duration-200 after:content-[''] after:absolute after:-inset-y-1 after:left-full after:w-screen">
               <div className="absolute left-0 top-[8px] w-[6px] h-[6px] bg-text-secondary rotate-45 transform transition-all duration-300 group-hover:rotate-90 group-hover:scale-110" />
               <span>
                 <span className="text-text-secondary">CAD &amp; Manufacturing:</span>{" "}
