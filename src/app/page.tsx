@@ -384,16 +384,17 @@ export default function Home() {
               </span>
             </p>
             <p className="font-sans font-light text-sm text-text-secondary mt-2">
-
-              I&apos;m a full-stack engineer for robotics: ROS 2 to embedded
-              firmware to CAD to manufactured parts. My philosophy is that depth
-              in one layer makes you sharper in every other — you design better
-              hardware when you know how it&apos;ll be controlled, and write
-              better software when you&apos;ve machined the thing it runs on.
-              I&apos;ve taken autonomy systems from concept to working robot,
-              and diagnosed failures that turned out to be mechanical,
-              electrical, and software problems all at once.
+              I&apos;m a full-stack robotics engineer — from ROS 2 to firmware
+              to CAD to manufactured parts. I love taking systems from shower
+              thought to fully fleshed autonomy.
             </p>
+            {/*I'm a full-stack engineer for robotics: ROS 2 to embedded firmware to
+             CAD to manufactured parts. My philosophy is that depth in one layer 
+             makes you sharper in every other — you design better hardware when you 
+             know how it'll be controlled, and write better software when you've machined 
+             the thing it runs on. I've taken autonomy systems from concept to working robot,
+              and diagnosed failures that turned out to be mechanical, electrical, and 
+              software problems all at once. */}
           </Section>
           </motion.div>
 
