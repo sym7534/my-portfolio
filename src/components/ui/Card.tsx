@@ -176,8 +176,10 @@ export function ExperienceCard({
     <Card
       variant="gradient"
       className={cn(
-        "[container-type:inline-size] border transition-colors duration-200 cursor-pointer p-2",
-        isExpanded ? "border-border-card" : "border-transparent hover:border-text-secondary/30",
+        "[container-type:inline-size] border transition-colors cursor-pointer p-2",
+        isExpanded
+          ? "border-border-card duration-200"
+          : "border-transparent duration-700 hover:border-text-secondary/30 hover:duration-0",
         className
       )}
       onMouseEnter={onMouseEnter}
@@ -210,8 +212,8 @@ export function ExperienceCard({
       {(description || skills) && (
         <div
           className={cn(
-            "grid transition-[grid-template-rows] duration-300 ease-out",
-            isExpanded ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
+            "grid transition-[grid-template-rows] ease-out",
+            isExpanded ? "grid-rows-[1fr] duration-300" : "grid-rows-[0fr] duration-700"
           )}
         >
           <div className="overflow-hidden">
