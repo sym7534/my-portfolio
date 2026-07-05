@@ -82,6 +82,207 @@ function AboutLi({ children }: { children: React.ReactNode }) {
   );
 }
 
+const TYPED_PREFIX = "hey, i'm ";
+const TYPED_NAME = "Ryan Wang";
+const TYPED_SMILEY = " :)";
+const TYPED_PAUSE = 1100;
+const SMILEY_WAIT = 5000;
+const SMILEY_PAUSE = 1600;
+const START_DELAY = 750;
+
+type TypingPhase =
+  | "idle"
+  | "typing"
+  | "deleting"
+  | "smiley-wait"
+  | "smiley-typing"
+  | "smiley-deleting"
+  | "done";
+
+/** Human-ish keystroke delay: mostly steady, with occasional hesitation. */
+function typeDelay() {
+  return Math.random() < 0.12
+    ? 260 + Math.random() * 180 // brief hesitation
+    : 95 + Math.random() * 80; // normal keystroke
+}
+
+/** Backspace rhythm: quick bursts broken up by pauses (delete... delete delete delete). */
+function deleteDelay() {
+  return Math.random() < 0.28
+    ? 320 + Math.random() * 260 // pause between bursts
+    : 75 + Math.random() * 55; // rapid presses within a burst
+}
+
+/**
+ * Hero heading that types out "hey, i'm Ryan Wang", pauses, then
+ * backspaces the "hey, i'm " part so only the name remains.
+ */
+function TypedHeading() {
+  const [prefixCount, setPrefixCount] = useState(0);
+  const [nameCount, setNameCount] = useState(0);
+  const [smileyCount, setSmileyCount] = useState(0);
+  const [phase, setPhase] = useState<TypingPhase>("idle");
+
+  const typedAll =
+    prefixCount === TYPED_PREFIX.length && nameCount === TYPED_NAME.length;
+
+  useEffect(() => {
+    if (phase === "done") return;
+
+    // Reduced motion: skip straight to the final state
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      const id = window.setTimeout(() => {
+        setPrefixCount(0);
+        setNameCount(TYPED_NAME.length);
+        setSmileyCount(0);
+        setPhase("done");
+      }, 0);
+      return () => window.clearTimeout(id);
+    }
+
+    let id: number;
+    if (phase === "idle") {
+      id = window.setTimeout(() => setPhase("typing"), START_DELAY);
+    } else if (phase === "typing") {
+      if (prefixCount < TYPED_PREFIX.length) {
+        id = window.setTimeout(() => setPrefixCount((c) => c + 1), typeDelay());
+      } else if (nameCount < TYPED_NAME.length) {
+        id = window.setTimeout(() => setNameCount((c) => c + 1), typeDelay());
+      } else {
+        id = window.setTimeout(() => setPhase("deleting"), TYPED_PAUSE);
+      }
+    } else if (phase === "deleting") {
+      if (prefixCount > 0) {
+        id = window.setTimeout(() => setPrefixCount((c) => c - 1), deleteDelay());
+      } else {
+        id = window.setTimeout(() => setPhase("smiley-wait"), 0);
+      }
+    } else if (phase === "smiley-wait") {
+      id = window.setTimeout(() => setPhase("smiley-typing"), SMILEY_WAIT);
+    } else if (phase === "smiley-typing") {
+      if (smileyCount < TYPED_SMILEY.length) {
+        id = window.setTimeout(() => setSmileyCount((c) => c + 1), typeDelay());
+      } else {
+        id = window.setTimeout(() => setPhase("smiley-deleting"), SMILEY_PAUSE);
+      }
+    } else {
+      if (smileyCount > 0) {
+        id = window.setTimeout(() => setSmileyCount((c) => c - 1), deleteDelay());
+      } else {
+        id = window.setTimeout(() => setPhase("done"), 600);
+      }
+    }
+    return () => window.clearTimeout(id);
+  }, [phase, prefixCount, nameCount, smileyCount]);
+
+  const blinking =
+    phase === "idle" ||
+    (phase === "typing" && typedAll) ||
+    (phase === "smiley-typing" && smileyCount === TYPED_SMILEY.length);
+
+  const cursor = (
+    <span
+      aria-hidden="true"
+      className={`inline-block w-[3px] h-[0.7em] ml-[0.08em] bg-text-secondary ${
+        blinking ? "animate-blink" : ""
+      }`}
+    />
+  );
+
+  return (
+    <h1 className="font-serif text-[clamp(2.75rem,2rem+2.5vw,3.75rem)] text-text-secondary leading-tight">
+      <span className="sr-only">hey, i&apos;m Ryan Wang</span>
+      <span aria-hidden="true">
+        {TYPED_PREFIX.slice(0, prefixCount)}
+        {phase === "deleting" && cursor}
+        <span className="text-text-primary">
+          {TYPED_NAME.slice(0, nameCount)}
+          {TYPED_SMILEY.slice(0, smileyCount)}
+        </span>
+        {phase !== "deleting" && phase !== "done" && phase !== "smiley-wait" && cursor}
+      </span>
+    </h1>
+  );
+}
+
+/**
+ * Subtle motion-blur trail for the mouse cursor. The native OS pointer is
+ * left untouched — a soft, velocity-stretched smear is drawn behind it,
+ * visible only while the pointer is moving.
+ */
+function CursorTrail() {
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!window.matchMedia("(pointer: fine)").matches) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const el = ref.current;
+    if (!el) return;
+
+    let raf = 0;
+    let tx = -100;
+    let ty = -100;
+    let x = tx;
+    let y = ty;
+    let visible = false;
+
+    const onMove = (e: PointerEvent) => {
+      tx = e.clientX;
+      ty = e.clientY;
+      if (!visible) {
+        x = tx;
+        y = ty;
+        visible = true;
+      }
+    };
+    const onLeave = () => {
+      visible = false;
+    };
+
+    window.addEventListener("pointermove", onMove);
+    document.documentElement.addEventListener("pointerleave", onLeave);
+
+    let last = performance.now();
+    const tick = (now: number) => {
+      const dt = Math.min((now - last) / 1000, 0.05);
+      last = now;
+      if (dt > 0) {
+        const px = x;
+        const py = y;
+        // Exponential lerp toward the pointer — the lag is what creates the trail
+        const k = 1 - Math.exp(-18 * dt);
+        x += (tx - x) * k;
+        y += (ty - y) * k;
+        const vx = (x - px) / dt;
+        const vy = (y - py) / dt;
+        const speed = Math.hypot(vx, vy);
+        const angle = Math.atan2(vy, vx);
+        const stretch = Math.min(1 + speed / 900, 3.2);
+        const squash = Math.max(1 - speed / 4000, 0.55);
+        const opacity = visible ? Math.min(speed / 2500, 0.3) : 0;
+        el.style.opacity = String(opacity);
+        el.style.transform = `translate(${x - 6}px, ${y - 6}px) rotate(${angle}rad) scaleX(${stretch}) scaleY(${squash})`;
+      }
+      raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("pointermove", onMove);
+      document.documentElement.removeEventListener("pointerleave", onLeave);
+    };
+  }, []);
+
+  return (
+    <div
+      ref={ref}
+      aria-hidden="true"
+      className="fixed left-0 top-0 z-[9999] w-3 h-3 rounded-full bg-text-secondary pointer-events-none blur-[5px] opacity-0"
+    />
+  );
+}
+
 const stagger = {
   hidden: {},
   visible: { transition: { staggerChildren: 0.08, delayChildren: 0.15 } },
@@ -413,9 +614,7 @@ export default function Home() {
           {/* Hero Section */}
           <motion.div variants={fadeUp}>
           <Section className="mb-[clamp(1rem,3vh,2rem)]">
-            <h1 className="font-serif text-xl text-text-secondary leading-tight">
-              hey, i&apos;m <span className="text-text-primary">Ryan Wang</span>
-            </h1>
+            <TypedHeading />
             <div className="w-full max-w-md h-px bg-text-secondary/20 my-[clamp(0.75rem,2.5vh,1.5rem)]" />
             <p className="font-sans font-light text-sm text-text-secondary">
               <span>mechatronics engineering</span> @
@@ -832,7 +1031,7 @@ export default function Home() {
         >
         <Section className="mt-12">
           <div className="flex items-center gap-4 mb-6">
-            <h2 className="font-serif text-lg text-text-primary tracking-wide">PROJECTS</h2>
+            <h2 className="font-serif text-lg text-text-secondary tracking-wide">PROJECTS</h2>
             <button
               onClick={() => setProjectFilter(projectFilter === "software" ? "all" : "software")}
               className={`font-sans text-sm transition-colors ${
@@ -886,6 +1085,8 @@ export default function Home() {
       </Panel>
 
       <ScrollIndicator scrollRef={rightPanelRef} />
+
+      <CursorTrail />
 
       <ProjectDetailModal
         project={selectedProject}

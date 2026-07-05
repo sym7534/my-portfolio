@@ -36,9 +36,10 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
         <input
           ref={ref}
           className={cn(
-            "w-full animate-shimmer rounded-sm px-4 py-2",
+            "w-full animate-shimmer rounded-md border border-border-card px-4 py-2.5",
             "font-serif text-sm text-text-primary",
-            "focus:outline-none focus:ring-1 focus:ring-text-secondary",
+            "transition-colors duration-300 hover:border-text-secondary/40",
+            "focus:outline-none focus:border-text-secondary/50 focus:ring-1 focus:ring-text-secondary/20",
             icon && "pr-14",
             className
           )}

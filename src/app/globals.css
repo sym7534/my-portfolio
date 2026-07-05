@@ -73,9 +73,9 @@ html.dark {
   /* Gradient for experience cards */
   --gradient-card: linear-gradient(to right, #f9f9f9, #ffffff);
 
-  /* Shimmer colors */
-  --shimmer-color-1: #efefef;
-  --shimmer-color-2: #f8f8f8;
+  /* Shimmer colors (kept close together so the sweep reads as a faint sheen) */
+  --shimmer-color-1: #f7f7f7;
+  --shimmer-color-2: #fbfbfb;
   --shimmer-color-3: #ffffff;
 
   /* Grid pattern */
@@ -84,9 +84,9 @@ html.dark {
 
 html.dark {
   --gradient-card: linear-gradient(to right, #1a1a1a, #0a0a0a);
-  --shimmer-color-1: #1a1a1a;
-  --shimmer-color-2: #252525;
-  --shimmer-color-3: #2a2a2a;
+  --shimmer-color-1: #111111;
+  --shimmer-color-2: #151515;
+  --shimmer-color-3: #1a1a1a;
   --grid-color: rgba(255, 255, 255, 0.06);
 }
 
@@ -156,7 +156,7 @@ html.dark {
     var(--shimmer-color-1) 100%
   );
   background-size: 200% 100%;
-  animation: shimmer 4s ease-in-out infinite;
+  animation: shimmer 8s ease-in-out infinite;
 }
 
 /* Divider grow animation */

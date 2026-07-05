@@ -31,7 +31,8 @@ export function Card({
       className={cn(
         "rounded-md p-4",
         variant === "solid" && "bg-bg-card",
-        variant === "gradient" && "bg-gradient-to-r from-bg-card to-bg-white",
+        variant === "gradient" &&
+          "bg-gradient-to-r from-bg-card to-bg-white bg-origin-border bg-no-repeat",
         variant === "translucent" && "bg-card-translucent",
         className
       )}
@@ -203,7 +204,7 @@ export function ExperienceCard({
             {subtitle}
           </p>
         </div>
-        <span className="flex-shrink-0 font-sans text-xs text-text-secondary underline text-nowrap">
+        <span className="flex-shrink-0 font-sans text-xs text-text-secondary text-nowrap">
           {date}
         </span>
       </div>
