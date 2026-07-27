@@ -61,19 +61,8 @@ interface ExperienceCardProps {
   className?: string;
 }
 
-const MAX_TITLE_SIZE = 30;
+const MAX_TITLE_SIZE = 21;
 const MIN_TITLE_SIZE = 14;
-
-/**
- * Skill tag pill for experience cards.
- */
-function SkillTag({ children }: { children: React.ReactNode }) {
-  return (
-    <span className="bg-bg-white rounded-sm px-2 py-0.5 text-[12px] text-skill-tag-text font-sans">
-      {children}
-    </span>
-  );
-}
 
 /**
  * Experience card with logo, title, subtitle, and date.
@@ -174,13 +163,9 @@ export function ExperienceCard({
   }, [isControlled, onTitleSizeChange, title, titleSize]);
 
   return (
-    <Card
-      variant="gradient"
+    <div
       className={cn(
-        "[container-type:inline-size] border transition-colors cursor-pointer p-2",
-        isExpanded
-          ? "border-border-card duration-200"
-          : "border-transparent duration-700 hover:border-text-secondary/30 hover:duration-0",
+        "[container-type:inline-size] cursor-pointer border-b border-border-card py-3 last:border-0",
         className
       )}
       onMouseEnter={onMouseEnter}
@@ -188,8 +173,8 @@ export function ExperienceCard({
       onClick={onClick}
     >
       {/* Header row */}
-      <div className="flex items-center gap-4">
-        <div className="flex-shrink-0 size-[var(--icon-logo)] rounded-md overflow-hidden">
+      <div className="flex items-center gap-3">
+        <div className="flex-shrink-0 size-8 rounded-[3px] overflow-hidden">
           {logo}
         </div>
         <div className="flex-1 min-w-0">
@@ -200,11 +185,11 @@ export function ExperienceCard({
           >
             {title}
           </h3>
-          <p className="font-sans font-light text-xs text-text-muted">
+          <p className="font-serif italic text-[13px] text-text-muted">
             {subtitle}
           </p>
         </div>
-        <span className="flex-shrink-0 font-sans text-xs text-text-secondary text-nowrap">
+        <span className="flex-shrink-0 font-serif italic text-[13px] text-text-muted text-nowrap">
           {date}
         </span>
       </div>
@@ -218,23 +203,21 @@ export function ExperienceCard({
           )}
         >
           <div className="overflow-hidden">
-            <div className="pt-3">
+            <div className="pt-2.5">
               {description && (
-                <p className="font-sans font-light text-[14px] text-text-secondary leading-normal mb-2">
+                <p className="font-serif text-[14.5px] text-text-secondary leading-[1.55] mb-1.5">
                   {description}
                 </p>
               )}
               {skills && skills.length > 0 && (
-                <div className="flex flex-wrap gap-1.5">
-                  {skills.map((skill) => (
-                    <SkillTag key={skill}>{skill}</SkillTag>
-                  ))}
-                </div>
+                <p className="font-serif italic text-[12.5px] text-text-muted">
+                  {skills.join(" · ")}
+                </p>
               )}
             </div>
           </div>
         </div>
       )}
-    </Card>
+    </div>
   );
 }
