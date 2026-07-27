@@ -3,6 +3,14 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
+import { Fraunces } from "next/font/google";
+
+const fraunces = Fraunces({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-fraunces",
+  axes: ["opsz", "SOFT", "WONK"],
+});
 import { Analytics } from "@vercel/analytics/next";
 
 export const metadata: Metadata = {
@@ -14,10 +22,9 @@ export const metadata: Metadata = {
     description: "Mechatronics engineering @ UWaterloo",
     siteName: "Ryan Wang",
     type: "website",
-    images: [],
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     title: "Ryan Wang | Portfolio",
     description: "Mechatronics engineering @ UWaterloo",
   },
@@ -43,7 +50,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${GeistSans.variable} ${GeistMono.variable}`}
+      className={`${GeistSans.variable} ${GeistMono.variable} ${fraunces.variable}`}
       suppressHydrationWarning
     >
       <head>

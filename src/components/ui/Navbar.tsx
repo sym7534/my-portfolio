@@ -26,7 +26,7 @@ export function Navbar({ items, className }: NavbarProps) {
           rel="noopener noreferrer"
           aria-label={item.label}
           className={cn(
-            "text-text-primary hover:text-text-secondary",
+            "text-text-secondary hover:text-text-primary",
             "transition-all duration-200",
             "hover:scale-110 hover:-translate-y-0.5",
             "focus:outline-none focus-visible:ring-2 focus-visible:ring-text-secondary"
