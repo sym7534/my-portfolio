@@ -1,8 +1,9 @@
 "use client";
 
-import { useRef, useEffect, useState } from "react";
+import { useRef } from "react";
 import { motion, useMotionValue, useSpring } from "motion/react";
 import { cn } from "@/lib/utils";
+import { useIsMobile } from "@/lib/useMediaQuery";
 
 interface TiltedCardProps {
   imageSrc?: string;
@@ -21,18 +22,6 @@ const springValues = {
   stiffness: 100,
   mass: 2,
 };
-
-function useIsMobile() {
-  const [isMobile, setIsMobile] = useState(false);
-  useEffect(() => {
-    const mql = window.matchMedia("(max-width: 1023px)");
-    setIsMobile(mql.matches);
-    const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);
-    mql.addEventListener("change", handler);
-    return () => mql.removeEventListener("change", handler);
-  }, []);
-  return isMobile;
-}
 
 /**
  * 3D tilting card with spring physics.

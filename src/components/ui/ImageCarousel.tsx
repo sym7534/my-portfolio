@@ -3,6 +3,7 @@
 import { useState, useRef, useCallback, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import type { ProjectImage } from "@/types/project";
+import { useIsMobile } from "@/lib/useMediaQuery";
 
 interface ImageCarouselProps {
   images: ProjectImage[];
@@ -19,18 +20,6 @@ function getSpans(w: number, h: number, cols: number): Spans {
 }
 
 const HOVER_COL_SPAN = 2;
-
-function useIsMobile() {
-  const [isMobile, setIsMobile] = useState(false);
-  useEffect(() => {
-    const mql = window.matchMedia("(max-width: 1023px)");
-    setIsMobile(mql.matches);
-    const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);
-    mql.addEventListener("change", handler);
-    return () => mql.removeEventListener("change", handler);
-  }, []);
-  return isMobile;
-}
 
 export function ImageCarousel({ images }: ImageCarouselProps) {
   const isMobile = useIsMobile();
