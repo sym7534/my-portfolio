@@ -14,7 +14,6 @@ import {
   LinkedInIcon,
   GitHubIcon,
   TwitterIcon,
-  TiltedCard,
   ThemeToggle,
   ProjectDetailModal,
   ScrollIndicator,
@@ -23,6 +22,7 @@ import {
   AboutLi,
   InlineIcon,
 } from "@/components";
+import { Plate } from "@/components/ui/Plate";
 import { MotionConfig, motion } from "motion/react";
 import type { Project } from "@/types/project";
 import Image from "next/image";
@@ -343,7 +343,11 @@ export default function Home() {
             </button>
           </div>
           {(() => {
-            const filtered = projects.filter(p => p.slug !== "atv" && (projectFilter === "all" || p.category === projectFilter || p.category === "both"));
+            const numbered = projects.filter(p => p.slug !== "atv");
+            const numberOf = new Map(
+              numbered.map((p, i) => [p.slug, String(i + 1).padStart(2, "0")])
+            );
+            const filtered = numbered.filter(p => projectFilter === "all" || p.category === projectFilter || p.category === "both");
             const marsRover = filtered.find(p => p.slug === "mars-rover");
             const rest = filtered.filter(p => p.slug !== "mars-rover");
             const leftCol: Project[] = [];
@@ -351,21 +355,18 @@ export default function Home() {
             rest.forEach((p, i) => (i % 2 === 0 ? leftCol : rightCol).push(p));
             if (marsRover) rightCol.unshift(marsRover);
             const renderCard = (project: Project) => (
-              <TiltedCard
-                key={project.title}
-                imageSrc={project.imageSrc}
-                altText={project.altText}
-                title={project.title}
-                caption={project.caption}
-                href={project.href}
-                onClick={() => openProject(project)}
-                className="mb-4"
+              <Plate
+                key={project.slug}
+                index={numberOf.get(project.slug) ?? "00"}
+                project={project}
+                onOpen={() => openProject(project)}
+                className="mb-5"
               />
             );
             return (
-              <div className="flex gap-4">
-                <div className="flex-1 flex flex-col">{leftCol.map(renderCard)}</div>
-                <div className="flex-1 flex flex-col">{rightCol.map(renderCard)}</div>
+              <div className="flex gap-5">
+                <div className="min-w-0 flex-1 flex flex-col">{leftCol.map(renderCard)}</div>
+                <div className="min-w-0 flex-1 flex flex-col">{rightCol.map(renderCard)}</div>
               </div>
             );
           })()}

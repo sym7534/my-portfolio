@@ -31,7 +31,7 @@
   /* === TYPOGRAPHY === */
 
   /* Font Families */
-  --font-serif: "Times New Roman", Times, serif;
+  --font-serif: var(--font-newsreader), "Times New Roman", Times, serif;
   --font-sans: var(--font-geist-sans), system-ui, -apple-system, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, monospace;
 
@@ -160,11 +160,12 @@ html.dark {
   animation: shimmer 8s ease-in-out infinite;
 }
 
-/* Subtle grid background for right panel */
+/* Subtle dot-grid background for right panel (gallery wall) */
 .bg-grid {
   background-color: var(--color-bg-light);
-  background-image:
-    linear-gradient(var(--grid-color) 1px, transparent 1px),
-    linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
-  background-size: 48px 48px;
+  background-image: radial-gradient(
+    var(--grid-color) 1.2px,
+    transparent 1.2px
+  );
+  background-size: 22px 22px;
 }

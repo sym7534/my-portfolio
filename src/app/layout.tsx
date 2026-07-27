@@ -3,7 +3,16 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
+import { Newsreader } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
+
+const newsreader = Newsreader({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-newsreader",
+  style: ["normal", "italic"],
+  axes: ["opsz"],
+});
 
 export const metadata: Metadata = {
   title: "Ryan Wang | Portfolio",
@@ -14,10 +23,9 @@ export const metadata: Metadata = {
     description: "Mechatronics engineering @ UWaterloo",
     siteName: "Ryan Wang",
     type: "website",
-    images: [],
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     title: "Ryan Wang | Portfolio",
     description: "Mechatronics engineering @ UWaterloo",
   },
@@ -43,7 +51,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${GeistSans.variable} ${GeistMono.variable}`}
+      className={`${GeistSans.variable} ${GeistMono.variable} ${newsreader.variable}`}
       suppressHydrationWarning
     >
       <head>
