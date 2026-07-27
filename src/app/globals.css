@@ -1,37 +1,40 @@
 @import "tailwindcss";
 
-/* Enable class-based dark mode for Tailwind v4 */
-@variant dark (&:where(.dark, .dark *));
-
 /* ============================================
-   DESIGN TOKENS - Portfolio v3
-   Extracted from Figma design
+   DESIGN TOKENS - signal (dark-only brand system)
+   Near-black canvas, one signal-orange accent,
+   variable-width Archivo display type.
+   Token NAMES match the other branches; only values differ.
    ============================================ */
 
 @theme {
   /* === COLORS === */
 
   /* Background Colors */
-  --color-bg-white: #ffffff;
-  --color-bg-light: #f6f6f6;
-  --color-bg-card: #f9f9f9;
-  --color-card-translucent: rgba(217, 217, 217, 0.29);
-  --color-card-caption: #f4f4f4;
+  --color-bg-white: #0e0e10;
+  --color-bg-light: #131316;
+  --color-bg-card: #17171a;
+  --color-card-translucent: rgba(40, 40, 44, 0.5);
+  --color-card-caption: #17171a;
 
   /* Text Colors */
-  --color-text-primary: #000000;
-  --color-text-secondary: #909090;
-  --color-text-muted: #919191;
-  --color-text-section: #7d7575;
+  --color-text-primary: #f5f5f3;
+  --color-text-secondary: #8a8a93;
+  --color-text-muted: #6b6b74;
+  --color-text-section: #9a9aa3;
 
   /* Border Colors */
-  --color-border-card: #e7e7e7;
-  --color-skill-tag-text: #777777;
+  --color-border-card: rgba(255, 255, 255, 0.09);
+  --color-skill-tag-text: #8a8a93;
+
+  /* The one accent: signal orange */
+  --color-accent: #ff4d00;
 
   /* === TYPOGRAPHY === */
 
   /* Font Families */
-  --font-serif: "Times New Roman", Times, serif;
+  --font-archivo: var(--font-archivo-var), "Arial Narrow", sans-serif;
+  --font-serif: var(--font-archivo-var), Arial, sans-serif;
   --font-sans: var(--font-geist-sans), system-ui, -apple-system, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, monospace;
 
@@ -49,46 +52,22 @@
   --radius-md: 0.625rem;  /* 10px */
 }
 
-/* === DARK MODE OVERRIDES === */
-html.dark {
-  --color-bg-white: #0a0a0a;
-  --color-bg-light: #141414;
-  --color-bg-card: #1a1a1a;
-  --color-card-translucent: rgba(40, 40, 40, 0.5);
-  --color-card-caption: #1a1a1a;
-  --color-text-primary: #f0f0f0;
-  --color-text-secondary: #b8b8b8;
-  --color-text-muted: #a8a8a8;
-  --color-text-section: #c0b6b6;
-  --color-border-card: #2a2a2a;
-  --color-skill-tag-text: #a0a0a0;
-}
-
 /* === NON-UTILITY VARIABLES === */
 :root {
+  color-scheme: dark;
+
   /* Icon sizes */
   --icon-social: 1.5rem;    /* 24px */
   --icon-skill: 2.1875rem;  /* 35px */
   --icon-logo: 3.125rem;    /* 50px */
 
   /* Gradient for experience cards */
-  --gradient-card: linear-gradient(to right, #f9f9f9, #ffffff);
+  --gradient-card: linear-gradient(to right, #17171a, #0e0e10);
 
   /* Shimmer colors (kept close together so the sweep reads as a faint sheen) */
-  --shimmer-color-1: #f7f7f7;
-  --shimmer-color-2: #fbfbfb;
-  --shimmer-color-3: #ffffff;
-
-  /* Grid pattern */
-  --grid-color: rgba(0, 0, 0, 0.06);
-}
-
-html.dark {
-  --gradient-card: linear-gradient(to right, #1a1a1a, #0a0a0a);
-  --shimmer-color-1: #111111;
-  --shimmer-color-2: #151515;
-  --shimmer-color-3: #1a1a1a;
-  --grid-color: rgba(255, 255, 255, 0.06);
+  --shimmer-color-1: #131316;
+  --shimmer-color-2: #17171a;
+  --shimmer-color-3: #1b1b1f;
 }
 
 /* === BASE STYLES === */
@@ -118,6 +97,10 @@ html.dark {
 
   *::-webkit-scrollbar {
     display: none;
+  }
+
+  ::selection {
+    background: color-mix(in srgb, var(--color-accent) 30%, transparent);
   }
 }
 
@@ -160,11 +143,73 @@ html.dark {
   animation: shimmer 8s ease-in-out infinite;
 }
 
-/* Subtle grid background for right panel */
-.bg-grid {
-  background-color: var(--color-bg-light);
-  background-image:
-    linear-gradient(var(--grid-color) 1px, transparent 1px),
-    linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
-  background-size: 48px 48px;
+/* === SIGNAL: variable-width slam === */
+.hero-name {
+  font-variation-settings: "wdth" 62;
+}
+
+@keyframes wdth-slam {
+  from {
+    font-variation-settings: "wdth" 62;
+  }
+  to {
+    font-variation-settings: "wdth" 125;
+  }
+}
+
+.hero-name.slam {
+  animation: wdth-slam 0.45s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-name,
+  .hero-name.slam {
+    font-variation-settings: "wdth" 125;
+    animation: none;
+  }
+}
+
+/* === SIGNAL: marquee ticker === */
+.marquee {
+  overflow: hidden;
+  mask-image: linear-gradient(
+    90deg,
+    transparent,
+    black 8%,
+    black 92%,
+    transparent
+  );
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+  animation: marquee 30s linear infinite;
+}
+
+.marquee-half {
+  display: flex;
+  flex-shrink: 0;
+}
+
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.marquee:hover .marquee-track,
+.marquee:focus-within .marquee-track {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
+  }
+  .marquee {
+    overflow-x: auto;
+    mask-image: none;
+  }
 }

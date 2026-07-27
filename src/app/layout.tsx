@@ -1,9 +1,16 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { ThemeProvider } from "@/components/ThemeProvider";
 import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
+import { Archivo } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
+
+const archivo = Archivo({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-archivo-var",
+  axes: ["wdth"],
+});
 
 export const metadata: Metadata = {
   title: "Ryan Wang | Portfolio",
@@ -14,26 +21,13 @@ export const metadata: Metadata = {
     description: "Mechatronics engineering @ UWaterloo",
     siteName: "Ryan Wang",
     type: "website",
-    images: [],
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     title: "Ryan Wang | Portfolio",
     description: "Mechatronics engineering @ UWaterloo",
   },
 };
-
-// Blocking script to prevent flash of wrong theme (FOUC)
-const themeScript = `
-(function() {
-  try {
-    var theme = localStorage.getItem('theme');
-    if (theme === 'dark' || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-      document.documentElement.classList.add('dark');
-    }
-  } catch (e) {}
-})();
-`;
 
 export default function RootLayout({
   children,
@@ -43,14 +37,10 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${GeistSans.variable} ${GeistMono.variable}`}
-      suppressHydrationWarning
+      className={`${GeistSans.variable} ${GeistMono.variable} ${archivo.variable}`}
     >
-      <head>
-        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
-      </head>
       <body className="font-sans antialiased">
-        <ThemeProvider>{children}</ThemeProvider>
+        {children}
         <Analytics />
       </body>
     </html>
