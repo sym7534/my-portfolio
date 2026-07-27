@@ -1,387 +1,233 @@
 "use client";
 
-import { Fragment, useEffect, useRef, useState } from "react";
-import {
-  Container,
-  Panel,
-  Section,
-  ExperienceCard,
-  Input,
-  ArrowIcon,
-  Navbar,
-  DevpostIcon,
-  EmailIcon,
-  LinkedInIcon,
-  GitHubIcon,
-  TwitterIcon,
-  TiltedCard,
-  ThemeToggle,
-  ProjectDetailModal,
-  ScrollIndicator,
-  TypedHeading,
-  CursorTrail,
-  AboutLi,
-  InlineIcon,
-} from "@/components";
-import { MotionConfig, motion } from "motion/react";
-import type { Project } from "@/types/project";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { ThemeToggle, ProjectDetailModal, TypedHeading } from "@/components";
+import { DitherHand } from "@/components/DitherHand";
 import { projects } from "@/data/projects";
-import { experience } from "@/data/experience";
-import { socialLinks as socialLinkData, type SocialIconKey } from "@/data/socials";
-import { aboutItems, type AboutSegment } from "@/data/about";
-import { BIO, RESUME_PATH, UWATERLOO_URL, WEBRING_BASE_URL, WEBRING_SITE } from "@/data/site";
+import { RESUME_PATH, UWATERLOO_URL, WEBRING_BASE_URL, WEBRING_SITE } from "@/data/site";
 import { useProjectModal } from "@/lib/useProjectModal";
 import { useSendMessage } from "@/lib/useSendMessage";
+import { cn } from "@/lib/utils";
 
-const ease = [0.22, 1, 0.36, 1] as const;
-
-const stagger = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.08, delayChildren: 0.15 } },
-};
-
-const fadeUp = {
-  hidden: { opacity: 0, y: 16 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.5, ease },
-  },
-};
-
-const scrollReveal = {
-  hidden: { opacity: 0, y: 24 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.6, ease },
-  },
-};
-
-const MAX_EXPERIENCE_TITLE_SIZE = 30;
-
-const socialIcons: Record<SocialIconKey, React.ReactNode> = {
-  devpost: <DevpostIcon />,
-  email: <EmailIcon />,
-  linkedin: <LinkedInIcon />,
-  github: <GitHubIcon />,
-  twitter: <TwitterIcon />,
-};
-
-function renderAboutSegments(segments: AboutSegment[]) {
-  return segments.map((segment, i) =>
-    typeof segment === "string" ? (
-      <Fragment key={i}>{segment}</Fragment>
-    ) : (
-      <span key={i} className="inline-flex items-baseline gap-1 ml-2">
-        <InlineIcon icon={segment.icon} />
-        {segment.label}
-      </span>
-    )
+/** Small logo sitting inline in running text, like a favicon before a name. */
+function OrgIcon({ src, alt }: { src: string; alt: string }) {
+  return (
+    <Image
+      src={src}
+      alt={alt}
+      width={16}
+      height={16}
+      className="relative top-[3px] mr-1 inline-block rounded-[3px] object-contain"
+    />
   );
 }
 
+const prose = "font-serif text-lg leading-[1.63] text-text-secondary";
+const inkLink =
+  "text-text-primary underline decoration-1 underline-offset-[3px] decoration-text-muted/60 transition-colors hover:decoration-text-primary";
+const quietLink =
+  "text-text-muted underline decoration-1 underline-offset-[3px] decoration-text-muted/50 transition-colors hover:text-text-primary";
+
 export default function Home() {
-  const rightPanelRef = useRef<HTMLDivElement>(null);
-  const [expandedId, setExpandedId] = useState<string | null>(null);
-  const [experienceTitleSize, setExperienceTitleSize] = useState(
-    MAX_EXPERIENCE_TITLE_SIZE
-  );
-  const [projectFilter, setProjectFilter] = useState<"all" | "software" | "mechanical">("all");
   const { selectedProject, openProject } = useProjectModal(projects);
   const { message, setMessage, isSending, handleSendMessage } = useSendMessage();
+  const [sent, setSent] = useState(false);
 
   // Fire-and-forget visit notification
   useEffect(() => {
     fetch("/api/visit", { method: "POST" });
   }, []);
 
-  const handleMouseEnter = (id: string) => setExpandedId(id);
-  const handleMouseLeave = () => setExpandedId(null);
-  const handleClick = (id: string) => {
-    // For mobile tap-to-toggle
-    setExpandedId((prev) => (prev === id ? null : id));
+  const send = async () => {
+    const ok = await handleSendMessage();
+    if (ok) {
+      setSent(true);
+      window.setTimeout(() => setSent(false), 2500);
+    }
   };
 
-  useEffect(() => {
-    let lastWidth = window.innerWidth;
-    const handleResize = () => {
-      if (window.innerWidth !== lastWidth) {
-        lastWidth = window.innerWidth;
-        setExperienceTitleSize(MAX_EXPERIENCE_TITLE_SIZE);
-      }
-    };
-
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
-  const handleExperienceTitleSize = (size: number) => {
-    setExperienceTitleSize((current) => Math.min(current, size));
-  };
-
-  const socialLinks = socialLinkData.map((link) => ({
-    label: link.label,
-    href: link.href,
-    icon: socialIcons[link.iconKey],
-  }));
+  const list = projects.filter((p) => p.slug !== "atv");
+  const mid = Math.ceil(list.length / 2);
+  const columns = [list.slice(0, mid), list.slice(mid)];
 
   return (
-    <MotionConfig reducedMotion="user">
-    <Container>
-      {/* Left Panel - Main Content (sticky, doesn't scroll) */}
-      <Panel side="left" className="flex flex-col">
-        <motion.div variants={stagger} initial="hidden" animate="visible">
-          {/* Hero Section */}
-          <motion.div variants={fadeUp}>
-          <Section className="mb-[clamp(1rem,3vh,2rem)]">
-            <TypedHeading />
-            <div className="w-full max-w-md h-px bg-text-secondary/20 my-[clamp(0.75rem,2.5vh,1.5rem)]" />
-            <p className="font-sans font-light text-sm text-text-secondary">
-              <span>mechatronics engineering</span> @
-              <span className="inline-flex items-baseline gap-1 ml-2">
-                <InlineIcon icon="uwaterloo" />
-                <Link href={UWATERLOO_URL} className="font-medium">
-                  UWaterloo
-                </Link>
-              </span>
-            </p>
-            <p className="font-sans font-light text-sm text-text-secondary mt-2">
-              {BIO}
-            </p>
-          </Section>
-          </motion.div>
+    <>
+      <div className="fade-in grid min-h-screen lg:h-screen lg:grid-cols-2 lg:overflow-hidden">
+        {/* Text */}
+        <section className="flex items-center justify-center px-6 py-12 lg:h-full lg:py-0">
+          <div className="w-full max-w-[460px]">
+            <TypedHeading className="text-4xl font-bold leading-[2.75rem]" />
 
-          {/* Social Links - fixed below bio */}
-          <motion.div variants={fadeUp}>
-          <div className="flex items-center gap-4 mb-[clamp(1rem,3vh,2rem)]">
-            <Navbar items={socialLinks} />
-            <div className="ml-auto flex items-center gap-3">
-              <Link
-                href={RESUME_PATH}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="font-sans text-sm text-text-secondary hover:text-text-primary transition-colors"
-              >
-                my resume
-              </Link>
-              <ThemeToggle />
+            <p className={cn(prose, "mt-7")}>
+              I&apos;m a full-stack robotics engineer studying mechatronics at{" "}
+              <OrgIcon src="/assets/icons/UWaterloo.png" alt="UWaterloo" />
+              <a href={UWATERLOO_URL} className={inkLink}>
+                UWaterloo
+              </a>{" "}
+              — ROS 2 to firmware to CAD to machined parts. I like taking
+              systems from shower thought to fully fleshed autonomy.
+            </p>
+
+            <p className={cn(prose, "mt-5")}>
+              This summer I&apos;m building humanoid robots at{" "}
+              <OrgIcon src="/assets/images/AXIBO-logo.png" alt="AXIBO" />
+              <a href="https://axibo.com" className={inkLink}>
+                AXIBO
+              </a>
+              . Before that: perception and pathing on{" "}
+              <OrgIcon src="/assets/images/wato-logo.png" alt="WATonomous" />
+              <a href="https://watonomous.ca" className={inkLink}>
+                WATonomous
+              </a>
+              &apos; rover, and I directed{" "}
+              <OrgIcon
+                src="/assets/images/churchill-logo.png"
+                alt="Churchill Robotics"
+              />
+              Churchill Robotics — 10+ teams, 150+ members.
+            </p>
+
+            <p className={cn(prose, "mt-5")}>
+              My goal is to contribute to{" "}
+              <OrgIcon src="/assets/icons/neuralink.jpeg" alt="Neuralink" />
+              <a href="https://neuralink.com" className={inkLink}>
+                Neuralink
+              </a>
+              . Away from robots I play piano, violin, flute, and alto sax —
+              and, currently,{" "}
+              <OrgIcon src="/assets/icons/balatro.png" alt="Balatro" />
+              Balatro.
+            </p>
+
+            <p className={cn(prose, "mt-7 text-[15px] text-text-muted")}>
+              some things I&apos;ve built —
+            </p>
+            <div className="mt-2 grid grid-cols-2 gap-x-6">
+              {columns.map((col, ci) => (
+                <ul key={ci} className="space-y-[5px]">
+                  {col.map((p) => (
+                    <li key={p.slug}>
+                      <button
+                        type="button"
+                        onClick={() => openProject(p)}
+                        className={cn(
+                          "text-left font-serif text-[15px] leading-snug",
+                          inkLink
+                        )}
+                      >
+                        {p.title}
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              ))}
             </div>
-          </div>
-          </motion.div>
 
-          {/* Experience Section */}
-          <motion.div variants={fadeUp}>
-          <Section className="space-y-[clamp(0.5rem,2vh,1rem)]">
-            {experience.map((entry) => (
-              <ExperienceCard
-                key={entry.id}
-                logo={
-                  <Image
-                    src={entry.logoSrc}
-                    alt={entry.logoAlt}
-                    width={50}
-                    height={50}
-                    className="rounded-md object-cover"
-                  />
-                }
-                title={entry.title}
-                subtitle={entry.subtitle}
-                date={entry.date}
-                description={entry.description}
-                skills={entry.skills}
-                isExpanded={expandedId === entry.id}
-                titleSize={experienceTitleSize}
-                onTitleSizeChange={handleExperienceTitleSize}
-                onMouseEnter={() => handleMouseEnter(entry.id)}
-                onMouseLeave={handleMouseLeave}
-                onClick={() => handleClick(entry.id)}
-              />
-            ))}
-          </Section>
-          </motion.div>
+            <div className="mt-8 flex flex-wrap items-center gap-x-4 gap-y-1 font-serif text-xs">
+              <a href="https://x.com/symm7534" className={quietLink}>
+                x
+              </a>
+              <a
+                href="https://www.linkedin.com/in/ryan-muxi-wang/"
+                className={quietLink}
+              >
+                linkedin
+              </a>
+              <a href="https://github.com/sym7534" className={quietLink}>
+                github
+              </a>
+              <a href="https://devpost.com/ryan-muxiwang" className={quietLink}>
+                devpost
+              </a>
+              <a href="mailto:ryan.muxiwang@gmail.com" className={quietLink}>
+                email
+              </a>
+              <Link href={RESUME_PATH} target="_blank" className={quietLink}>
+                resume
+              </Link>
+            </div>
 
-          {/* Message Input */}
-          <motion.div variants={fadeUp}>
-          <Section className="mt-[clamp(1.5rem,4vh,3rem)]">
-            <Input
-              placeholder="leave me a message"
-              icon={<ArrowIcon />}
-              value={message}
-              onChange={(event) => setMessage(event.target.value)}
-              onKeyDown={(event) => {
-                if (event.key === "Enter") {
-                  event.preventDefault();
-                  void handleSendMessage();
-                }
+            <div className="mt-2 flex items-center gap-x-4 font-serif text-xs">
+              <Link
+                href={`${WEBRING_BASE_URL}/#${WEBRING_SITE}?nav=prev`}
+                aria-label="Previous site in tron webring"
+                className={quietLink}
+              >
+                ←
+              </Link>
+              <Link
+                href={`${WEBRING_BASE_URL}/#${WEBRING_SITE}`}
+                target="_blank"
+                rel="noreferrer"
+                className={quietLink}
+              >
+                tron webring
+              </Link>
+              <Link
+                href={`${WEBRING_BASE_URL}/#${WEBRING_SITE}?nav=next`}
+                aria-label="Next site in tron webring"
+                className={quietLink}
+              >
+                →
+              </Link>
+              <span className="ml-auto opacity-60 [&_svg]:size-4">
+                <ThemeToggle />
+              </span>
+            </div>
+
+            <form
+              className="mt-7"
+              onSubmit={(e) => {
+                e.preventDefault();
+                void send();
               }}
-              onIconClick={() => {
-                void handleSendMessage();
-              }}
-              maxLength={500}
-              aria-label="Leave a message"
-              aria-busy={isSending}
-            />
-          </Section>
-          </motion.div>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.6, ease: [0.22, 1, 0.36, 1] }}
-          className="flex items-center justify-between gap-4 font-sans text-xs text-text-secondary/50 mt-auto pt-4 pl-1 select-none"
-        >
-          <span>2026 &copy; Ryan Wang</span>
-          <div className="flex items-center gap-3">
-            <Link
-              href={`${WEBRING_BASE_URL}/#${WEBRING_SITE}?nav=prev`}
-              aria-label="Previous site"
-              className="group"
             >
-              <span
-                className="block w-[18px] h-[18px] bg-current opacity-60 group-hover:opacity-100 transition-opacity"
-                style={{
-                  maskImage: "url('/leftarrow.png')",
-                  WebkitMaskImage: "url('/leftarrow.png')",
-                  maskSize: "contain",
-                  maskRepeat: "no-repeat",
-                  maskPosition: "center",
-                }}
-              />
-            </Link>
-            <Link
-              href={`${WEBRING_BASE_URL}/#${WEBRING_SITE}`}
-              target="_blank"
-              rel="noreferrer"
-              aria-label="Tron Webring home"
-              className="group"
-            >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/tronchrome.png"
-                alt="Tron Webring"
-                className="block w-9 h-9 object-contain opacity-70 group-hover:opacity-100 transition-opacity"
-              />
-            </Link>
-            <Link
-              href={`${WEBRING_BASE_URL}/#${WEBRING_SITE}?nav=next`}
-              aria-label="Next site"
-              className="group"
-            >
-              <span
-                className="block w-[18px] h-[18px] bg-current opacity-60 group-hover:opacity-100 transition-opacity"
-                style={{
-                  maskImage: "url('/rightarrow.png')",
-                  WebkitMaskImage: "url('/rightarrow.png')",
-                  maskSize: "contain",
-                  maskRepeat: "no-repeat",
-                  maskPosition: "center",
-                }}
-              />
-            </Link>
-          </div>
-        </motion.div>
-      </Panel>
-
-      {/* Right Panel - Projects & Skills */}
-      <Panel side="right" ref={rightPanelRef}>
-        <motion.div
-          variants={scrollReveal}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-80px" }}
-        >
-        <Section title="ABOUT ME">
-          <ul className="font-sans font-light space-y-2 text-sm text-text-secondary">
-            {aboutItems.map((item, i) => (
-              <AboutLi key={i}>
-                {item.subline ? (
-                  <div className="flex flex-col gap-1">
-                    <span>{renderAboutSegments(item.segments)}</span>
-                    <span className="pl-4">{item.subline}</span>
-                  </div>
-                ) : (
-                  <span>{renderAboutSegments(item.segments)}</span>
+              <input
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+                placeholder={sent ? "sent :)" : "leave me a message"}
+                maxLength={500}
+                aria-label="Leave a message"
+                aria-busy={isSending}
+                className={cn(
+                  "w-full max-w-[280px] border-0 border-b border-border-card bg-transparent py-1.5",
+                  "font-serif text-[15px] italic text-text-primary",
+                  "placeholder:text-text-muted/70 focus:border-text-muted focus:outline-none",
+                  "transition-colors"
                 )}
-              </AboutLi>
-            ))}
-          </ul>
-        </Section>
-        </motion.div>
-
-        <motion.div
-          variants={scrollReveal}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-80px" }}
-        >
-        <Section className="mt-12">
-          <div className="flex items-center gap-4 mb-6">
-            <h2 className="font-serif text-lg text-text-secondary tracking-wide">PROJECTS</h2>
-            <button
-              onClick={() => setProjectFilter(projectFilter === "software" ? "all" : "software")}
-              className={`font-sans text-sm transition-colors ${
-                projectFilter === "software"
-                  ? "text-text-primary"
-                  : "text-text-secondary hover:text-text-primary"
-              }`}
-            >
-              software
-            </button>
-            <button
-              onClick={() => setProjectFilter(projectFilter === "mechanical" ? "all" : "mechanical")}
-              className={`font-sans text-sm transition-colors ${
-                projectFilter === "mechanical"
-                  ? "text-text-primary"
-                  : "text-text-secondary hover:text-text-primary"
-              }`}
-            >
-              mechanical
-            </button>
-          </div>
-          {(() => {
-            const filtered = projects.filter(p => p.slug !== "atv" && (projectFilter === "all" || p.category === projectFilter || p.category === "both"));
-            const marsRover = filtered.find(p => p.slug === "mars-rover");
-            const rest = filtered.filter(p => p.slug !== "mars-rover");
-            const leftCol: Project[] = [];
-            const rightCol: Project[] = [];
-            rest.forEach((p, i) => (i % 2 === 0 ? leftCol : rightCol).push(p));
-            if (marsRover) rightCol.unshift(marsRover);
-            const renderCard = (project: Project) => (
-              <TiltedCard
-                key={project.title}
-                imageSrc={project.imageSrc}
-                altText={project.altText}
-                title={project.title}
-                caption={project.caption}
-                href={project.href}
-                onClick={() => openProject(project)}
-                className="mb-4"
               />
-            );
-            return (
-              <div className="flex gap-4">
-                <div className="flex-1 flex flex-col">{leftCol.map(renderCard)}</div>
-                <div className="flex-1 flex flex-col">{rightCol.map(renderCard)}</div>
-              </div>
-            );
-          })()}
-        </Section>
-        </motion.div>
-      </Panel>
+            </form>
+          </div>
+        </section>
 
-      <ScrollIndicator scrollRef={rightPanelRef} />
-
-      <CursorTrail />
+        {/* Art — his own robot hand, halftoned */}
+        <section className="relative flex min-h-[380px] items-center justify-center border-t border-border-card px-6 py-8 lg:h-full lg:min-h-0 lg:border-l lg:border-t-0 lg:py-0">
+          <DitherHand
+            src="/assets/projects/robot-hand/finalcad_hero.png"
+            className="h-[70vh] max-h-[560px] w-full max-w-[620px] lg:h-[76%] lg:max-h-none"
+          />
+          <span className="absolute bottom-5 right-6 font-serif text-xs text-text-muted/70">
+            the hand, 5-dof —{" "}
+            <button
+              type="button"
+              onClick={() => {
+                const hand = projects.find((p) => p.slug === "robot-hand");
+                if (hand) openProject(hand);
+              }}
+              className={quietLink}
+            >
+              see it real
+            </button>
+          </span>
+        </section>
+      </div>
 
       <ProjectDetailModal
         project={selectedProject}
         onClose={() => openProject(null)}
       />
-    </Container>
-    </MotionConfig>
+    </>
   );
 }
