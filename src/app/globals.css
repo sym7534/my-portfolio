@@ -15,7 +15,7 @@
 
   /* Background Colors */
   --color-bg-white: #ffffff;
-  --color-bg-light: #fafafa;
+  --color-bg-light: #fbfbfb; /* right panel: barely-there tint; the grid does the work */
   --color-bg-card: #f5f5f5;
   --color-card-translucent: rgba(0, 0, 0, 0.03);
   --color-card-caption: #fafafa;
@@ -80,6 +80,9 @@ html.dark {
   --shimmer-color-1: #fafafa;
   --shimmer-color-2: #fdfdfd;
   --shimmer-color-3: #ffffff;
+
+  /* Grid pattern for right panel (toned down from the old site's 0.06) */
+  --grid-color: rgba(0, 0, 0, 0.04);
 }
 
 html.dark {
@@ -87,6 +90,7 @@ html.dark {
   --shimmer-color-1: #131313;
   --shimmer-color-2: #171717;
   --shimmer-color-3: #1b1b1b;
+  --grid-color: rgba(255, 255, 255, 0.04);
 }
 
 /* === BASE STYLES === */
@@ -157,4 +161,14 @@ html.dark {
   .fade-in {
     animation: none;
   }
+}
+
+/* Faint grid background for the right panel — a quiet nod to the old site.
+   Barely-there tint plus a whisper-weight 48px grid. */
+.bg-grid {
+  background-color: var(--color-bg-light);
+  background-image:
+    linear-gradient(var(--grid-color) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+  background-size: 48px 48px;
 }
