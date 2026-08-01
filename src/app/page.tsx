@@ -93,6 +93,8 @@ export default function Home() {
   const { selectedProject, openProject } = useProjectModal(projects);
   const { message, setMessage, isSending, handleSendMessage } = useSendMessage();
   const [sent, setSent] = useState(false);
+  const [handGen, setHandGen] = useState(0);
+  const [messed, setMessed] = useState(false);
 
   // Fire-and-forget visit notification
   useEffect(() => {
@@ -311,20 +313,26 @@ export default function Home() {
           className="relative mb-10 h-[clamp(190px,26vh,280px)]"
         >
           <DitherHand
+            key={handGen}
             src="/assets/projects/robot-hand/finalcad_hero.png"
             className="h-full w-full"
+            onFirstSplit={() => setMessed(true)}
           />
-          <span className="absolute bottom-0 right-0 font-serif text-xs text-text-muted/80">
-            the hand, 5-dof —{" "}
+          <span
+            className={cn(
+              "absolute bottom-0 right-0 font-serif text-xs transition-opacity duration-700",
+              messed ? "opacity-100" : "pointer-events-none opacity-0"
+            )}
+          >
             <button
               type="button"
               onClick={() => {
-                const hand = projects.find((p) => p.slug === "robot-hand");
-                if (hand) openProject(hand);
+                setHandGen((g) => g + 1);
+                setMessed(false);
               }}
               className={quietLink}
             >
-              see it real
+              start over
             </button>
           </span>
         </motion.div>
