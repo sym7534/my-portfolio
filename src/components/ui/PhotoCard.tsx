@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { cn } from "@/lib/utils";
 import type { Project } from "@/types/project";
 
@@ -22,12 +23,24 @@ export function PhotoCard({ project, onOpen, className }: PhotoCardProps) {
     >
       {project.imageSrc && (
         <div className="overflow-hidden rounded-[3px] border border-border-card bg-bg-white">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={project.imageSrc}
-            alt={project.altText ?? project.title}
-            className="block w-full transition duration-300 group-hover:brightness-[1.04]"
-          />
+          {project.imageWidth && project.imageHeight ? (
+            <Image
+              src={project.imageSrc}
+              alt={project.altText ?? project.title}
+              width={project.imageWidth}
+              height={project.imageHeight}
+              sizes="(min-width: 1024px) 26vw, 44vw"
+              className="block h-auto w-full transition duration-300 group-hover:brightness-[1.04]"
+            />
+          ) : (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src={project.imageSrc}
+              alt={project.altText ?? project.title}
+              loading="lazy"
+              className="block w-full transition duration-300 group-hover:brightness-[1.04]"
+            />
+          )}
         </div>
       )}
       <figcaption className={cn(project.imageSrc ? "mt-2" : "border-b border-border-card pb-3")}>

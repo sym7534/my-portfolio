@@ -2,6 +2,7 @@
 
 import { Modal } from "./Modal";
 import { ImageCarousel } from "./ImageCarousel";
+import { imgOpt } from "@/lib/imgOpt";
 import type { Project } from "@/types/project";
 
 interface ProjectDetailModalProps {
@@ -90,7 +91,7 @@ export function ProjectDetailModal({
           <div className="relative w-full rounded-lg overflow-hidden">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src={project.imageSrc}
+              src={imgOpt(project.imageSrc, 1080)}
               alt={project.altText ?? project.title}
               className="w-full h-auto"
             />

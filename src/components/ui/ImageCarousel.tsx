@@ -4,6 +4,7 @@ import { useState, useRef, useCallback, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import type { ProjectImage } from "@/types/project";
 import { useIsMobile } from "@/lib/useMediaQuery";
+import { imgOpt } from "@/lib/imgOpt";
 
 interface ImageCarouselProps {
   images: ProjectImage[];
@@ -72,7 +73,7 @@ export function ImageCarousel({ images }: ImageCarouselProps) {
         {images.map((img, i) => (
           <div key={i} className="rounded-lg overflow-hidden">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={img.src} alt={img.alt ?? ""} className="w-full h-auto" />
+            <img src={imgOpt(img.src, 1080)} alt={img.alt ?? ""} loading="lazy" className="w-full h-auto" />
           </div>
         ))}
       </div>
@@ -86,7 +87,7 @@ export function ImageCarousel({ images }: ImageCarouselProps) {
         {largeImages.map((img, i) => (
           <div key={`large-${i}`} className="rounded-lg overflow-hidden">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={img.src} alt={img.alt ?? ""} className="w-full h-auto" />
+            <img src={imgOpt(img.src, 1080)} alt={img.alt ?? ""} loading="lazy" className="w-full h-auto" />
           </div>
         ))}
 
@@ -120,8 +121,9 @@ export function ImageCarousel({ images }: ImageCarouselProps) {
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src={img.src}
+                  src={imgOpt(img.src, 640)}
                   alt={img.alt ?? ""}
+                  loading="lazy"
                   className="w-full h-auto"
                   style={{
                     filter: isHovered ? "brightness(1.06)" : "brightness(1)",
@@ -158,7 +160,7 @@ export function ImageCarousel({ images }: ImageCarouselProps) {
             >
               <motion.img
                 key={selectedIdx}
-                src={selectedImg.src}
+                src={imgOpt(selectedImg.src, 1920)}
                 alt={selectedImg.alt ?? ""}
                 className="max-w-full max-h-[85vh] rounded-lg object-contain pointer-events-auto cursor-pointer shadow-2xl"
                 initial={{ opacity: 0, scale: 0.95 }}

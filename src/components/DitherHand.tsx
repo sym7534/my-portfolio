@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { cn } from "@/lib/utils";
+import { imgOpt } from "@/lib/imgOpt";
 
 interface DitherHandProps {
   src: string;
@@ -75,7 +76,12 @@ export function DitherHand({ src, className, grid = 5, onFirstSplit }: DitherHan
     let fit = { x: 0, y: 0, w: 0, h: 0 };
 
     const img = new Image();
-    img.src = src;
+    // sample from an optimizer-resized copy (we only need ~480px);
+    // fall back to the raw file if the optimizer route is unavailable
+    img.onerror = () => {
+      if (img.src !== src) img.src = src;
+    };
+    img.src = imgOpt(src, 640);
 
     /** square crop (source px) around the image's non-paper content, so the
      * subject fills the dot field instead of floating in white margins */
@@ -289,10 +295,12 @@ export function DitherHand({ src, className, grid = 5, onFirstSplit }: DitherHan
       });
     };
 
+    let paletteCache: string[] | null = null;
+
     const draw = (now: number) => {
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       ctx.clearRect(0, 0, width, height);
-      const palette = buildPalette();
+      const palette = (paletteCache ??= buildPalette());
       animating = false;
       for (const l of leaves) {
         const shade = Math.round(Math.min(1, Math.max(0, l.dark)) * 32);
@@ -363,7 +371,10 @@ export function DitherHand({ src, className, grid = 5, onFirstSplit }: DitherHan
     ro.observe(canvas);
 
     // recolor when the theme class flips
-    const mo = new MutationObserver(() => draw(performance.now()));
+    const mo = new MutationObserver(() => {
+      paletteCache = null;
+      draw(performance.now());
+    });
     mo.observe(document.documentElement, {
       attributes: true,
       attributeFilter: ["class"],
