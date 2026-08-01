@@ -26,7 +26,7 @@ export const experience: ExperienceEntry[] = [
     logoSrc: "/assets/images/wato-logo.png",
     logoAlt: "WATonomous logo",
     title: "WATonomous",
-    subtitle: "Humanoid Lead",
+    subtitle: "humanoid lead",
     date: "dec 25' - present",
     description:
       "Developing perception and autonomous pathing software for Rover on Waterloo's AV design team.",
