@@ -74,9 +74,62 @@ export function DitherHand({ src, className, grid = 5, onFirstSplit }: DitherHan
     const img = new Image();
     img.src = src;
 
+    /** square crop (source px) around the image's non-paper content, so the
+     * subject fills the dot field instead of floating in white margins */
+    const findContentCrop = () => {
+      const PW = 160;
+      const ph = Math.max(
+        1,
+        Math.round((PW * img.naturalHeight) / img.naturalWidth)
+      );
+      const probe = document.createElement("canvas");
+      probe.width = PW;
+      probe.height = ph;
+      const pctx = probe.getContext("2d");
+      if (!pctx) return null;
+      pctx.drawImage(img, 0, 0, PW, ph);
+      const d = pctx.getImageData(0, 0, PW, ph).data;
+      let minX = PW;
+      let minY = ph;
+      let maxX = -1;
+      let maxY = -1;
+      for (let y = 0; y < ph; y++) {
+        for (let x = 0; x < PW; x++) {
+          const i = (y * PW + x) * 4;
+          const a = d[i + 3] / 255;
+          const lum =
+            (0.2126 * d[i] + 0.7152 * d[i + 1] + 0.0722 * d[i + 2]) / 255;
+          if ((1 - lum) * a > 0.08) {
+            if (x < minX) minX = x;
+            if (x > maxX) maxX = x;
+            if (y < minY) minY = y;
+            if (y > maxY) maxY = y;
+          }
+        }
+      }
+      if (maxX < 0) return null;
+      const rx = img.naturalWidth / PW;
+      const ry = img.naturalHeight / ph;
+      const bx = minX * rx;
+      const by = minY * ry;
+      const bw = (maxX - minX + 1) * rx;
+      const bh = (maxY - minY + 1) * ry;
+      let side = Math.max(bw, bh) * 1.08;
+      side = Math.min(side, img.naturalWidth, img.naturalHeight);
+      const x = Math.max(
+        0,
+        Math.min(img.naturalWidth - side, bx + bw / 2 - side / 2)
+      );
+      const y = Math.max(
+        0,
+        Math.min(img.naturalHeight - side, by + bh / 2 - side / 2)
+      );
+      return { x, y, side };
+    };
+
     const buildSat = () => {
-      // sample into a SQUARE canvas (image contain-fit, transparent padding)
-      // so grid cells stay square and dot spacing stays even everywhere
+      // sample into a SQUARE canvas so grid cells stay square and dot
+      // spacing stays even everywhere; crop to content when possible
       const SIDE = 480;
       sw = SIDE;
       sh = SIDE;
@@ -85,10 +138,15 @@ export function DitherHand({ src, className, grid = 5, onFirstSplit }: DitherHan
       off.height = sh;
       const octx = off.getContext("2d");
       if (!octx) return;
-      const s = Math.min(SIDE / img.naturalWidth, SIDE / img.naturalHeight);
-      const dw = img.naturalWidth * s;
-      const dh = img.naturalHeight * s;
-      octx.drawImage(img, (SIDE - dw) / 2, (SIDE - dh) / 2, dw, dh);
+      const crop = findContentCrop();
+      if (crop) {
+        octx.drawImage(img, crop.x, crop.y, crop.side, crop.side, 0, 0, SIDE, SIDE);
+      } else {
+        const s = Math.min(SIDE / img.naturalWidth, SIDE / img.naturalHeight);
+        const dw = img.naturalWidth * s;
+        const dh = img.naturalHeight * s;
+        octx.drawImage(img, (SIDE - dw) / 2, (SIDE - dh) / 2, dw, dh);
+      }
       const data = octx.getImageData(0, 0, sw, sh).data;
       sat = new Float64Array((sw + 1) * (sh + 1));
       for (let y = 1; y <= sh; y++) {
