@@ -26,7 +26,10 @@ interface Leaf {
 
 const MIN_CELL = 6; // px — stop subdividing below this
 const SPLIT = 2; // each dot splits into SPLIT x SPLIT finer dots
-const POP_MS = 240;
+const POP_MS = 280;
+// a freshly split dot must finish settling before it can split again —
+// this is what paces the reveal (sweeps peel one level per pass)
+const MATURE_MS = POP_MS + 150;
 
 /**
  * Subdivide-to-reveal dot grid (a from-scratch take on the classic
@@ -220,9 +223,10 @@ export function DitherHand({ src, className, grid = 5, onFirstSplit }: DitherHan
       if (!interactive) resolveAll();
     };
 
-    const splitLeaf = (index: number, now: number): boolean => {
+    const splitLeaf = (index: number, now: number, force = false): boolean => {
       const l = leaves[index];
       if (Math.min(l.w, l.h) / SPLIT < MIN_CELL) return false;
+      if (!force && now - l.born < MATURE_MS) return false;
       const cx = l.x + l.w / 2;
       const cy = l.y + l.h / 2;
       const w2 = l.w / SPLIT;
@@ -245,7 +249,7 @@ export function DitherHand({ src, className, grid = 5, onFirstSplit }: DitherHan
     const resolveAll = () => {
       let i = 0;
       while (i < leaves.length) {
-        if (!splitLeaf(i, -POP_MS)) i++;
+        if (!splitLeaf(i, -POP_MS, true)) i++;
       }
     };
 
