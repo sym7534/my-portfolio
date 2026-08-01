@@ -16,7 +16,7 @@ export const experience: ExperienceEntry[] = [
     logoAlt: "AXIBO logo",
     title: "AXIBO",
     subtitle: "mechanical engineering",
-    date: "may 26' - sept 26'",
+    date: "may 26' - present",
     description:
       "Building humanoid robots at the forefront of Canadian robotics.",
     skills: ["fusion360", "solidworks", "c", "c++", "python"],
@@ -26,10 +26,10 @@ export const experience: ExperienceEntry[] = [
     logoSrc: "/assets/images/wato-logo.png",
     logoAlt: "WATonomous logo",
     title: "WATonomous",
-    subtitle: "software engineering",
+    subtitle: "software engineer, humanoid lead",
     date: "dec 25' - present",
     description:
-      "Developing perception and autonomous pathing software for Rover on Waterloo's AV design team.",
+      "Helped lead humanoid development, built perception and autonomous pathing software for a mars rover.",
     skills: ["c++", "python", "ROS 2", "docker"],
   },
   // WARG experience card temporarily removed
