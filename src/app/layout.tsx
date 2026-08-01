@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { GeistSans } from "geist/font/sans";
-import { GeistMono } from "geist/font/mono";
 import { Lora } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 
@@ -50,7 +49,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${GeistSans.variable} ${GeistMono.variable} ${lora.variable}`}
+      className={`${GeistSans.variable} ${lora.variable}`}
       suppressHydrationWarning
     >
       <head>
