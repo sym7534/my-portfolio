@@ -24,17 +24,18 @@ interface Leaf {
   py: number;
 }
 
-const MIN_CELL = 6; // px — stop subdividing below this
+const MIN_CELL = 3; // px — stop subdividing below this
 const SPLIT = 3; // each dot splits into SPLIT x SPLIT finer dots
 const POP_MS = 240;
 
 /**
- * Subdivide-to-reveal halftone (a from-scratch take on the classic
- * quadtree-reveal mechanic): the image starts as a coarse grid of ink
- * dots sized by regional darkness; sweeping the cursor over a dot splits
- * it into four finer dots, progressively resolving the picture.
- * Touch devices and reduced-motion get the fully resolved halftone.
- * Dot color follows the canvas element's CSS `color` (theme-aware).
+ * Subdivide-to-reveal dot grid (a from-scratch take on the classic
+ * quadtree-reveal mechanic): the image starts as a coarse grid of
+ * uniform, evenly spaced circles whose COLOR is the average of the
+ * region beneath; sweeping the cursor splits a dot into finer dots,
+ * progressively resolving the picture. Colors interpolate between the
+ * panel paper and the ink color, so both themes read correctly.
+ * Touch devices and reduced-motion get the fully resolved grid.
  */
 export function DitherHand({ src, className, grid = 5, onFirstSplit }: DitherHandProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -74,16 +75,20 @@ export function DitherHand({ src, className, grid = 5, onFirstSplit }: DitherHan
     img.src = src;
 
     const buildSat = () => {
-      const MAX_SAMPLE = 480;
-      const ratio = img.naturalHeight / img.naturalWidth;
-      sw = Math.min(MAX_SAMPLE, img.naturalWidth);
-      sh = Math.max(1, Math.round(sw * ratio));
+      // sample into a SQUARE canvas (image contain-fit, transparent padding)
+      // so grid cells stay square and dot spacing stays even everywhere
+      const SIDE = 480;
+      sw = SIDE;
+      sh = SIDE;
       const off = document.createElement("canvas");
       off.width = sw;
       off.height = sh;
       const octx = off.getContext("2d");
       if (!octx) return;
-      octx.drawImage(img, 0, 0, sw, sh);
+      const s = Math.min(SIDE / img.naturalWidth, SIDE / img.naturalHeight);
+      const dw = img.naturalWidth * s;
+      const dh = img.naturalHeight * s;
+      octx.drawImage(img, (SIDE - dw) / 2, (SIDE - dh) / 2, dw, dh);
       const data = octx.getImageData(0, 0, sw, sh).data;
       sat = new Float64Array((sw + 1) * (sh + 1));
       for (let y = 1; y <= sh; y++) {
@@ -139,15 +144,13 @@ export function DitherHand({ src, className, grid = 5, onFirstSplit }: DitherHan
 
       buildSat();
 
-      // contain-fit the image into the canvas
-      const scale = Math.min(width / img.naturalWidth, height / img.naturalHeight);
-      const fw = img.naturalWidth * scale;
-      const fh = img.naturalHeight * scale;
-      fit = { x: (width - fw) / 2, y: (height - fh) / 2, w: fw, h: fh };
+      // the dot field is a centered SQUARE (matching the square sample)
+      const side = Math.min(width, height);
+      fit = { x: (width - side) / 2, y: (height - side) / 2, w: side, h: side };
 
       leaves = [];
-      const cw = fw / grid;
-      const ch = fh / grid;
+      const cw = fit.w / grid;
+      const ch = fit.h / grid;
       for (let gy = 0; gy < grid; gy++) {
         for (let gx = 0; gx < grid; gx++) {
           const x = fit.x + gx * cw;
@@ -190,18 +193,49 @@ export function DitherHand({ src, className, grid = 5, onFirstSplit }: DitherHan
 
     const easeOutCubic = (t: number) => 1 - Math.pow(1 - t, 3);
 
+    // Dots are uniform circles per level; the image lives in their COLOR,
+    // interpolated between the panel paper and the ink color so both
+    // themes read correctly (paper-colored dots vanish into the panel).
+    const parseColor = (str: string): [number, number, number] | null => {
+      ctx.fillStyle = "#000000";
+      ctx.fillStyle = str;
+      const s = String(ctx.fillStyle);
+      if (s.startsWith("#")) {
+        return [
+          parseInt(s.slice(1, 3), 16),
+          parseInt(s.slice(3, 5), 16),
+          parseInt(s.slice(5, 7), 16),
+        ];
+      }
+      const m = s.match(/rgba?\(\s*([\d.]+)[,\s]+([\d.]+)[,\s]+([\d.]+)/);
+      return m ? [+m[1], +m[2], +m[3]] : null;
+    };
+
+    const buildPalette = (): string[] => {
+      const ink = parseColor(getComputedStyle(canvas).color) ?? [23, 23, 23];
+      const paper =
+        parseColor(
+          getComputedStyle(document.documentElement)
+            .getPropertyValue("--color-bg-light")
+            .trim() || "#fafafa"
+        ) ?? [250, 250, 250];
+      const steps = 32;
+      return Array.from({ length: steps + 1 }, (_, i) => {
+        const t = i / steps;
+        const c = paper.map((p, ch) => Math.round(p + (ink[ch] - p) * t));
+        return `rgb(${c[0]},${c[1]},${c[2]})`;
+      });
+    };
+
     const draw = (now: number) => {
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       ctx.clearRect(0, 0, width, height);
-      ctx.fillStyle = getComputedStyle(canvas).color;
+      const palette = buildPalette();
       animating = false;
       for (const l of leaves) {
-        const cell = Math.min(l.w, l.h);
-        // fine cells get extra dot gain so the resolved image stays inky
-        const fine = cell < 10;
-        const r =
-          Math.pow(l.dark, fine ? 1.0 : 1.15) * (cell / 2) * (fine ? 1.34 : 1.04);
-        if (r < 0.35) continue;
+        const shade = Math.round(Math.min(1, Math.max(0, l.dark)) * 32);
+        if (shade === 0) continue; // paper on paper — invisible
+        const r = (Math.min(l.w, l.h) / 2) * 0.97;
         let t = (now - l.born) / POP_MS;
         let cx = l.x + l.w / 2;
         let cy = l.y + l.h / 2;
@@ -213,6 +247,7 @@ export function DitherHand({ src, className, grid = 5, onFirstSplit }: DitherHan
           cy = l.py + (cy - l.py) * t;
           rr = r * (0.4 + 0.6 * t);
         }
+        ctx.fillStyle = palette[shade];
         ctx.beginPath();
         ctx.arc(cx, cy, rr, 0, Math.PI * 2);
         ctx.fill();

@@ -310,7 +310,7 @@ export default function Home() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.3, ease }}
-          className="relative mb-10 h-[clamp(190px,26vh,280px)]"
+          className="relative mb-10 h-[clamp(285px,39vh,420px)]"
         >
           <DitherHand
             key={handGen}
