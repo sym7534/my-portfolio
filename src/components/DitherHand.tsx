@@ -24,7 +24,7 @@ interface Leaf {
   py: number;
 }
 
-const MIN_CELL = 6; // px — stop subdividing below this
+const MIN_CELL = 3; // px — stop subdividing below this
 const SPLIT = 2; // each dot splits into SPLIT x SPLIT finer dots
 const POP_MS = 280;
 // a freshly split dot must finish settling before it can split again —
