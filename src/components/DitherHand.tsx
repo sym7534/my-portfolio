@@ -24,8 +24,8 @@ interface Leaf {
   py: number;
 }
 
-const MIN_CELL = 3; // px — stop subdividing below this
-const SPLIT = 3; // each dot splits into SPLIT x SPLIT finer dots
+const MIN_CELL = 6; // px — stop subdividing below this
+const SPLIT = 2; // each dot splits into SPLIT x SPLIT finer dots
 const POP_MS = 240;
 
 /**
@@ -235,7 +235,7 @@ export function DitherHand({ src, className, grid = 5, onFirstSplit }: DitherHan
       for (const l of leaves) {
         const shade = Math.round(Math.min(1, Math.max(0, l.dark)) * 32);
         if (shade === 0) continue; // paper on paper — invisible
-        const r = (Math.min(l.w, l.h) / 2) * 0.97;
+        const r = Math.min(l.w, l.h) / 2;
         let t = (now - l.born) / POP_MS;
         let cx = l.x + l.w / 2;
         let cy = l.y + l.h / 2;
