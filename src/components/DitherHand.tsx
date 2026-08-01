@@ -327,16 +327,13 @@ export function DitherHand({ src, className, grid = 5, onFirstSplit }: DitherHan
       const my = e.clientY - rect.top;
       const now = performance.now();
       let didSplit = false;
-      // pad the hit area a little so sweeping feels generous
+      // strict hit test: only the drawn circle itself reacts
       for (let i = leaves.length - 1; i >= 0; i--) {
         const l = leaves[i];
-        const pad = Math.min(l.w, l.h) * 0.2;
-        if (
-          mx >= l.x - pad &&
-          mx <= l.x + l.w + pad &&
-          my >= l.y - pad &&
-          my <= l.y + l.h + pad
-        ) {
+        const r = Math.min(l.w, l.h) / 2;
+        const dx = mx - (l.x + l.w / 2);
+        const dy = my - (l.y + l.h / 2);
+        if (dx * dx + dy * dy <= r * r) {
           if (splitLeaf(i, now)) didSplit = true;
         }
       }
