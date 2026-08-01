@@ -2,22 +2,30 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { GeistSans } from "geist/font/sans";
+import { GeistMono } from "geist/font/mono";
+import { Lora } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 
+const lora = Lora({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-lora",
+  style: ["normal", "italic"],
+});
+
 export const metadata: Metadata = {
-  title: "Ryan Wang | Portfolio",
+  title: "Ryan Wang",
   description: "Mechatronics engineering @ UWaterloo",
   metadataBase: new URL("https://wangdynasty.ca"),
   openGraph: {
-    title: "Ryan Wang | Portfolio",
+    title: "Ryan Wang",
     description: "Mechatronics engineering @ UWaterloo",
     siteName: "Ryan Wang",
     type: "website",
-    images: [],
   },
   twitter: {
-    card: "summary",
-    title: "Ryan Wang | Portfolio",
+    card: "summary_large_image",
+    title: "Ryan Wang",
     description: "Mechatronics engineering @ UWaterloo",
   },
 };
@@ -40,11 +48,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={GeistSans.variable} suppressHydrationWarning>
+    <html
+      lang="en"
+      className={`${GeistSans.variable} ${GeistMono.variable} ${lora.variable}`}
+      suppressHydrationWarning
+    >
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
-      <body className="font-sans antialiased">
+      <body className="font-serif antialiased">
         <ThemeProvider>{children}</ThemeProvider>
         <Analytics />
       </body>

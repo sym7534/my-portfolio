@@ -4,8 +4,10 @@
 @variant dark (&:where(.dark, .dark *));
 
 /* ============================================
-   DESIGN TOKENS - Portfolio v3
-   Extracted from Figma design
+   DESIGN TOKENS - quiet
+   Book-serif minimalism on white. Quality lives
+   in type, measure, and restraint — no chrome.
+   Token NAMES match the other branches.
    ============================================ */
 
 @theme {
@@ -13,87 +15,84 @@
 
   /* Background Colors */
   --color-bg-white: #ffffff;
-  --color-bg-light: #f6f6f6;
-  --color-bg-card: #f9f9f9;
-  --color-card-translucent: rgba(217, 217, 217, 0.29);
-  --color-card-caption: #f4f4f4;
+  --color-bg-light: #f7f7f7; /* right panel: subtle gray, close to the white left panel */
+  --color-bg-card: #f5f5f5;
+  --color-card-translucent: rgba(0, 0, 0, 0.03);
+  --color-card-caption: #fafafa;
 
   /* Text Colors */
-  --color-text-primary: #000000;
-  --color-text-secondary: #909090;
-  --color-text-muted: #919191;
-  --color-text-section: #7d7575;
+  --color-text-primary: #171717;
+  --color-text-secondary: #525252;
+  --color-text-muted: #737373;
+  --color-text-section: #737373;
 
   /* Border Colors */
-  --color-border-card: #e7e7e7;
-  --color-skill-tag-text: #777777;
+  --color-border-card: #e5e5e5;
+  --color-skill-tag-text: #737373;
 
   /* === TYPOGRAPHY === */
 
   /* Font Families */
-  --font-serif: "Times New Roman", Times, serif;
+  --font-serif: var(--font-lora), Georgia, "Times New Roman", serif;
   --font-sans: var(--font-geist-sans), system-ui, -apple-system, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, monospace;
 
   /* Font Sizes */
-  --text-xs: 0.875rem;    /* 14px - Small text, dates */
-  --text-sm: 0.9375rem;   /* 15px - Small body text */
-  --text-base: 1.0625rem; /* 17px - Body text */
-  --text-lg: 1.75rem;     /* 28px - Section headers */
-  --text-xl: 2.75rem;     /* 44px - Name heading */
+  --text-xs: 0.875rem;    /* 14px - footer links */
+  --text-sm: 0.9375rem;   /* 15px - list text */
+  --text-base: 1rem;      /* 16px - base */
+  --text-lg: 1.125rem;    /* 18px - prose */
+  --text-xl: 2.25rem;     /* 36px - name */
 
   /* === SPACING === */
 
   /* Border Radius */
-  --radius-sm: 0.3125rem; /* 5px */
-  --radius-md: 0.625rem;  /* 10px */
+  --radius-sm: 0.1875rem; /* 3px */
+  --radius-md: 0.375rem;  /* 6px */
 }
 
 /* === DARK MODE OVERRIDES === */
 html.dark {
-  --color-bg-white: #0a0a0a;
-  --color-bg-light: #141414;
-  --color-bg-card: #1a1a1a;
-  --color-card-translucent: rgba(40, 40, 40, 0.5);
-  --color-card-caption: #1a1a1a;
-  --color-text-primary: #f0f0f0;
-  --color-text-secondary: #b8b8b8;
-  --color-text-muted: #a8a8a8;
-  --color-text-section: #c0b6b6;
-  --color-border-card: #2a2a2a;
-  --color-skill-tag-text: #a0a0a0;
+  --color-bg-white: #0f0f0f;
+  --color-bg-light: #151515;
+  --color-bg-card: #191919;
+  --color-card-translucent: rgba(255, 255, 255, 0.05);
+  --color-card-caption: #151515;
+  --color-text-primary: #ededed;
+  --color-text-secondary: #a3a3a3;
+  --color-text-muted: #8a8a8a;
+  --color-text-section: #8a8a8a;
+  --color-border-card: #262626;
+  --color-skill-tag-text: #8a8a8a;
 }
 
 /* === NON-UTILITY VARIABLES === */
 :root {
   /* Icon sizes */
-  --icon-social: 1.5rem;    /* 24px */
-  --icon-skill: 2.1875rem;  /* 35px */
-  --icon-logo: 3.125rem;    /* 50px */
+  --icon-social: 1.5rem;
+  --icon-skill: 2.1875rem;
+  --icon-logo: 3.125rem;
 
-  /* Gradient for experience cards */
-  --gradient-card: linear-gradient(to right, #f9f9f9, #ffffff);
+  /* Gradient for cards (unused here; kept for shared components) */
+  --gradient-card: linear-gradient(to right, #fafafa, #ffffff);
 
-  /* Shimmer colors (kept close together so the sweep reads as a faint sheen) */
-  --shimmer-color-1: #f7f7f7;
-  --shimmer-color-2: #fbfbfb;
+  /* Shimmer colors (unused here; kept for shared components) */
+  --shimmer-color-1: #fafafa;
+  --shimmer-color-2: #fdfdfd;
   --shimmer-color-3: #ffffff;
-
-  /* Grid pattern */
-  --grid-color: rgba(0, 0, 0, 0.06);
 }
 
 html.dark {
-  --gradient-card: linear-gradient(to right, #1a1a1a, #0a0a0a);
-  --shimmer-color-1: #111111;
-  --shimmer-color-2: #151515;
-  --shimmer-color-3: #1a1a1a;
-  --grid-color: rgba(255, 255, 255, 0.06);
+  --gradient-card: linear-gradient(to right, #191919, #0f0f0f);
+  --shimmer-color-1: #131313;
+  --shimmer-color-2: #171717;
+  --shimmer-color-3: #1b1b1b;
 }
 
 /* === BASE STYLES === */
 @layer base {
   html {
-    font-family: var(--font-sans);
+    font-family: var(--font-serif);
     color: var(--color-text-primary);
     background-color: var(--color-bg-white);
   }
@@ -101,7 +100,6 @@ html.dark {
   body {
     font-size: var(--text-base);
     line-height: 1.6;
-    letter-spacing: 0.01em;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     scrollbar-width: none;
@@ -117,6 +115,14 @@ html.dark {
 
   *::-webkit-scrollbar {
     display: none;
+  }
+
+  ::selection {
+    background: rgba(0, 0, 0, 0.08);
+  }
+
+  html.dark ::selection {
+    background: rgba(255, 255, 255, 0.14);
   }
 }
 
@@ -134,51 +140,21 @@ html.dark {
   animation: blink 1s step-end infinite;
 }
 
-@keyframes shimmer {
-  0% {
-    background-position: -200% 0;
-  }
-  50% {
-    background-position: 200% 0;
-  }
-  100% {
-    background-position: -200% 0;
-  }
-}
-
-.animate-shimmer {
-  background: linear-gradient(
-    90deg,
-    var(--shimmer-color-1) 0%,
-    var(--shimmer-color-2) 25%,
-    var(--shimmer-color-3) 50%,
-    var(--shimmer-color-2) 75%,
-    var(--shimmer-color-1) 100%
-  );
-  background-size: 200% 100%;
-  animation: shimmer 8s ease-in-out infinite;
-}
-
-/* Divider grow animation */
-@keyframes divider-grow {
+@keyframes fade-in {
   from {
-    transform: scaleX(0);
+    opacity: 0;
   }
   to {
-    transform: scaleX(1);
+    opacity: 1;
   }
 }
 
-.animate-divider {
-  transform-origin: left;
-  animation: divider-grow 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.3s both;
+.fade-in {
+  animation: fade-in 0.6s ease both;
 }
 
-/* Subtle grid background for right panel */
-.bg-grid {
-  background-color: var(--color-bg-light);
-  background-image:
-    linear-gradient(var(--grid-color) 1px, transparent 1px),
-    linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
-  background-size: 48px 48px;
+@media (prefers-reduced-motion: reduce) {
+  .fade-in {
+    animation: none;
+  }
 }

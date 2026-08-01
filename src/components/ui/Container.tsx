@@ -41,7 +41,7 @@ export const Panel = forwardRef<HTMLDivElement, PanelProps>(
       className={cn(
         "p-8 lg:p-16",
         side === "left" && "bg-bg-white lg:h-full lg:overflow-y-auto",
-        side === "right" && "bg-bg-light bg-grid lg:h-full lg:overflow-y-auto",
+        side === "right" && "bg-bg-light lg:h-full lg:overflow-y-auto",
         className
       )}
     >
@@ -49,3 +49,5 @@ export const Panel = forwardRef<HTMLDivElement, PanelProps>(
     </div>
   )
 );
+
+Panel.displayName = "Panel";
