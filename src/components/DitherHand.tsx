@@ -45,6 +45,8 @@ export function DitherHand({ src, className, grid = 5, onFirstSplit }: DitherHan
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const firstSplitRef = useRef(onFirstSplit);
   const firedRef = useRef(false);
+  const audioRef = useRef<AudioContext | null>(null);
+  const lastPopRef = useRef(0);
 
   useEffect(() => {
     firstSplitRef.current = onFirstSplit;
@@ -59,6 +61,35 @@ export function DitherHand({ src, className, grid = 5, onFirstSplit }: DitherHan
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const finePointer = window.matchMedia("(pointer: fine)").matches;
     const interactive = finePointer && !reduced;
+
+    // A soft synth "pop" per split. Rate-limited so a sweep that splits many
+    // dots at once reads as a stream of pops, not a wall of noise. Fixed low
+    // pitch (the "big dot" pop) for every dot. Lazily created on the first pop
+    // so the AudioContext starts from a real user gesture.
+    const AudioCtx = window.AudioContext;
+    const POP_MIN_GAP = 28; // ms between audible pops
+    const POP_GAIN = 0.1; // peak loudness (0..1)
+    const playPop = () => {
+      if (!AudioCtx) return;
+      const t0 = performance.now();
+      if (t0 - lastPopRef.current < POP_MIN_GAP) return;
+      lastPopRef.current = t0;
+      const ac = (audioRef.current ??= new AudioCtx());
+      if (ac.state === "suspended") void ac.resume();
+      const t = ac.currentTime;
+      const freq = 240 * (0.94 + Math.random() * 0.12); // fixed low pitch, faint natural variation
+      const osc = ac.createOscillator();
+      const g = ac.createGain();
+      osc.type = "sine";
+      osc.frequency.setValueAtTime(freq * 1.7, t); // quick downward chirp = "pop"
+      osc.frequency.exponentialRampToValueAtTime(freq, t + 0.05);
+      g.gain.setValueAtTime(0.0001, t);
+      g.gain.exponentialRampToValueAtTime(POP_GAIN, t + 0.004);
+      g.gain.exponentialRampToValueAtTime(0.0001, t + 0.09);
+      osc.connect(g).connect(ac.destination);
+      osc.start(t);
+      osc.stop(t + 0.1);
+    };
 
     let leaves: Leaf[] = [];
     let width = 0;
@@ -83,9 +114,9 @@ export function DitherHand({ src, className, grid = 5, onFirstSplit }: DitherHan
     };
     img.src = imgOpt(src, 640);
 
-    /** square crop (source px) around the image's non-paper content, so the
-     * subject fills the dot field instead of floating in white margins */
-    const findContentCrop = () => {
+    /** tight bounding box (source px) around the image's non-paper content, so
+     * the subject can be centered in the dot field without floating in margins */
+    const findContentBox = () => {
       const PW = 160;
       const ph = Math.max(
         1,
@@ -119,26 +150,17 @@ export function DitherHand({ src, className, grid = 5, onFirstSplit }: DitherHan
       if (maxX < 0) return null;
       const rx = img.naturalWidth / PW;
       const ry = img.naturalHeight / ph;
-      const bx = minX * rx;
-      const by = minY * ry;
-      const bw = (maxX - minX + 1) * rx;
-      const bh = (maxY - minY + 1) * ry;
-      let side = Math.max(bw, bh) * 1.08;
-      side = Math.min(side, img.naturalWidth, img.naturalHeight);
-      const x = Math.max(
-        0,
-        Math.min(img.naturalWidth - side, bx + bw / 2 - side / 2)
-      );
-      const y = Math.max(
-        0,
-        Math.min(img.naturalHeight - side, by + bh / 2 - side / 2)
-      );
-      return { x, y, side };
+      return {
+        bx: minX * rx,
+        by: minY * ry,
+        bw: (maxX - minX + 1) * rx,
+        bh: (maxY - minY + 1) * ry,
+      };
     };
 
     const buildSat = () => {
       // sample into a SQUARE canvas so grid cells stay square and dot
-      // spacing stays even everywhere; crop to content when possible
+      // spacing stays even everywhere; the subject is contain-fit and centered
       const SIDE = 480;
       sw = SIDE;
       sh = SIDE;
@@ -147,9 +169,15 @@ export function DitherHand({ src, className, grid = 5, onFirstSplit }: DitherHan
       off.height = sh;
       const octx = off.getContext("2d");
       if (!octx) return;
-      const crop = findContentCrop();
-      if (crop) {
-        octx.drawImage(img, crop.x, crop.y, crop.side, crop.side, 0, 0, SIDE, SIDE);
+      octx.clearRect(0, 0, SIDE, SIDE);
+      const box = findContentBox();
+      if (box) {
+        // contain-fit the whole subject into the square (never clip it), with a
+        // small margin; the empty margins are transparent and read as paper
+        const s = SIDE / (Math.max(box.bw, box.bh) * 1.08);
+        const dw = box.bw * s;
+        const dh = box.bh * s;
+        octx.drawImage(img, box.bx, box.by, box.bw, box.bh, (SIDE - dw) / 2, (SIDE - dh) / 2, dw, dh);
       } else {
         const s = Math.min(SIDE / img.naturalWidth, SIDE / img.naturalHeight);
         const dw = img.naturalWidth * s;
@@ -158,6 +186,14 @@ export function DitherHand({ src, className, grid = 5, onFirstSplit }: DitherHan
       }
       const data = octx.getImageData(0, 0, sw, sh).data;
       sat = new Float64Array((sw + 1) * (sh + 1));
+      // tone curve: a gamma lift gives the pale silver body its gradation; a
+      // shoulder above KNEE compresses the deep shadows so the near-black hand
+      // lands mid-bright and blends with the body instead of blowing out to a
+      // flat white patch (the hand is matte black — it has no detail to reveal,
+      // so the fix is to stop it from dominating).
+      const G = 0.6, KNEE = 0.58, CEIL = 0.82;
+      const kneeOut = Math.pow(KNEE, G);
+      const shoulder = (CEIL - kneeOut) / (1 - KNEE);
       for (let y = 1; y <= sh; y++) {
         let rowSum = 0;
         for (let x = 1; x <= sw; x++) {
@@ -166,10 +202,14 @@ export function DitherHand({ src, className, grid = 5, onFirstSplit }: DitherHan
           const lum =
             (0.2126 * data[i] + 0.7152 * data[i + 1] + 0.0722 * data[i + 2]) /
             255;
-          // treat transparency as paper (white), then stretch contrast —
-          // the CAD render is pale silver and needs the ink pushed
+          // transparency reads as paper; tiny floor kills near-paper speckle.
           const raw = (1 - lum) * a;
-          const dark = Math.min(1, Math.max(0, (raw - 0.05) * 1.75));
+          const dark =
+            raw < 0.04
+              ? 0
+              : raw <= KNEE
+                ? Math.pow(raw, G)
+                : kneeOut + (raw - KNEE) * shoulder;
           rowSum += dark;
           sat[y * (sw + 1) + x] = sat[(y - 1) * (sw + 1) + x] + rowSum;
         }
@@ -346,7 +386,12 @@ export function DitherHand({ src, className, grid = 5, onFirstSplit }: DitherHan
         const dx = mx - (l.x + l.w / 2);
         const dy = my - (l.y + l.h / 2);
         if (dx * dx + dy * dy <= r * r) {
-          if (splitLeaf(i, now)) didSplit = true;
+          if (splitLeaf(i, now)) {
+            didSplit = true;
+            // only sound where there's actual ink — matches the draw
+            // visibility cutoff (shade 0 = paper), so empty space is silent
+            if (l.dark >= 1 / 64) playPop();
+          }
         }
       }
       if (didSplit) {
@@ -385,6 +430,8 @@ export function DitherHand({ src, className, grid = 5, onFirstSplit }: DitherHan
       ro.disconnect();
       mo.disconnect();
       canvas.removeEventListener("pointermove", onMove);
+      void audioRef.current?.close();
+      audioRef.current = null;
     };
   }, [src, grid]);
 

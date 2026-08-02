@@ -305,7 +305,7 @@ export default function Home() {
 
       {/* Right Panel - Art, About, Projects */}
       <Panel side="right" ref={rightPanelRef} className="lg:border-l lg:border-border-card">
-        {/* Halftone masthead — his own robot hand */}
+        {/* Halftone masthead — waving robot */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -314,7 +314,7 @@ export default function Home() {
         >
           <DitherHand
             key={handGen}
-            src="/assets/projects/robot-hand/finalcad_hero.png"
+            src="/robot-wave.png"
             className="h-full w-full"
             onFirstSplit={() => setMessed(true)}
           />
