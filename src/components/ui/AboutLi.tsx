@@ -47,8 +47,10 @@ export function AboutLi({ children }: { children: React.ReactNode }) {
       }`}
     >
       <div
-        className={`absolute left-0 top-[8px] w-[6px] h-[6px] bg-text-secondary transform transition-all ${
-          isActive ? "rotate-90 scale-110 duration-500" : "rotate-45 duration-500"
+        className={`absolute left-0 top-[8px] w-[6px] h-[6px] transform transition-all ${
+          isActive
+            ? "rotate-90 scale-110 bg-text-primary duration-500"
+            : "rotate-45 bg-text-secondary duration-500"
         }`}
       />
       {children}

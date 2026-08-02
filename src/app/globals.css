@@ -153,8 +153,27 @@ html.dark {
   animation: fade-in 0.6s ease both;
 }
 
+/* Now-playing equalizer bars (stagger the delay per bar in markup) */
+@keyframes eq {
+  0%,
+  100% {
+    transform: scaleY(0.3);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+}
+
+.eq-bar {
+  transform-origin: bottom;
+  animation: eq 0.9s ease-in-out infinite;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .fade-in {
+    animation: none;
+  }
+  .eq-bar {
     animation: none;
   }
 }

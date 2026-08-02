@@ -16,6 +16,7 @@ import {
 } from "@/components";
 import { PhotoCard } from "@/components/ui/PhotoCard";
 import { DitherHand } from "@/components/DitherHand";
+import { NowPlaying } from "@/components/NowPlaying";
 import { MotionConfig, motion } from "motion/react";
 import type { Project } from "@/types/project";
 import Image from "next/image";
@@ -241,6 +242,13 @@ export default function Home() {
                 )}
               />
             </form>
+          </Section>
+          </motion.div>
+
+          {/* Now playing */}
+          <motion.div variants={fadeUp}>
+          <Section className="mt-[clamp(0.75rem,2vh,1.25rem)]">
+            <NowPlaying />
           </Section>
           </motion.div>
         </motion.div>
