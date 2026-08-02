@@ -17,6 +17,7 @@ import {
 import { PhotoCard } from "@/components/ui/PhotoCard";
 import { DitherHand } from "@/components/DitherHand";
 import { NowPlaying } from "@/components/NowPlaying";
+import { LenisScroll } from "@/components/LenisScroll";
 import { MotionConfig, motion } from "motion/react";
 import type { Project } from "@/types/project";
 import Image from "next/image";
@@ -139,6 +140,7 @@ export default function Home() {
 
   return (
     <MotionConfig reducedMotion="user">
+    <LenisScroll scrollRef={rightPanelRef} />
     <Container>
       {/* Left Panel - Main Content (sticky, doesn't scroll) */}
       <Panel side="left" className="flex flex-col">

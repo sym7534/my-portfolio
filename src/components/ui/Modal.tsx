@@ -86,6 +86,7 @@ export function Modal({
 
           {/* Content container */}
           <motion.div
+            data-lenis-prevent
             className="fixed inset-0 z-50 overflow-y-auto lg:overflow-visible lg:flex lg:items-center lg:justify-center p-0 lg:p-4 pointer-events-auto lg:pointer-events-none [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
             initial={{ opacity: 0, scale: 0.95, y: 10 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
