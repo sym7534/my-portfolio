@@ -37,6 +37,9 @@ export const aboutItems: AboutItem[] = [
     segments: ["Skilled in 🎹 piano, 🎻 violin, 🪈 flute, and 🎷 alto sax."],
   },
   {
+    segments: [{ icon: "ib", label: "IB" }, " Diploma Programme graduate."],
+  },
+  {
     segments: [
       "My favourite model is",
       { icon: "claude", label: "Claude Sonnet 4.5" },

@@ -15,7 +15,7 @@ export const experience: ExperienceEntry[] = [
     logoSrc: "/assets/images/AXIBO-logo.png",
     logoAlt: "AXIBO logo",
     title: "AXIBO",
-    subtitle: "mechanical engineering",
+    subtitle: "mechatronics engineering",
     date: "may 26' - present",
     description:
       "Building humanoid robots at the forefront of Canadian robotics.",

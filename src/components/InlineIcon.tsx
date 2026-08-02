@@ -6,6 +6,7 @@ import SolidWorksLogo from "../../public/assets/icons/solidworks.svg";
 import NeuraLinkLogo from "../../public/assets/icons/neuralink.jpeg";
 import MinecraftLogo from "../../public/assets/icons/minecraft icon.svg";
 import CanadaLogo from "../../public/assets/icons/canada.jpg";
+import IbLogo from "../../public/assets/icons/ib.png";
 
 export type AboutIconKey =
   | "uwaterloo"
@@ -14,7 +15,8 @@ export type AboutIconKey =
   | "balatro"
   | "solidworks"
   | "claude"
-  | "neuralink";
+  | "neuralink"
+  | "ib";
 
 const icons: Record<AboutIconKey, { src: StaticImageData; alt: string }> = {
   uwaterloo: { src: UWaterlooLogo, alt: "UWaterloo Logo" },
@@ -24,6 +26,7 @@ const icons: Record<AboutIconKey, { src: StaticImageData; alt: string }> = {
   solidworks: { src: SolidWorksLogo, alt: "SolidWorks" },
   claude: { src: ClaudeLogo, alt: "Claude" },
   neuralink: { src: NeuraLinkLogo, alt: "Neuralink" },
+  ib: { src: IbLogo, alt: "IB" },
 };
 
 /**

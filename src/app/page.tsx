@@ -66,7 +66,10 @@ function renderAboutSegments(segments: AboutSegment[]) {
     typeof segment === "string" ? (
       <Fragment key={i}>{segment}</Fragment>
     ) : (
-      <span key={i} className="inline-flex items-baseline gap-1 ml-2">
+      <span
+        key={i}
+        className={`inline-flex items-baseline gap-1 ${i === 0 ? "" : "ml-2"}`}
+      >
         <InlineIcon icon={segment.icon} />
         {segment.label}
       </span>
