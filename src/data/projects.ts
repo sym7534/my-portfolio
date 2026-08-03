@@ -87,6 +87,24 @@ export const projects: Project[] = [
     techStack: ["React", "TypeScript", "Tailwind CSS", "Figma", "SQLite", "WebSockets", "UI/UX"],
   },
   {
+    slug: "atv",
+    category: "both" as const,
+    hidden: true, // only shown once unlocked via the secret recruiter subdomain
+    imageSrc: "/assets/projects/atv/atv.png",
+    imageWidth: 1215,
+    imageHeight: 1290,
+    altText: "Autonomous ATV",
+    title: "Autonomous ATV",
+    caption: "ROS 2 autonomy stack for electric outdoor ATV",
+    description:
+      "• Modified existing ATV steering system for electric power steering compatibility with ODrive motor controller; designed mechanical integration for actuator mounting and linkage geometry.\n• Contributed to overall system architecture for ROS 2 autonomy stack targeting full outdoor autonomous operation.",
+    techStack: ["SolidWorks", "ROS 2", "ODrive", "Arduino", "Jetson Orin Nano"],
+    images: [
+      { src: "/assets/projects/atv/atv.png", alt: "ATV chassis with steering and suspension components", span: "large" as const },
+      { src: "/assets/projects/atv/platedatv.png", alt: "Autonomous ATV with body panels in the field" },
+    ],
+  },
+  {
     slug: "tronring",
     category: "software" as const,
     imageSrc: "/assets/projects/tronring/image.png",
@@ -193,19 +211,5 @@ export const projects: Project[] = [
     description:
       "• Built an ESP32 sensor network streaming room data to a Raspberry Pi hub; validated data within ±1°C and ±5% RH.\n• Implemented a Flask REST API to receive, store, and process telemetry; sustained 1000+ data points/hour.\n• Designed tolerance-driven enclosures in SolidWorks; iterated 4 revisions for cable routing, airflow, fit, and aesthetics.\n• Built a repeatable deployment workflow with sensor calibration, schema versioning, and basic trend/anomaly visualizations.",
     techStack: ["SolidWorks", "ESP32", "C++", "Python", "Flask", "Raspberry Pi"],
-  },
-  {
-    slug: "atv",
-    category: "both" as const,
-    hidden: true, // only shown once unlocked via the secret recruiter subdomain
-    title: "Autonomous ATV",
-    caption: "ROS 2 autonomy stack for electric outdoor ATV",
-    description:
-      "• Modified existing ATV steering system for electric power steering compatibility with ODrive motor controller; designed mechanical integration for actuator mounting and linkage geometry.\n• Contributed to overall system architecture for ROS 2 autonomy stack targeting full outdoor autonomous operation.",
-    techStack: ["SolidWorks", "ROS 2", "ODrive", "Arduino", "Jetson Orin Nano"],
-    images: [
-      { src: "/assets/projects/atv/atv.png", alt: "ATV chassis with steering and suspension components", span: "large" as const },
-      { src: "/assets/projects/atv/platedatv.png", alt: "Autonomous ATV with body panels in the field" },
-    ],
   },
 ];
