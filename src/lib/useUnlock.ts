@@ -11,7 +11,7 @@ import { useEffect, useState } from "react";
  * Client-side easter egg: the host check ships in the JS bundle, so it's
  * discoverable by a determined snoop — fine for this, not for private data.
  */
-const UNLOCK_HOST = "portfolio.wangdynasty.ca";
+export const UNLOCK_HOST = "portfolio.wangdynasty.ca";
 const PING_KEY = "wd_pinged";
 
 export function useUnlock(): boolean {

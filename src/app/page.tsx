@@ -18,7 +18,7 @@ import { PhotoCard } from "@/components/ui/PhotoCard";
 import { DitherHand } from "@/components/DitherHand";
 import { NowPlaying } from "@/components/NowPlaying";
 import { LenisScroll } from "@/components/LenisScroll";
-import { useUnlock } from "@/lib/useUnlock";
+import { useUnlock, UNLOCK_HOST } from "@/lib/useUnlock";
 import { MotionConfig, motion } from "motion/react";
 import type { Project } from "@/types/project";
 import Image from "next/image";
@@ -107,8 +107,10 @@ export default function Home() {
   const [handGen, setHandGen] = useState(0);
   const [messed, setMessed] = useState(false);
 
-  // Fire-and-forget visit notification
+  // Fire-and-forget visit notification — but not on the recruiter subdomain,
+  // which sends its own "PORTFOLIO VISITED BY RECRUITER" ping (avoids a dupe)
   useEffect(() => {
+    if (window.location.hostname === UNLOCK_HOST) return;
     fetch("/api/visit", { method: "POST" });
   }, []);
 

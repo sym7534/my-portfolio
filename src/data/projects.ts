@@ -90,10 +90,10 @@ export const projects: Project[] = [
     slug: "atv",
     category: "both" as const,
     hidden: true, // only shown once unlocked via the secret recruiter subdomain
-    imageSrc: "/assets/projects/atv/atv.png",
-    imageWidth: 1215,
-    imageHeight: 1290,
-    altText: "Autonomous ATV",
+    imageSrc: "/assets/projects/atv/platedatv.png",
+    imageWidth: 4027,
+    imageHeight: 2554,
+    altText: "Autonomous ATV with body panels in the field",
     title: "Autonomous ATV",
     caption: "ROS 2 autonomy stack for electric outdoor ATV",
     description:
