@@ -83,7 +83,7 @@ export const projects: Project[] = [
     title: "WaterlooWash",
     caption: "laundry tracking mobile app",
     description:
-      "• Designed a Figma prototype that gamifies residence laundry; applied HTML/CSS skills to refine UI/UX.\n• Built a component-driven React UI (hooks, responsive layout, accessibility) with Tailwind CSS.\n• Building a SQLite-backed API, WebSockets for live updates and auth so only residents can claim/rate machines.",
+      "• Designed a Figma prototype that gamifies residence laundry; applied HTML/CSS skills to refine UI/UX.\n• Built a component-driven React UI (hooks, responsive layout, accessibility) with Tailwind CSS.\n• Building a SQLite-backed API, WebSockets for live updates and auth so only residents can claim/rate machines.\n\np.s. Somehow won a Figma hackathon with this having never used the tool before..",
     techStack: ["React", "TypeScript", "Tailwind CSS", "Figma", "SQLite", "WebSockets", "UI/UX"],
   },
   {
@@ -197,6 +197,7 @@ export const projects: Project[] = [
   {
     slug: "atv",
     category: "both" as const,
+    hidden: true, // only shown once unlocked via the secret recruiter subdomain
     title: "Autonomous ATV",
     caption: "ROS 2 autonomy stack for electric outdoor ATV",
     description:

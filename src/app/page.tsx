@@ -18,6 +18,7 @@ import { PhotoCard } from "@/components/ui/PhotoCard";
 import { DitherHand } from "@/components/DitherHand";
 import { NowPlaying } from "@/components/NowPlaying";
 import { LenisScroll } from "@/components/LenisScroll";
+import { useUnlock } from "@/lib/useUnlock";
 import { MotionConfig, motion } from "motion/react";
 import type { Project } from "@/types/project";
 import Image from "next/image";
@@ -101,6 +102,8 @@ export default function Home() {
   // text captured on submit that "whooshes" out of the input (slide + blur)
   const [flying, setFlying] = useState<{ key: number; text: string } | null>(null);
   const flyKeyRef = useRef(0);
+  // reveals projects flagged `hidden` once the visitor arrives via the secret link
+  const unlocked = useUnlock();
   const [handGen, setHandGen] = useState(0);
   const [messed, setMessed] = useState(false);
 
@@ -434,7 +437,7 @@ export default function Home() {
             </button>
           </QuietHeader>
           {(() => {
-            const filtered = projects.filter(p => p.slug !== "atv" && (projectFilter === "all" || p.category === projectFilter || p.category === "both"));
+            const filtered = projects.filter(p => (!p.hidden || unlocked) && (projectFilter === "all" || p.category === projectFilter || p.category === "both"));
             const marsRover = filtered.find(p => p.slug === "mars-rover");
             const rest = filtered.filter(p => p.slug !== "mars-rover");
             const leftCol: Project[] = [];

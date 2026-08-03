@@ -16,6 +16,8 @@ export interface Project {
   title: string;
   caption: string;
   href?: string;
+  /** gated behind the secret link — only shown once the visitor has unlocked */
+  hidden?: boolean;
   description?: string;
   techStack?: string[];
   links?: { label: string; url: string }[];
