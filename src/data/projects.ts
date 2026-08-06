@@ -21,6 +21,7 @@ export const projects: Project[] = [
   {
     slug: "robot-hand",
     category: "mechanical" as const,
+    hidden: true, // only shown once unlocked via the secret recruiter subdomain
     imageSrc: "/assets/projects/robot-hand/finalhand.png",
     imageWidth: 1215,
     imageHeight: 1620,
@@ -55,6 +56,7 @@ export const projects: Project[] = [
   {
     slug: "vex",
     category: "both" as const,
+    hidden: true, // only shown once unlocked via the secret recruiter subdomain
     imageSrc: "/assets/projects/vex/cover.png",
     imageWidth: 888,
     imageHeight: 1199,
@@ -76,6 +78,7 @@ export const projects: Project[] = [
   {
     slug: "waterloowash",
     category: "software" as const,
+    hidden: true, // only shown once unlocked via the secret recruiter subdomain
     imageSrc: "/assets/projects/waterloowash/cover.png",
     imageWidth: 1299,
     imageHeight: 911,
@@ -107,6 +110,7 @@ export const projects: Project[] = [
   {
     slug: "tronring",
     category: "software" as const,
+    hidden: true, // only shown once unlocked via the secret recruiter subdomain
     imageSrc: "/assets/projects/tronring/image.png",
     imageWidth: 1919,
     imageHeight: 1082,
@@ -126,6 +130,7 @@ export const projects: Project[] = [
   {
     slug: "self-driving-car",
     category: "software" as const,
+    hidden: true, // only shown once unlocked via the secret recruiter subdomain
     imageSrc: "/assets/projects/self-driving-car/cover.png",
     imageWidth: 836,
     imageHeight: 713,
@@ -142,6 +147,7 @@ export const projects: Project[] = [
   {
     slug: "mars-rover",
     category: "both" as const,
+    hidden: true, // only shown once unlocked via the secret recruiter subdomain
     imageSrc: "/assets/projects/rover/cover.png",
     imageWidth: 1919,
     imageHeight: 1152,
@@ -155,6 +161,7 @@ export const projects: Project[] = [
   {
     slug: "valorant-fantasy",
     category: "software" as const,
+    hidden: true, // only shown once unlocked via the secret recruiter subdomain
     title: "Valorant Fantasy",
     caption: "'fantasy football' style app for VCT",
     description:
@@ -164,6 +171,7 @@ export const projects: Project[] = [
   {
     slug: "portfolio",
     category: "software" as const,
+    hidden: true, // only shown once unlocked via the secret recruiter subdomain
     imageSrc: "/assets/projects/personal-site/cover.png",
     imageWidth: 994,
     imageHeight: 697,
@@ -176,6 +184,7 @@ export const projects: Project[] = [
   {
     slug: "molehunt",
     category: "software" as const,
+    hidden: true, // only shown once unlocked via the secret recruiter subdomain
     imageSrc: "/assets/projects/molehunt/cover.png",
     imageWidth: 1920,
     imageHeight: 1057,
@@ -189,6 +198,7 @@ export const projects: Project[] = [
   {
     slug: "card-dealer",
     category: "mechanical" as const,
+    hidden: true, // only shown once unlocked via the secret recruiter subdomain
     imageSrc: "/assets/projects/card-dealer/cover.png",
     imageWidth: 918,
     imageHeight: 615,
@@ -202,6 +212,7 @@ export const projects: Project[] = [
   {
     slug: "smart-home",
     category: "both" as const,
+    hidden: true, // only shown once unlocked via the secret recruiter subdomain
     imageSrc: "/assets/projects/smart-home/cover.png",
     imageWidth: 1536,
     imageHeight: 1024,
