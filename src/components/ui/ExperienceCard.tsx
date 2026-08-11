@@ -3,48 +3,6 @@
 import { cn } from "@/lib/utils";
 import { useEffect, useRef, useState } from "react";
 
-interface CardProps {
-  children?: React.ReactNode;
-  className?: string;
-  variant?: "solid" | "gradient" | "translucent";
-  onMouseEnter?: () => void;
-  onMouseLeave?: () => void;
-  onClick?: () => void;
-}
-
-/**
- * Card component with multiple variants matching Figma design.
- * - solid: Plain background (#f9f9f9)
- * - gradient: Gradient from #f9f9f9 to white (experience cards)
- * - translucent: Semi-transparent for project cards
- */
-export function Card({
-  children,
-  className,
-  variant = "solid",
-  onMouseEnter,
-  onMouseLeave,
-  onClick,
-}: CardProps) {
-  return (
-    <div
-      className={cn(
-        "rounded-md p-4",
-        variant === "solid" && "bg-bg-card",
-        variant === "gradient" &&
-          "bg-gradient-to-r from-bg-card to-bg-white bg-origin-border bg-no-repeat",
-        variant === "translucent" && "bg-card-translucent",
-        className
-      )}
-      onMouseEnter={onMouseEnter}
-      onMouseLeave={onMouseLeave}
-      onClick={onClick}
-    >
-      {children}
-    </div>
-  );
-}
-
 interface ExperienceCardProps {
   logo: React.ReactNode;
   title: string;
