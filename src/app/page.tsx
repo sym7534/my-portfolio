@@ -24,6 +24,7 @@ import type { Project } from "@/types/project";
 import Image from "next/image";
 import Link from "next/link";
 import { projects } from "@/data/projects";
+import { socialLinks } from "@/data/socials";
 import { experience } from "@/data/experience";
 import { aboutItems, type AboutSegment } from "@/data/about";
 import { BIO, RESUME_PATH, UWATERLOO_URL, WEBRING_BASE_URL, WEBRING_SITE } from "@/data/site";
@@ -176,21 +177,11 @@ export default function Home() {
           {/* Links row */}
           <motion.div variants={fadeUp}>
           <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mb-[clamp(1rem,3vh,2rem)] font-serif text-[13px]">
-            <a href="https://x.com/symm7534" className={quietLink}>
-              x
-            </a>
-            <a href="https://www.linkedin.com/in/ryan-muxi-wang/" className={quietLink}>
-              linkedin
-            </a>
-            <a href="https://github.com/sym7534" className={quietLink}>
-              github
-            </a>
-            <a href="https://devpost.com/ryan-muxiwang" className={quietLink}>
-              devpost
-            </a>
-            <a href="mailto:ryan.muxiwang@gmail.com" className={quietLink}>
-              email
-            </a>
+            {socialLinks.map((link) => (
+              <a key={link.label} href={link.href} className={quietLink}>
+                {link.label}
+              </a>
+            ))}
             <Link href={RESUME_PATH} target="_blank" rel="noopener noreferrer" className={quietLink}>
               resume
             </Link>
