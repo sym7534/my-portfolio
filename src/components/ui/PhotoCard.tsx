@@ -18,8 +18,22 @@ interface PhotoCardProps {
 export function PhotoCard({ project, onOpen, className }: PhotoCardProps) {
   return (
     <figure
-      className={cn("group cursor-pointer", className)}
+      role="button"
+      tabIndex={0}
+      aria-haspopup="dialog"
+      aria-label={`Open project: ${project.title}`}
+      className={cn(
+        "group cursor-pointer",
+        "focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-2 focus-visible:outline-text-muted",
+        className
+      )}
       onClick={onOpen}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          onOpen();
+        }
+      }}
     >
       {project.imageSrc && (
         <div className="overflow-hidden rounded-[3px] border border-border-card bg-bg-white">
