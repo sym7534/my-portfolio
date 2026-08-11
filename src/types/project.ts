@@ -18,6 +18,8 @@ export interface Project {
   href?: string;
   /** gated behind the secret link — only shown once the visitor has unlocked */
   hidden?: boolean;
+  /** pinned to the top of the right column in the projects grid */
+  pinned?: boolean;
   description?: string;
   techStack?: string[];
   links?: { label: string; url: string }[];

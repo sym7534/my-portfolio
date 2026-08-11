@@ -149,6 +149,7 @@ export const projects: Project[] = [
   },
   {
     slug: "mars-rover",
+    pinned: true, // sits at the top of the right column
     category: "both" as const,
     hidden: true, // only shown once unlocked via the secret recruiter subdomain
     imageSrc: "/assets/projects/rover/cover.png",
