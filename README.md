@@ -1,6 +1,6 @@
 # wangdynasty.ca
 
-Personal portfolio of Ryan Wang — mechatronics engineering @ UWaterloo.
+Personal portfolio of Ryan Wang - mechatronics engineering @ UWaterloo.
 
 Built with Next.js (App Router), TypeScript, Tailwind CSS v4, and Motion. Deployed on Vercel.
 
@@ -18,14 +18,6 @@ npx tsc --noEmit   # typecheck
 npm run lint       # lint
 npm run build      # production build
 ```
-
-## Environment
-
-| Variable | Purpose |
-| --- | --- |
-| `DISCORD_WEBHOOK_URL` | Webhook for visit pings and the message box |
-| `DISCORD_MENTION_ID` | Discord user ID to @mention in notifications (optional) |
-| `NEXT_PUBLIC_WEBRING_BASE_URL` | Webring base URL override (optional) |
 
 ## Structure
 
