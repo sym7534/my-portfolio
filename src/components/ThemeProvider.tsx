@@ -24,8 +24,11 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [theme, setThemeState] = useState<Theme>("light");
   const [mounted, setMounted] = useState(false);
 
-  // On mount, read from localStorage or OS preference
+  // On mount, read from localStorage or OS preference. Adoption must happen
+  // post-hydration (SSR always renders "light"), so setState in this effect
+  // is intentional — same pattern as useUnlock/useProjectModal.
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true);
 
     const stored = localStorage.getItem(STORAGE_KEY) as Theme | null;

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useSyncExternalStore } from "react";
 import { createPortal } from "react-dom";
 import { AnimatePresence, motion } from "motion/react";
 import { cn } from "@/lib/utils";
@@ -22,22 +22,56 @@ export function Modal({
   className,
   ariaLabel,
 }: ModalProps) {
-  const [mounted, setMounted] = useState(false);
+  // SSR-safe mount detection without a setState-in-effect
+  const mounted = useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false
+  );
   const contentRef = useRef<HTMLDivElement>(null);
+  const dialogRootRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  // Escape key
+  // Escape key + focus trap (Tab cycles within the dialog)
   useEffect(() => {
     if (!isOpen) return;
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
+      if (e.key === "Escape") {
+        onClose();
+        return;
+      }
+      if (e.key !== "Tab") return;
+      const root = dialogRootRef.current;
+      if (!root) return;
+      const focusables = Array.from(
+        root.querySelectorAll<HTMLElement>(
+          'a[href], button:not([disabled]), textarea, input, select, iframe, [tabindex]:not([tabindex="-1"])'
+        )
+      ).filter((el) => el.offsetParent !== null || el === document.activeElement);
+      if (focusables.length === 0) return;
+      const first = focusables[0];
+      const last = focusables[focusables.length - 1];
+      const active = document.activeElement as HTMLElement | null;
+      if (e.shiftKey) {
+        if (!active || active === first || !root.contains(active)) {
+          e.preventDefault();
+          last.focus();
+        }
+      } else if (!active || active === last || !root.contains(active)) {
+        e.preventDefault();
+        first.focus();
+      }
     };
     document.addEventListener("keydown", handleKeyDown);
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, [isOpen, onClose]);
+
+  // Move focus into the dialog on open; restore it on close
+  useEffect(() => {
+    if (!isOpen) return;
+    const previouslyFocused = document.activeElement as HTMLElement | null;
+    contentRef.current?.focus();
+    return () => previouslyFocused?.focus();
+  }, [isOpen]);
 
   // Scroll lock
   useEffect(() => {
@@ -59,7 +93,7 @@ export function Modal({
   return createPortal(
     <AnimatePresence>
       {isOpen && (
-        <>
+        <div ref={dialogRootRef}>
           {/* Overlay — layered haze without backdrop-blur */}
           <motion.div
             className="fixed inset-0 z-50"
@@ -128,6 +162,7 @@ export function Modal({
                   role="dialog"
                   aria-modal="true"
                   aria-label={ariaLabel}
+                  tabIndex={-1}
                   className={cn(
                     "bg-bg-white lg:rounded-md lg:border lg:border-border-card lg:shadow-lg lg:max-h-[80vh] lg:overflow-y-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden",
                     className
@@ -139,7 +174,7 @@ export function Modal({
               </div>
             </div>
           </motion.div>
-        </>
+        </div>
       )}
     </AnimatePresence>,
     document.body

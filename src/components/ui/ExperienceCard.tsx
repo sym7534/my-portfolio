@@ -1,49 +1,7 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { useEffect, useRef, useState } from "react";
-
-interface CardProps {
-  children?: React.ReactNode;
-  className?: string;
-  variant?: "solid" | "gradient" | "translucent";
-  onMouseEnter?: () => void;
-  onMouseLeave?: () => void;
-  onClick?: () => void;
-}
-
-/**
- * Card component with multiple variants matching Figma design.
- * - solid: Plain background (#f9f9f9)
- * - gradient: Gradient from #f9f9f9 to white (experience cards)
- * - translucent: Semi-transparent for project cards
- */
-export function Card({
-  children,
-  className,
-  variant = "solid",
-  onMouseEnter,
-  onMouseLeave,
-  onClick,
-}: CardProps) {
-  return (
-    <div
-      className={cn(
-        "rounded-md p-4",
-        variant === "solid" && "bg-bg-card",
-        variant === "gradient" &&
-          "bg-gradient-to-r from-bg-card to-bg-white bg-origin-border bg-no-repeat",
-        variant === "translucent" && "bg-card-translucent",
-        className
-      )}
-      onMouseEnter={onMouseEnter}
-      onMouseLeave={onMouseLeave}
-      onClick={onClick}
-    >
-      {children}
-    </div>
-  );
-}
+import { useEffect, useId, useRef, useState } from "react";
 
 interface ExperienceCardProps {
   logo: React.ReactNode;
@@ -57,7 +15,8 @@ interface ExperienceCardProps {
   onTitleSizeChange?: (size: number) => void;
   onMouseEnter?: () => void;
   onMouseLeave?: () => void;
-  onClick?: () => void;
+  /** mobile tap / keyboard toggle of the expanded state */
+  onToggle?: () => void;
   className?: string;
 }
 
@@ -80,7 +39,7 @@ export function ExperienceCard({
   onTitleSizeChange,
   onMouseEnter,
   onMouseLeave,
-  onClick,
+  onToggle,
   className,
 }: ExperienceCardProps) {
   const titleRef = useRef<HTMLHeadingElement>(null);
@@ -162,15 +121,28 @@ export function ExperienceCard({
     };
   }, [isControlled, onTitleSizeChange, title, titleSize]);
 
+  const contentId = useId();
+
   return (
     <div
+      role="button"
+      tabIndex={0}
+      aria-expanded={isExpanded}
+      aria-controls={description || skills ? contentId : undefined}
       className={cn(
         "[container-type:inline-size] cursor-pointer border-b border-border-card py-3 last:border-0",
+        "focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-2 focus-visible:outline-text-muted",
         className
       )}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
-      onClick={onClick}
+      onClick={onToggle}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          onToggle?.();
+        }
+      }}
     >
       {/* Header row */}
       <div className="flex items-center gap-3">
@@ -197,6 +169,7 @@ export function ExperienceCard({
       {/* Expandable content */}
       {(description || skills) && (
         <div
+          id={contentId}
           className={cn(
             "grid transition-[grid-template-rows] ease-out",
             isExpanded ? "grid-rows-[1fr] duration-300" : "grid-rows-[0fr] duration-700"

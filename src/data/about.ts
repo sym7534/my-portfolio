@@ -1,4 +1,4 @@
-import type { AboutIconKey } from "@/components/InlineIcon";
+import type { AboutIconKey } from "@/types/about";
 
 /**
  * A sentence is a sequence of segments: plain text, or an inline icon

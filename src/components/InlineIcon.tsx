@@ -1,4 +1,5 @@
 import Image, { type StaticImageData } from "next/image";
+import type { AboutIconKey } from "@/types/about";
 import UWaterlooLogo from "../../public/assets/icons/UWaterloo.png";
 import BalatroLogo from "../../public/assets/icons/balatro.png";
 import ClaudeLogo from "../../public/assets/icons/claude-color.svg";
@@ -7,16 +8,6 @@ import NeuraLinkLogo from "../../public/assets/icons/neuralink.jpeg";
 import MinecraftLogo from "../../public/assets/icons/minecraft icon.svg";
 import CanadaLogo from "../../public/assets/icons/canada.jpg";
 import IbLogo from "../../public/assets/icons/ib.png";
-
-export type AboutIconKey =
-  | "uwaterloo"
-  | "canada"
-  | "minecraft"
-  | "balatro"
-  | "solidworks"
-  | "claude"
-  | "neuralink"
-  | "ib";
 
 const icons: Record<AboutIconKey, { src: StaticImageData; alt: string }> = {
   uwaterloo: { src: UWaterlooLogo, alt: "UWaterloo Logo" },

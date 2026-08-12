@@ -14,9 +14,9 @@ export function ProjectDetailModal({
   project,
   onClose,
 }: ProjectDetailModalProps) {
-  if (!project) return <Modal isOpen={false} onClose={onClose}><div /></Modal>;
-
-  const aside = (
+  // Render the Modal even when closed so AnimatePresence can run the exit
+  // animation; `open` drives it instead of the old isOpen={false} hack.
+  const aside = project && (
     <div className="py-2">
       {/* Title + category badge */}
       <div className="flex items-center gap-3 mb-1">
@@ -69,7 +69,13 @@ export function ProjectDetailModal({
   );
 
   return (
-    <Modal isOpen ariaLabel={project.title} onClose={onClose} aside={aside}>
+    <Modal
+      isOpen={Boolean(project)}
+      ariaLabel={project?.title}
+      onClose={onClose}
+      aside={aside}
+    >
+      {project && (
       <div className="p-2 lg:p-4">
         {/* Video embed, images, or fallback cover */}
         {project.videoUrl ? (
@@ -98,6 +104,7 @@ export function ProjectDetailModal({
           </div>
         ) : null}
       </div>
+      )}
     </Modal>
   );
 }

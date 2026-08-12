@@ -114,10 +114,19 @@ export function ImageCarousel({ images }: ImageCarouselProps) {
               <div
                 key={img.src}
                 ref={el => { itemRefs.current[i] = el; }}
-                className="rounded-lg overflow-hidden cursor-pointer"
+                role="button"
+                tabIndex={0}
+                aria-label={img.alt ? `Expand image: ${img.alt}` : "Expand image"}
+                className="rounded-lg overflow-hidden cursor-pointer focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/70"
                 style={{ gridColumn, position: "relative", zIndex: isHovered ? 10 : 1 }}
                 onMouseEnter={() => handleMouseEnter(i)}
                 onClick={() => setSelectedIdx(i)}
+                onKeyDown={e => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    setSelectedIdx(i);
+                  }
+                }}
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
@@ -156,18 +165,28 @@ export function ImageCarousel({ images }: ImageCarouselProps) {
 
             {/* Expanded image — shared layout from grid */}
             <div
+              role="dialog"
+              aria-modal="true"
+              aria-label={selectedImg.alt || "Expanded image"}
               className="fixed inset-0 z-[201] flex items-center justify-center pointer-events-none p-4 lg:p-8"
             >
               <motion.img
                 key={selectedIdx}
                 src={imgOpt(selectedImg.src, 1920)}
                 alt={selectedImg.alt ?? ""}
-                className="max-w-full max-h-[85vh] rounded-lg object-contain pointer-events-auto cursor-pointer shadow-2xl"
+                tabIndex={0}
+                className="max-w-full max-h-[85vh] rounded-lg object-contain pointer-events-auto cursor-pointer shadow-2xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-white/70"
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.95 }}
                 transition={{ duration: 0.15 }}
                 onClick={() => setSelectedIdx(null)}
+                onKeyDown={(e: React.KeyboardEvent) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    setSelectedIdx(null);
+                  }
+                }}
               />
             </div>
           </>
