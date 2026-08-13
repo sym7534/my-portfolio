@@ -106,6 +106,28 @@ record("R4a", "intrinsic dimensions present (CLS)", noDims.length === 0,
   noDims.length ? `missing width/height: ${noDims.map((d) => d.label).join(", ")}`
                 : `all ${imgs.length} carry width+height attributes`);
 
+// ---- R4b: declared dimensions match the actual PNGs ----------------------
+// Regenerating at a different grid resolution changes the output size. If
+// src/data/projects.ts still carries the old width/height, next/image reserves
+// the wrong box and the CLS that R4a guards against comes back. This caught a
+// real staleness after the screenshot projects moved to a finer grid.
+{
+  const dims = JSON.parse(fs.readFileSync(path.join(process.cwd(), "tools/ascii-dims.json"), "utf8"));
+  const mismatched = [];
+  for (const info of imgs) {
+    const slug = Object.keys(dims).find((s) => decodeURIComponent(info.src).includes(dims[s].src));
+    if (!slug) continue;
+    const want = dims[slug];
+    const ratioDeclared = want.w / want.h;
+    const ratioActual = info.naturalWidth / info.naturalHeight;
+    if (Math.abs(ratioDeclared - ratioActual) > 0.01) {
+      mismatched.push(`${slug} declared ${want.w}x${want.h} vs served ${info.naturalWidth}x${info.naturalHeight}`);
+    }
+  }
+  record("R4b", "declared dimensions match the generated PNGs", mismatched.length === 0,
+    mismatched.length ? mismatched.join(" | ") : `all ${imgs.length} aspect ratios agree with tools/ascii-dims.json`);
+}
+
 // ---- R5: dark mode -------------------------------------------------------
 // sample the card image's own pixels in each theme, via canvas over a
 // screenshot clip, so the dark:invert result is measured not assumed

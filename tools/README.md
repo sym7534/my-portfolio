@@ -111,3 +111,25 @@ R7 is scoped to asset traffic.
 
 `playwright-core` lives in `tools/vendor/` alongside `@napi-rs/canvas` and uses
 the system Chrome, so it never enters the app's dependency tree.
+
+## Grid resolution is per source type
+
+The single most important tuning decision, and it is not a slider:
+
+- **Isolated photo subjects** (robot-hand, vex, card-dealer, smart-home,
+  tronring) stay coarse at `cols: 58`. Their silhouette *is* the content. A
+  fine grid turns them into a grey photograph and loses the typographic look.
+- **Screenshots** need a fine grid, because their meaning lives in small
+  detail. At 58 columns the portfolio cover was scattered marks; at
+  `cols: 150, cellW: 4` it reads "hey, i'm Ryan Wang". Likewise waterloowash
+  (phone frame and the "12"), canopi (map pill cluster) and self-driving-car
+  (costmap blobs and the path line).
+
+`cols` and `cellW` move together: raising columns while lowering cell width
+keeps the output roughly the same physical size while letting structure
+resolve.
+
+**After changing `cols`/`cellW`, run `node tools/sync-dims.mjs`.** The output
+PNG changes size, and `src/data/projects.ts` carries those dimensions for
+`next/image` to reserve layout. A stale pair silently reintroduces layout
+shift. R4b in `verify-page.mjs` now fails loudly if they drift.

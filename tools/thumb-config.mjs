@@ -60,6 +60,8 @@ export const DEFAULTS = {
 export const THUMBS = [
   {
     slug: "canopi",
+    cols: 120,
+    cellW: 5,
     minFloor: 0.16,
     src: "/assets/projects/canopi/canopizoomedout.png",
     // light UI screenshot; crop to the map so the mosaic has real structure
@@ -85,6 +87,8 @@ export const THUMBS = [
   },
   {
     slug: "waterloowash",
+    cols: 130,
+    cellW: 5,
     minFloor: 0.18,
     src: "/assets/projects/waterloowash/cover.png",
     // three phone mockups; crop to the middle one so a single screen reads
@@ -107,6 +111,8 @@ export const THUMBS = [
   },
   {
     slug: "self-driving-car",
+    cols: 110,
+    cellW: 6,
     minFloor: 0.14,
     src: "/assets/projects/self-driving-car/cover.png",
     // Foxglove 3D panel: crop inside the grid, away from the window chrome
@@ -119,6 +125,8 @@ export const THUMBS = [
   },
   {
     slug: "mars-rover",
+    cols: 110,
+    cellW: 6,
     minFloor: 0.14,
     src: "/assets/projects/rover/cover.png",
     // screenshot, not a photo — segmentation cannot help here, so crop to the
@@ -132,6 +140,8 @@ export const THUMBS = [
   },
   {
     slug: "portfolio",
+    cols: 150,
+    cellW: 4,
     minFloor: 0.2,
     src: "/assets/projects/personal-site/cover.png",
     // 2x2 grid of site variants; crop to the top-left "Original Version" panel
@@ -143,6 +153,8 @@ export const THUMBS = [
   },
   {
     slug: "molehunt",
+    cols: 90,
+    cellW: 7,
     minFloor: 0.1,
     src: "/assets/projects/molehunt/cover.png",
     // Minecraft villagers; crop to the front group

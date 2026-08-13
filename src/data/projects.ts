@@ -4,8 +4,8 @@ export const projects: Project[] = [
   {
     slug: "canopi",
     asciiSrc: "/assets/projects/canopi/ascii.png",
-    asciiWidth: 638,
-    asciiHeight: 484,
+    asciiWidth: 600,
+    asciiHeight: 450,
     category: "software" as const,
     imageSrc: "/assets/projects/canopi/canopi.png",
     imageWidth: 3839,
@@ -87,8 +87,8 @@ export const projects: Project[] = [
   {
     slug: "waterloowash",
     asciiSrc: "/assets/projects/waterloowash/ascii.png",
-    asciiWidth: 638,
-    asciiHeight: 847,
+    asciiWidth: 650,
+    asciiHeight: 865,
     category: "software" as const,
     hidden: true, // only shown once unlocked via the secret recruiter subdomain
     imageSrc: "/assets/projects/waterloowash/cover.png",
@@ -148,8 +148,8 @@ export const projects: Project[] = [
   {
     slug: "self-driving-car",
     asciiSrc: "/assets/projects/self-driving-car/ascii.png",
-    asciiWidth: 638,
-    asciiHeight: 638,
+    asciiWidth: 660,
+    asciiHeight: 660,
     category: "software" as const,
     hidden: true, // only shown once unlocked via the secret recruiter subdomain
     imageSrc: "/assets/projects/self-driving-car/cover.png",
@@ -168,8 +168,8 @@ export const projects: Project[] = [
   {
     slug: "mars-rover",
     asciiSrc: "/assets/projects/mars-rover/ascii.png",
-    asciiWidth: 638,
-    asciiHeight: 396,
+    asciiWidth: 660,
+    asciiHeight: 414,
     pinned: true, // sits at the top of the right column
     category: "both" as const,
     hidden: true, // only shown once unlocked via the secret recruiter subdomain
@@ -196,8 +196,8 @@ export const projects: Project[] = [
   {
     slug: "portfolio",
     asciiSrc: "/assets/projects/portfolio/ascii.png",
-    asciiWidth: 638,
-    asciiHeight: 847,
+    asciiWidth: 600,
+    asciiHeight: 800,
     category: "software" as const,
     hidden: true, // only shown once unlocked via the secret recruiter subdomain
     imageSrc: "/assets/projects/personal-site/cover.png",
@@ -212,8 +212,8 @@ export const projects: Project[] = [
   {
     slug: "molehunt",
     asciiSrc: "/assets/projects/molehunt/ascii.png",
-    asciiWidth: 638,
-    asciiHeight: 484,
+    asciiWidth: 630,
+    asciiHeight: 476,
     category: "software" as const,
     hidden: true, // only shown once unlocked via the secret recruiter subdomain
     imageSrc: "/assets/projects/molehunt/cover.png",
