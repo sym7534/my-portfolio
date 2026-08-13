@@ -18,18 +18,25 @@ export function useUnlock(): boolean {
   const [unlocked, setUnlocked] = useState(false);
 
   useEffect(() => {
-    if (window.location.hostname !== UNLOCK_HOST) return;
+    // Local development always reveals the full set (including projects
+    // flagged `hidden`) so the whole grid is reviewable on localhost:3000.
+    // Production behavior is unchanged: only the secret host unlocks.
+    const isDev = process.env.NODE_ENV === "development";
 
-    // ping Discord once per browser session so refresh/navigation doesn't spam
-    let pinged = false;
-    try {
-      pinged = sessionStorage.getItem(PING_KEY) === "1";
-    } catch {}
-    if (!pinged) {
+    if (!isDev) {
+      if (window.location.hostname !== UNLOCK_HOST) return;
+
+      // ping Discord once per browser session so refresh/navigation doesn't spam
+      let pinged = false;
       try {
-        sessionStorage.setItem(PING_KEY, "1");
+        pinged = sessionStorage.getItem(PING_KEY) === "1";
       } catch {}
-      void fetch("/api/unlock", { method: "POST" }).catch(() => {});
+      if (!pinged) {
+        try {
+          sessionStorage.setItem(PING_KEY, "1");
+        } catch {}
+        void fetch("/api/unlock", { method: "POST" }).catch(() => {});
+      }
     }
 
     // reveal must happen post-mount (window) — matching SSR (locked) first

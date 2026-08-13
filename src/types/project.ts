@@ -12,6 +12,15 @@ export interface Project {
   /** intrinsic pixel size of imageSrc — lets next/image reserve layout and pick srcset */
   imageWidth?: number;
   imageHeight?: number;
+  /**
+   * ASCII cell-mosaic rendering of the cover, generated offline by
+   * `node tools/gen-ascii-thumbs.mjs` (see tools/README.md). Used as the
+   * grid thumbnail; the photographic `imageSrc` is still what the detail
+   * modal shows, so the mosaic is a cover treatment, not a replacement.
+   */
+  asciiSrc?: string;
+  asciiWidth?: number;
+  asciiHeight?: number;
   altText?: string;
   title: string;
   caption: string;

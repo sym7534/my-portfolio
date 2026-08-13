@@ -1,0 +1,57 @@
+{
+  "canopi": {
+    "src": "/assets/projects/canopi/ascii.png",
+    "w": 638,
+    "h": 484
+  },
+  "robot-hand": {
+    "src": "/assets/projects/robot-hand/ascii.png",
+    "w": 638,
+    "h": 847
+  },
+  "vex": {
+    "src": "/assets/projects/vex/ascii.png",
+    "w": 638,
+    "h": 847
+  },
+  "waterloowash": {
+    "src": "/assets/projects/waterloowash/ascii.png",
+    "w": 638,
+    "h": 847
+  },
+  "tronring": {
+    "src": "/assets/projects/tronring/ascii.png",
+    "w": 638,
+    "h": 638
+  },
+  "self-driving-car": {
+    "src": "/assets/projects/self-driving-car/ascii.png",
+    "w": 638,
+    "h": 638
+  },
+  "mars-rover": {
+    "src": "/assets/projects/mars-rover/ascii.png",
+    "w": 638,
+    "h": 396
+  },
+  "portfolio": {
+    "src": "/assets/projects/portfolio/ascii.png",
+    "w": 638,
+    "h": 847
+  },
+  "molehunt": {
+    "src": "/assets/projects/molehunt/ascii.png",
+    "w": 638,
+    "h": 484
+  },
+  "card-dealer": {
+    "src": "/assets/projects/card-dealer/ascii.png",
+    "w": 638,
+    "h": 429
+  },
+  "smart-home": {
+    "src": "/assets/projects/smart-home/ascii.png",
+    "w": 638,
+    "h": 429
+  }
+}

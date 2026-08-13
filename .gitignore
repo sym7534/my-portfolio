@@ -57,3 +57,9 @@ lucidicons.md
 .claude*
 claude/*
 CLAUDEFEEDBACK.md
+
+# ascii thumbnail generator: native canvas binary + large intermediate cutouts
+# (offline tooling only, never part of the deployed app)
+tools/vendor/
+tools/cutouts/
+tools/preview/

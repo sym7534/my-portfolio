@@ -3,6 +3,9 @@ import type { Project } from "@/types/project";
 export const projects: Project[] = [
   {
     slug: "canopi",
+    asciiSrc: "/assets/projects/canopi/ascii.png",
+    asciiWidth: 638,
+    asciiHeight: 484,
     category: "software" as const,
     imageSrc: "/assets/projects/canopi/canopi.png",
     imageWidth: 3839,
@@ -20,6 +23,9 @@ export const projects: Project[] = [
   },
   {
     slug: "robot-hand",
+    asciiSrc: "/assets/projects/robot-hand/ascii.png",
+    asciiWidth: 638,
+    asciiHeight: 847,
     category: "mechanical" as const,
     hidden: true, // only shown once unlocked via the secret recruiter subdomain
     imageSrc: "/assets/projects/robot-hand/finalhand.png",
@@ -55,6 +61,9 @@ export const projects: Project[] = [
   },
   {
     slug: "vex",
+    asciiSrc: "/assets/projects/vex/ascii.png",
+    asciiWidth: 638,
+    asciiHeight: 847,
     category: "both" as const,
     hidden: true, // only shown once unlocked via the secret recruiter subdomain
     imageSrc: "/assets/projects/vex/cover.png",
@@ -77,6 +86,9 @@ export const projects: Project[] = [
   },
   {
     slug: "waterloowash",
+    asciiSrc: "/assets/projects/waterloowash/ascii.png",
+    asciiWidth: 638,
+    asciiHeight: 847,
     category: "software" as const,
     hidden: true, // only shown once unlocked via the secret recruiter subdomain
     imageSrc: "/assets/projects/waterloowash/cover.png",
@@ -112,6 +124,9 @@ export const projects: Project[] = [
   */
   {
     slug: "tronring",
+    asciiSrc: "/assets/projects/tronring/ascii.png",
+    asciiWidth: 638,
+    asciiHeight: 638,
     category: "software" as const,
     hidden: true, // only shown once unlocked via the secret recruiter subdomain
     imageSrc: "/assets/projects/tronring/image.png",
@@ -132,6 +147,9 @@ export const projects: Project[] = [
   },
   {
     slug: "self-driving-car",
+    asciiSrc: "/assets/projects/self-driving-car/ascii.png",
+    asciiWidth: 638,
+    asciiHeight: 638,
     category: "software" as const,
     hidden: true, // only shown once unlocked via the secret recruiter subdomain
     imageSrc: "/assets/projects/self-driving-car/cover.png",
@@ -149,6 +167,9 @@ export const projects: Project[] = [
   },
   {
     slug: "mars-rover",
+    asciiSrc: "/assets/projects/mars-rover/ascii.png",
+    asciiWidth: 638,
+    asciiHeight: 396,
     pinned: true, // sits at the top of the right column
     category: "both" as const,
     hidden: true, // only shown once unlocked via the secret recruiter subdomain
@@ -174,6 +195,9 @@ export const projects: Project[] = [
   },
   {
     slug: "portfolio",
+    asciiSrc: "/assets/projects/portfolio/ascii.png",
+    asciiWidth: 638,
+    asciiHeight: 847,
     category: "software" as const,
     hidden: true, // only shown once unlocked via the secret recruiter subdomain
     imageSrc: "/assets/projects/personal-site/cover.png",
@@ -187,6 +211,9 @@ export const projects: Project[] = [
   },
   {
     slug: "molehunt",
+    asciiSrc: "/assets/projects/molehunt/ascii.png",
+    asciiWidth: 638,
+    asciiHeight: 484,
     category: "software" as const,
     hidden: true, // only shown once unlocked via the secret recruiter subdomain
     imageSrc: "/assets/projects/molehunt/cover.png",
@@ -201,6 +228,9 @@ export const projects: Project[] = [
   },
   {
     slug: "card-dealer",
+    asciiSrc: "/assets/projects/card-dealer/ascii.png",
+    asciiWidth: 638,
+    asciiHeight: 429,
     category: "mechanical" as const,
     hidden: true, // only shown once unlocked via the secret recruiter subdomain
     imageSrc: "/assets/projects/card-dealer/cover.png",
@@ -215,6 +245,9 @@ export const projects: Project[] = [
   },
   {
     slug: "smart-home",
+    asciiSrc: "/assets/projects/smart-home/ascii.png",
+    asciiWidth: 638,
+    asciiHeight: 429,
     category: "both" as const,
     hidden: true, // only shown once unlocked via the secret recruiter subdomain
     imageSrc: "/assets/projects/smart-home/cover.png",
