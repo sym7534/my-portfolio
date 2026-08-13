@@ -20,9 +20,11 @@
  *   - No trails / explode / formation (static output).
  */
 
-// Glyphs ordered by approximate inked area, lightest first. This ordering is
-// the whole trick: index = tone, so the mosaic reproduces a tonal image.
-const GLYPH_RAMP = [".", ":", "-", "I", "1", "L", "T", "V", "X", "F", "E", "H", "W", "0", "Ø"];
+// Ordered by MEASURED ink coverage at the renderer's own font and size, not by
+// eye. Verified by tools/verify-ramp.mjs, which rasterizes each glyph and
+// asserts zero local inversions; hand-ordering this list previously produced
+// four. Index = tone, so the mosaic reproduces a tonal image.
+const GLYPH_RAMP = [".", "-", ":", "I", "1", "L", "T", "F", "V", "0", "X", "H", "E", "Ø", "W"];
 
 // Pattern chips, also ordered lightest -> heaviest by fill fraction.
 // (indices into drawShape)

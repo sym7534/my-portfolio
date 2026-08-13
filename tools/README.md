@@ -133,3 +133,41 @@ resolve.
 PNG changes size, and `src/data/projects.ts` carries those dimensions for
 `next/image` to reserve layout. A stale pair silently reintroduces layout
 shift. R4b in `verify-page.mjs` now fails loudly if they drift.
+
+## Safety: the dev-only unhide
+
+`useUnlock` reveals `hidden` projects when `NODE_ENV === "development"` so the
+full grid is reviewable locally. If that ever leaked into production it would
+publicly expose every project the author deliberately gated, so it is checked
+two independent ways:
+
+- **Statically** (`recheck.mjs` RC1/RC2): scans the built chunks under
+  `.next/static`. Next inlines `NODE_ENV` at build time, so in a production
+  bundle the comparison should be folded away entirely. RC2 additionally
+  asserts the real `location.hostname` guard survives, i.e. the gate was not
+  replaced by an unconditional unlock.
+- **Behaviourally** (`verify-prod-gate.mjs`): runs a real browser against
+  `next start` and counts rendered cards as an ordinary visitor versus a
+  visitor on the secret host. Observed: **1 card vs 12**. The gate still
+  discriminates in production.
+
+The behavioural test resolves the secret hostname to localhost with Chrome's
+`--host-resolver-rules`. Patching `window.location` from a page script does not
+work — it is non-configurable in Chrome and fails silently, which is how the
+first version of this test produced a false FAIL.
+
+## Why the glyph order is measured, not chosen
+
+`verify-ramp.mjs` rasterizes every glyph in `GLYPH_RAMP` at the renderer's own
+font and size, then pushes a synthetic gradient through the real pipeline.
+
+It asserts two things: zero local inversions in the ramp (Spearman rho = 1.000
+against measured ink) and that rendered ink tracks source tone end to end
+(Pearson r = 0.968, ~11x ink between the lightest and darkest bands).
+
+This caught a real defect. The ramp was originally ordered by eye and had four
+local inversions (F/V, 0/X, H/E, W/0). End-to-end correlation was still 0.911,
+so the output looked fine, but "ordered by ink coverage" is the single property
+that makes this port legible where the original ascii-graphics renderer is not,
+and it should be true rather than approximately true. Reordering by measurement
+lifted the correlation to 0.968.
