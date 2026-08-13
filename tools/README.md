@@ -19,6 +19,8 @@ node tools/gen-ascii-thumbs.mjs --out tools/preview  # preview without touching 
 node tools/sweep.mjs <slug> <param> <v1,v2,...>    # contact sheet of one parameter
 node tools/contact-sheet.mjs tools/preview 370     # all thumbs at real card width
 node tools/show-crops.mjs [slug ...]               # verify crop rectangles
+node tools/mock-card.mjs                           # PhotoCard mock, both themes
+node tools/verify-page.mjs [url]                    # acceptance check vs the running site
 python tools/cutouts.py [slug ...]                 # regenerate subject cutouts
 ```
 
@@ -37,6 +39,8 @@ A full run also writes `tools/ascii-dims.json` (intrinsic sizes), which is what
 | `show-crops.mjs` | Cropped source regions, to check crops before judging output |
 | `cutouts.py` | Subject isolation via rembg, writes `tools/cutouts/<slug>.png` |
 | `probe-images.mjs` | Reports source dimensions and background uniformity |
+| `mock-card.mjs` | Renders the thumbnails as PhotoCard does, in light and dark |
+| `verify-page.mjs` | Drives headless Chrome against the running dev server and asserts R1-R7 |
 
 ## How it differs from ascii-graphics
 
@@ -77,3 +81,33 @@ Three changes were necessary to make the effect work at thumbnail size:
 generator and must never enter the deployed dependency tree. `tools/vendor/` and
 `tools/cutouts/` are gitignored; run `npm install` inside `tools/vendor/` to
 restore, and `python -m pip install "rembg[cpu]" onnxruntime pillow` for cutouts.
+
+## Verification
+
+`verify-page.mjs` is the acceptance check. It drives headless Chrome against a
+running `npm run dev` and maps each explicit requirement to an observed result:
+
+| ID | Requirement | Check |
+| --- | --- | --- |
+| R1 | All projects visible in dev | Count rendered project cards |
+| R2 | ASCII effect applied to thumbnails | Every card image resolves to an `ascii.png` |
+| R3 | Thumbnails actually load | `naturalWidth > 0` after scrolling (they are `loading="lazy"`) |
+| R4a | No layout shift | `width`/`height` attributes present on every card image |
+| R5a | Dark mode reads correctly | Computed filter is `invert(1)` in dark, `none` in light |
+| R6 | Detail modal unchanged | Dialog still shows photographic sources, not mosaics |
+| R7 | No failed asset requests | No 4xx/5xx on non-API traffic |
+
+Two gotchas it encodes, both found the hard way:
+
+- `waitUntil: "networkidle"` never settles, because the page holds permanent
+  rAF loops (`LenisScroll`, `CursorTrail`). Wait on `domcontentloaded`.
+- Cards are `loading="lazy"` and the layout scrolls *panels*, not the window,
+  so every scrollable element must be scrolled before sampling. Without this,
+  below-the-fold cards report `0x0` and look broken when they are fine.
+
+`/api/visit` returns 500 on a local machine with no `DISCORD_WEBHOOK_URL`
+(`src/lib/api/discord.ts:8`). That is a pre-existing environment condition, so
+R7 is scoped to asset traffic.
+
+`playwright-core` lives in `tools/vendor/` alongside `@napi-rs/canvas` and uses
+the system Chrome, so it never enters the app's dependency tree.
