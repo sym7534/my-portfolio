@@ -69,8 +69,15 @@ for (const t of targets) {
 
   const canvas = createCanvas(W, H);
   const ctx = canvas.getContext("2d");
-  ctx.fillStyle = cfg.paper;
-  ctx.fillRect(0, 0, W, H);
+  // Transparent paper by default. The card supplies its own background, and
+  // in dark mode PhotoCard applies `invert`, which flips RGB but preserves
+  // alpha: baking white paper in would invert to pure black and sit as a
+  // visibly darker rectangle on the dark card. With alpha, only the ink
+  // flips and the card background shows through in both themes.
+  if (cfg.paperOpaque) {
+    ctx.fillStyle = cfg.paper;
+    ctx.fillRect(0, 0, W, H);
+  }
 
   const field = applyDetailWeighting(buildToneField(sample, cfg), cfg.detail || 0, cfg.detailRadius || 2);
   // Auto-exposure: pick the ink floor from a target density so screenshots and

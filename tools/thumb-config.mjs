@@ -61,10 +61,10 @@ export const THUMBS = [
   {
     slug: "canopi",
     minFloor: 0.16,
-    src: "/assets/projects/canopi/canopi.png",
+    src: "/assets/projects/canopi/canopizoomedout.png",
     // light UI screenshot; crop to the map so the mosaic has real structure
     // instead of acres of near-white chrome
-    crop: { x: 0.17, y: 0.06, w: 0.55, h: 0.88 },
+    crop: { x: 0.32, y: 0.08, w: 0.5, h: 0.72 },
     aspect: 4 / 3,
     contrast: 1.7,
     detail: 0.5,
@@ -124,7 +124,7 @@ export const THUMBS = [
     // screenshot, not a photo — segmentation cannot help here, so crop to the
     // rover in the 3D viewport instead
     isolate: false,
-    crop: { x: 0.22, y: 0.46, w: 0.28, h: 0.22 },
+    crop: { x: 0.245, y: 0.5, w: 0.215, h: 0.15 },
     aspect: 16 / 10,
     contrast: 2.2,
     detail: 0.55,
