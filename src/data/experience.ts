@@ -16,7 +16,7 @@ export const experience: ExperienceEntry[] = [
     logoAlt: "AXIBO logo",
     title: "AXIBO",
     subtitle: "mechatronics engineering",
-    date: "may 26' - present",
+    date: "may 26' - aug 26'",
     description:
       "Building humanoid robots at the forefront of Canadian robotics.",
     skills: ["fusion360", "solidworks", "c", "c++", "python"],

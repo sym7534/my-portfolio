@@ -8,7 +8,7 @@ export interface SocialLink {
  * Single source of truth — components must render from this list.
  */
 export const socialLinks: SocialLink[] = [
-  { label: "x", href: "https://x.com/symm7534" },
+  { label: "x", href: "https://x.com/ryanmuxiwang" },
   { label: "linkedin", href: "https://www.linkedin.com/in/ryan-muxi-wang/" },
   { label: "github", href: "https://github.com/sym7534" },
   { label: "devpost", href: "https://devpost.com/ryan-muxiwang" },

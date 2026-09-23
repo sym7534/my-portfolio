@@ -2,6 +2,54 @@ import type { Project } from "@/types/project";
 
 export const projects: Project[] = [
   {
+    slug: "reflex",
+    category: "both" as const,
+    imageSrc: "/assets/projects/reflex/portrait.png",
+    imageWidth: 2880,
+    imageHeight: 2160,
+    altText: "Reflex exoskeleton glove worn on a hand",
+    title: "Reflex",
+    caption: "exoskeleton glove controlled by AI",
+    href: "https://github.com/zechariahwang/reflex",
+    description:
+      "Right now, humans write skills for AI. We asked: why can't AI write skills for humans? Reflex is a wearable gauntlet that assists humans with dexterous manipulation — whether you're paralyzed, trying to learn a new skill, or your hands are just worn out after hours on an assembly line, Reflex steps in and moves your fingers for you.\n\nHow it works:\n• 3D-printed 5 DOF exoskeleton powered by STS3215 servos.\n• RealSense D435i depth camera mounted on the gauntlet, plus an iPhone overhead camera for an egocentric view.\n• A depth-based grasp policy, fine-tuned from SmolVLA, recognizes what you're reaching for and how to grip it.\n• Trained entirely in simulation, using demonstrations collected via MediaPipe hand tracking.\n• RCM four-bar finger linkages (adapted from Sony CSL's research), so all actuation force stays normal to the finger for safety.\n• Claude connects straight to your hand through MCP — reads finger state, commands servos, and writes, runs, or edits skills.\n\nOne of our favorite demos was using Reflex + Claude to teach someone piano who'd never played before, guiding their fingers note by note.\n\nWon Hack the North 2026, built with Kevin Zhao, Zechariah Wang, and Eric Liu.\n\nDevpost: https://devpost.com/software/reflex-e0jkih\nCode: https://github.com/zechariahwang/reflex",
+    techStack: ["Python", "ROS 2", "LeRobot", "SmolVLA", "MCP", "FastAPI", "MediaPipe", "OpenCV", "Next.js", "React", "Three.js", "Fusion 360", "Gazebo", "RealSense"],
+    images: [
+      { src: "/assets/projects/reflex/portrait.png", alt: "Reflex exoskeleton glove worn on a hand", span: "large" as const },
+      { src: "/assets/projects/reflex/sim.png", alt: "Live hand console with URDF viewport, camera feeds, and per-finger telemetry" },
+      { src: "/assets/projects/reflex/data.png", alt: "Contact sheet of teleoperated demonstration episodes" },
+      { src: "/assets/projects/reflex/piano.png", alt: "Reflex glove at a piano keyboard" },
+    ],
+  },
+  {
+    slug: "pioneer",
+    category: "both" as const,
+    imageSrc: "/assets/projects/pioneer/pioneer_soccer.png",
+    imageWidth: 1223,
+    imageHeight: 709,
+    altText: "Render of Pioneer's leg lining up a kick on a soccer ball",
+    title: "Pioneer",
+    caption: "uwaterloo's first humanoid",
+    description:
+      "Leading a 40+ member team at WATonomous building Pioneer, UWaterloo's first humanoid. I own the mechanical design end to end — actuator selection through chassis layout — on a $10,000 budget.\n• Designed a 12-DOF lower body and a 7-DOF arm; validated joint range of motion and optimized mass to keep the robot under 40 kg.\n• Maintain the URDF models and calibrate Gazebo physics so simulation matches the real hardware.\n• Run sponsorship for the team: partnered with major actuator manufacturers and raised $7,000+ in funding.\n• Coordinate mechanical, electrical, and software subteams to take the platform from CAD to built hardware.",
+    techStack: ["Mechanical Design", "ROS 2", "URDF", "Gazebo"],
+    images: [
+      { src: "/assets/projects/pioneer/pioneer_soccer.png", alt: "Render of Pioneer's leg lining up a kick on a soccer ball", span: "large" as const },
+      { src: "/assets/projects/pioneer/pioneer arm.jpg", alt: "Pioneer's arm on its test stand outside the Pearl Sullivan Engineering Building" },
+      { src: "/assets/projects/pioneer/pioneer 0923.png", alt: "CAD render of Pioneer's 12-DOF humanoid lower body" },
+      { src: "/assets/projects/pioneer/leads.jpg", alt: "The Pioneer team with the arm on campus" },
+    ],
+  },
+  {
+    slug: "lightspeed",
+    category: "both" as const,
+    title: "Lightspeed",
+    caption: "10-key keyboard, one key per finger",
+    description:
+      "A 10-key keyboard — one key per finger — that kills finger travel entirely by mapping touch-typing patterns straight to text.\n• Split wireless hardware on nice!nano v2 controllers.\n• A local ML model decodes typing patterns into words, with an LLM layer resolving collisions like \"there\"/\"their\".\n• Targeting sub-50ms latency.\n\nStill in the works.",
+    techStack: ["Fusion 360", "Python", "PyTorch", "nice!nano"],
+  },
+  {
     slug: "canopi",
     category: "software" as const,
     imageSrc: "/assets/projects/canopi/canopi.png",
@@ -21,7 +69,6 @@ export const projects: Project[] = [
   {
     slug: "robot-hand",
     category: "mechanical" as const,
-    hidden: true, // only shown once unlocked via the secret recruiter subdomain
     imageSrc: "/assets/projects/robot-hand/finalhand.png",
     imageWidth: 1215,
     imageHeight: 1620,
@@ -56,7 +103,6 @@ export const projects: Project[] = [
   {
     slug: "vex",
     category: "both" as const,
-    hidden: true, // only shown once unlocked via the secret recruiter subdomain
     imageSrc: "/assets/projects/vex/cover.png",
     imageWidth: 888,
     imageHeight: 1199,
@@ -78,7 +124,6 @@ export const projects: Project[] = [
   {
     slug: "waterloowash",
     category: "software" as const,
-    hidden: true, // only shown once unlocked via the secret recruiter subdomain
     imageSrc: "/assets/projects/waterloowash/cover.png",
     imageWidth: 1299,
     imageHeight: 911,
@@ -89,12 +134,10 @@ export const projects: Project[] = [
       "• Designed a Figma prototype that gamifies residence laundry; applied HTML/CSS skills to refine UI/UX.\n• Built a component-driven React UI (hooks, responsive layout, accessibility) with Tailwind CSS.\n• Building a SQLite-backed API, WebSockets for live updates and auth so only residents can claim/rate machines.\n\np.s. Somehow won a Figma hackathon with this having never used the tool before..",
     techStack: ["React", "TypeScript", "Tailwind CSS", "Figma", "SQLite", "WebSockets", "UI/UX"],
   },
-  /* Autonomous ATV — temporarily hidden everywhere (uncomment to restore).
-     Not just `hidden: true` (which still shows on the recruiter subdomain);
-     removed from the array entirely so it never renders.
   {
     slug: "atv",
     category: "both" as const,
+    hidden: true, // only shown once unlocked via the secret recruiter subdomain
     imageSrc: "/assets/projects/atv/platedatv.png",
     imageWidth: 4027,
     imageHeight: 2554,
@@ -109,11 +152,9 @@ export const projects: Project[] = [
       { src: "/assets/projects/atv/platedatv.png", alt: "Autonomous ATV with body panels in the field" },
     ],
   },
-  */
   {
     slug: "tronring",
     category: "software" as const,
-    hidden: true, // only shown once unlocked via the secret recruiter subdomain
     imageSrc: "/assets/projects/tronring/image.png",
     imageWidth: 1919,
     imageHeight: 1082,
@@ -133,7 +174,6 @@ export const projects: Project[] = [
   {
     slug: "self-driving-car",
     category: "software" as const,
-    hidden: true, // only shown once unlocked via the secret recruiter subdomain
     imageSrc: "/assets/projects/self-driving-car/cover.png",
     imageWidth: 836,
     imageHeight: 713,
@@ -151,13 +191,12 @@ export const projects: Project[] = [
     slug: "mars-rover",
     pinned: true, // sits at the top of the right column
     category: "both" as const,
-    hidden: true, // only shown once unlocked via the secret recruiter subdomain
     imageSrc: "/assets/projects/rover/cover.png",
     imageWidth: 1919,
     imageHeight: 1152,
     altText: "Autonomous Mars Rover",
     title: "Autonomous Mars Rover",
-    caption: "ROS 2 autonomy stack for a competition Mars rover",
+    caption: "ROS 2 path tracking, tuned in simulation",
     description:
       "• Designed and tuned a PID controller for a Mars rover; implemented adaptive speed reduction to improve path tracking.\n• Built a URDF model with STL meshes for Foxglove visualization; calibrated a Gazebo physics simulation to better match real rover properties.",
     techStack: ["C++", "Python", "ROS 2", "LiDAR", "PID", "A*", "Pure Pursuit", "Gazebo", "Docker", "Linux"],
@@ -165,7 +204,6 @@ export const projects: Project[] = [
   {
     slug: "valorant-fantasy",
     category: "software" as const,
-    hidden: true, // only shown once unlocked via the secret recruiter subdomain
     title: "Valorant Fantasy",
     caption: "'fantasy football' style app for VCT",
     description:
@@ -175,7 +213,6 @@ export const projects: Project[] = [
   {
     slug: "portfolio",
     category: "software" as const,
-    hidden: true, // only shown once unlocked via the secret recruiter subdomain
     imageSrc: "/assets/projects/personal-site/cover.png",
     imageWidth: 994,
     imageHeight: 697,
@@ -188,7 +225,6 @@ export const projects: Project[] = [
   {
     slug: "molehunt",
     category: "software" as const,
-    hidden: true, // only shown once unlocked via the secret recruiter subdomain
     imageSrc: "/assets/projects/molehunt/cover.png",
     imageWidth: 1920,
     imageHeight: 1057,
@@ -202,7 +238,6 @@ export const projects: Project[] = [
   {
     slug: "card-dealer",
     category: "mechanical" as const,
-    hidden: true, // only shown once unlocked via the secret recruiter subdomain
     imageSrc: "/assets/projects/card-dealer/cover.png",
     imageWidth: 918,
     imageHeight: 615,
@@ -216,7 +251,6 @@ export const projects: Project[] = [
   {
     slug: "smart-home",
     category: "both" as const,
-    hidden: true, // only shown once unlocked via the secret recruiter subdomain
     imageSrc: "/assets/projects/smart-home/cover.png",
     imageWidth: 1536,
     imageHeight: 1024,

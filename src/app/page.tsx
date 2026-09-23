@@ -8,7 +8,9 @@ import { LinksRow } from "@/components/sections/LinksRow";
 import { ExperienceSection } from "@/components/sections/ExperienceSection";
 import { MessageForm } from "@/components/sections/MessageForm";
 import { FooterSection } from "@/components/sections/FooterSection";
-import { Masthead } from "@/components/sections/Masthead";
+// Masthead (halftone robot) temporarily hidden — uncomment both this import
+// and the <Masthead /> below to restore it.
+// import { Masthead } from "@/components/sections/Masthead";
 import { AboutSection } from "@/components/sections/AboutSection";
 import { ProjectsSection } from "@/components/sections/ProjectsSection";
 
@@ -54,7 +56,7 @@ export default function Home() {
         }
         right={
           <>
-            <Masthead />
+            {/* <Masthead /> */}
             <ScrollReveal>
               <AboutSection />
             </ScrollReveal>
