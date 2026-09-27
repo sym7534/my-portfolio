@@ -42,7 +42,7 @@ export const aboutItems: AboutItem[] = [
   {
     segments: [
       "My favourite model is",
-      { icon: "claude", label: "Claude Sonnet 4.5" },
+      { icon: "claude", label: "Claude Opus 5.5" },
       ".",
     ],
   },
