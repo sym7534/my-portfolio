@@ -225,6 +225,7 @@ export const projects: Project[] = [
   {
     slug: "molehunt",
     category: "software" as const,
+    hidden: true, // only shown once unlocked via the secret recruiter subdomain
     imageSrc: "/assets/projects/molehunt/cover.png",
     imageWidth: 1920,
     imageHeight: 1057,
@@ -238,6 +239,7 @@ export const projects: Project[] = [
   {
     slug: "card-dealer",
     category: "mechanical" as const,
+    hidden: true, // only shown once unlocked via the secret recruiter subdomain
     imageSrc: "/assets/projects/card-dealer/cover.png",
     imageWidth: 918,
     imageHeight: 615,
