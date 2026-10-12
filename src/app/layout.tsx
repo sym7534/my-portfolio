@@ -15,23 +15,14 @@ const lora = Lora({
 const DESCRIPTION =
   "Robotics engineer. Humanoids, hands, and data-collection rigs.";
 
-// Link previews: the image comes from opengraph-image.tsx (Next adds the
-// og:image tags for it). Title is just the name; description is one flat line.
+// Link previews stay minimal on purpose: no Open Graph or Twitter tags, so
+// apps that make previews optional (Discord) show only this title and
+// description as a small text card. Apps that always show an image
+// (Instagram) take the first <img> on the page; see the placeholder in <body>.
 export const metadata: Metadata = {
   title: "Ryan Wang",
   description: DESCRIPTION,
   metadataBase: new URL("https://wangdynasty.ca"),
-  openGraph: {
-    title: "Ryan Wang",
-    description: DESCRIPTION,
-    siteName: "Ryan Wang",
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Ryan Wang",
-    description: DESCRIPTION,
-  },
 };
 
 // Colours the stripe on Discord embeds and the mobile browser bar.
@@ -66,6 +57,19 @@ export default function RootLayout({
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
       <body className="font-serif antialiased">
+        {/* Link-preview placeholder: a plain dark 1200x630 image, first in
+            the page so scrapers that must show an image (Instagram) pick it
+            instead of the album art. Hidden and lazy, so browsers never load it. */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/link-preview.png"
+          alt=""
+          aria-hidden="true"
+          width={1200}
+          height={630}
+          loading="lazy"
+          hidden
+        />
         <ThemeProvider>{children}</ThemeProvider>
         <Analytics />
       </body>
