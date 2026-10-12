@@ -23,7 +23,7 @@ export const intro: IntroSegment[][] = [
     ".",
   ],
   [
-    "I have an obsession with enhancing the human form factor: building things that make us more capable, and robots that don't just mimic us, but are stronger, faster, and better than us. Reflex, an exoskeleton glove that lets AI teach you skills, won Hack the North.",
+    "I have an obsession with enhancing the human form factor: building things that make us more capable, and robots that don't just mimic, but are stronger, faster, and better than us. Reflex, an exoskeleton glove that lets AI teach you skills, won Hack the North.",
   ],
   [
     "Outside of robots, I play piano and violin. Someday I'd like to build a hand better than my own.",

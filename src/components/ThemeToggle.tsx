@@ -68,7 +68,7 @@ export function ThemeToggle({ className }: ThemeToggleProps) {
       onClick={toggleTheme}
       className={cn(
         "p-2 rounded-sm transition-colors duration-200",
-        "text-text-secondary hover:text-text-primary",
+        "text-accent",
         "focus:outline-none focus-visible:ring-2 focus-visible:ring-text-secondary",
         className
       )}

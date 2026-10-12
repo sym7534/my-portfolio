@@ -26,6 +26,11 @@
   --color-text-muted: #737373;
   --color-text-section: #737373;
 
+  /* Accent: one hue in two shades. Dusty steel blue here (~5:1 on the
+     light background); soft powder blue in dark mode (~10.5:1). Used only
+     for link underlines, link hover and the theme toggle. */
+  --color-accent: #46709c;
+
   /* Border Colors */
   --color-border-card: #e5e5e5;
   --color-skill-tag-text: #737373;
@@ -64,6 +69,7 @@ html.dark {
   --color-text-section: #8a8a8a;
   --color-border-card: #262626;
   --color-skill-tag-text: #8a8a8a;
+  --color-accent: #a8c5e6;
 }
 
 /* === NON-UTILITY VARIABLES === */

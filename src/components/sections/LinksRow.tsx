@@ -11,7 +11,7 @@ export function LinksRow() {
           {link.label}
         </a>
       ))}
-      <span className="ml-auto opacity-60 [&_svg]:size-4">
+      <span className="ml-auto opacity-60 transition-opacity hover:opacity-100 [&_svg]:size-4">
         <ThemeToggle />
       </span>
     </div>
