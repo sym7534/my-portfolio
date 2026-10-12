@@ -28,7 +28,7 @@
 
   /* Accent: one hue in two shades. Dusty steel blue here (~5:1 on the
      light background); soft powder blue in dark mode (~10.5:1). Used only
-     for link underlines, link hover and the theme toggle. */
+     for link underlines, link hover and text selection. */
   --color-accent: #46709c;
 
   /* Border Colors */
