@@ -15,38 +15,12 @@ const TRACK = {
 /**
  * An incidental "now playing" line for the ambient background track: small
  * album art, title and artist, nothing else. The art is the only control and
- * toggles a looping <audio> (streamed from a Blob URL). Music also auto-starts
- * on the visitor's first gesture (browsers block autoplay with sound), unless
- * that first gesture is the art itself, which then handles the click.
+ * toggles a looping <audio> (streamed from a Blob URL). Nothing plays until
+ * the visitor clicks it.
  */
 export function NowPlaying() {
   const audioRef = useRef<HTMLAudioElement>(null);
-  const artRef = useRef<HTMLButtonElement>(null);
-  const armedRef = useRef(true);
   const [playing, setPlaying] = useState(false);
-
-  // auto-start on first gesture (but let the play button handle its own click)
-  useEffect(() => {
-    const audio = audioRef.current;
-    if (!audio) return;
-    audio.volume = BGM_VOLUME;
-    const onFirst = (e: Event) => {
-      if (!armedRef.current) return;
-      armedRef.current = false;
-      window.removeEventListener("pointerdown", onFirst);
-      window.removeEventListener("keydown", onFirst);
-      // the album art handles its own first click
-      if (artRef.current?.contains(e.target as Node)) return;
-      audio.volume = BGM_VOLUME;
-      audio.play().catch(() => {});
-    };
-    window.addEventListener("pointerdown", onFirst);
-    window.addEventListener("keydown", onFirst);
-    return () => {
-      window.removeEventListener("pointerdown", onFirst);
-      window.removeEventListener("keydown", onFirst);
-    };
-  }, []);
 
   // mirror the audio element's state into the UI
   useEffect(() => {
@@ -65,7 +39,6 @@ export function NowPlaying() {
   const toggle = () => {
     const audio = audioRef.current;
     if (!audio) return;
-    armedRef.current = false;
     if (audio.paused) {
       audio.volume = BGM_VOLUME;
       audio.play().catch(() => {});
@@ -82,7 +55,6 @@ export function NowPlaying() {
 
       {hasAudio ? (
         <button
-          ref={artRef}
           type="button"
           onClick={toggle}
           aria-label={playing ? `Pause ${TRACK.title}` : `Play ${TRACK.title}`}
