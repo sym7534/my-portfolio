@@ -14,7 +14,7 @@ const TRACK = {
 
 /**
  * An incidental "now playing" line for the ambient background track: small
- * album art, title and artist, nothing else. The art is the only control and
+ * album art, title and artist, nothing else. Clicking anywhere on it
  * toggles a looping <audio> (streamed from a Blob URL). Nothing plays until
  * the visitor clicks it.
  */
@@ -47,43 +47,51 @@ export function NowPlaying() {
     }
   };
 
-  return (
-    <div className="flex w-full max-w-[320px] items-center gap-2.5">
-      {hasAudio && (
-        <audio ref={audioRef} src={BGM_URL} loop preload="auto" aria-hidden="true" />
-      )}
+  const art = (
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
+      src={TRACK.art}
+      alt={hasAudio ? "" : `${TRACK.title} — ${TRACK.artist}`}
+      className="size-8 shrink-0 rounded-[3px] object-cover"
+    />
+  );
 
-      {hasAudio ? (
-        <button
-          type="button"
-          onClick={toggle}
-          aria-label={playing ? `Pause ${TRACK.title}` : `Play ${TRACK.title}`}
-          className="shrink-0 cursor-pointer transition-opacity hover:opacity-80"
-        >
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={TRACK.art}
-            alt=""
-            className="size-8 rounded-[3px] object-cover"
-          />
-        </button>
-      ) : (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img
-          src={TRACK.art}
-          alt={`${TRACK.title} — ${TRACK.artist}`}
-          className="size-8 shrink-0 rounded-[3px] object-cover"
-        />
-      )}
+  const text = (
+    <span className="flex min-w-0 flex-col gap-0.5 text-left opacity-70">
+      <span className="font-serif text-[13px] leading-tight text-text-muted">
+        {TRACK.title}
+      </span>
+      <span className="-mt-px font-serif text-[12px] leading-tight text-text-muted">
+        {TRACK.artist}
+      </span>
+    </span>
+  );
 
-      <div className="flex min-w-0 flex-1 flex-col gap-0.5 opacity-70">
-        <p className="font-serif text-[13px] leading-tight text-text-muted">
-          {TRACK.title}
-        </p>
-        <p className="-mt-px font-serif text-[12px] leading-tight text-text-muted">
-          {TRACK.artist}
-        </p>
+  // The whole row (art + title + artist) is the play/pause control. It only
+  // spans its content, so empty space beside it isn't clickable.
+  const row = "flex w-fit max-w-[320px] items-center gap-2.5";
+
+  if (!hasAudio) {
+    return (
+      <div className={row}>
+        {art}
+        {text}
       </div>
-    </div>
+    );
+  }
+
+  return (
+    <>
+      <audio ref={audioRef} src={BGM_URL} loop preload="auto" aria-hidden="true" />
+      <button
+        type="button"
+        onClick={toggle}
+        aria-label={playing ? `Pause ${TRACK.title}` : `Play ${TRACK.title}`}
+        className={`${row} cursor-pointer transition-opacity hover:opacity-80`}
+      >
+        {art}
+        {text}
+      </button>
+    </>
   );
 }
