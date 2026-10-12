@@ -123,12 +123,10 @@ html.dark {
     display: none;
   }
 
+  /* Text selection: a translucent tint of the accent. The token swaps
+     shades with the theme, so one rule covers light and dark mode. */
   ::selection {
-    background: rgba(0, 0, 0, 0.08);
-  }
-
-  html.dark ::selection {
-    background: rgba(255, 255, 255, 0.14);
+    background: color-mix(in srgb, var(--color-accent) 28%, transparent);
   }
 }
 
