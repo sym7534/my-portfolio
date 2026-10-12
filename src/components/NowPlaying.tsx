@@ -10,7 +10,6 @@ const TRACK = {
   title: "SUPERPOSITION",
   artist: "Daniel Caesar, John Mayer",
   art: "https://i.scdn.co/image/ab67616d00001e02969c21ea34fe372a3e468947",
-  href: "https://open.spotify.com/track/1KA2JLeMi0Mo3hjO0442re",
   durationSec: 263, // 4:23
 };
 
@@ -26,11 +25,12 @@ const fmt = (s: number) => {
  * controls a looping <audio> (streamed from a Blob URL); the time reflects it
  * live. Music also auto-starts on the visitor's first gesture (browsers block
  * autoplay with sound) — unless that first gesture is the play button itself,
- * which the button then handles. The Spotify mark links straight to the song.
+ * which the button then handles. The album art doubles as a play/pause button.
  */
 export function NowPlaying() {
   const audioRef = useRef<HTMLAudioElement>(null);
   const btnRef = useRef<HTMLButtonElement>(null);
+  const artRef = useRef<HTMLButtonElement>(null);
   const armedRef = useRef(true);
   const [playing, setPlaying] = useState(false);
   const [current, setCurrent] = useState(0);
@@ -45,7 +45,9 @@ export function NowPlaying() {
       armedRef.current = false;
       window.removeEventListener("pointerdown", onFirst);
       window.removeEventListener("keydown", onFirst);
-      if (btnRef.current?.contains(e.target as Node)) return;
+      // the play button and album art handle their own first click
+      const target = e.target as Node;
+      if (btnRef.current?.contains(target) || artRef.current?.contains(target)) return;
       audio.volume = BGM_VOLUME;
       audio.play().catch(() => {});
     };
@@ -92,21 +94,29 @@ export function NowPlaying() {
         <audio ref={audioRef} src={BGM_URL} loop preload="auto" aria-hidden="true" />
       )}
 
-      <a
-        href={TRACK.href}
-        target="_blank"
-        rel="noreferrer"
-        aria-label={`Open ${TRACK.title} on Spotify`}
-        title="Open in Spotify"
-        className="shrink-0 transition-opacity hover:opacity-80"
-      >
-        {/* eslint-disable-next-line @next/next/no-img-element */}
+      {hasAudio ? (
+        <button
+          ref={artRef}
+          type="button"
+          onClick={toggle}
+          aria-label={playing ? `Pause ${TRACK.title}` : `Play ${TRACK.title}`}
+          className="shrink-0 cursor-pointer transition-opacity hover:opacity-80"
+        >
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={TRACK.art}
+            alt=""
+            className="size-12 rounded-[4px] object-cover"
+          />
+        </button>
+      ) : (
+        // eslint-disable-next-line @next/next/no-img-element
         <img
           src={TRACK.art}
           alt={`${TRACK.title} — ${TRACK.artist}`}
-          className="size-12 rounded-[4px] object-cover"
+          className="size-12 shrink-0 rounded-[4px] object-cover"
         />
-      </a>
+      )}
 
       <div className="flex min-w-0 flex-1 flex-col gap-1 opacity-70">
         <p className="font-serif text-[13px] leading-tight text-text-muted">

@@ -251,16 +251,13 @@ export const projects: Project[] = [
   {
     slug: "smart-home",
     category: "both" as const,
-    column: "right" as const, // sits under VEX
-    imageSrc: "/assets/projects/smart-home/nobg.png",
-    imageWidth: 1536,
-    imageHeight: 1024,
-    altText: "HomeHUB display in its enclosure, showing room temperatures and weather",
-    bareImage: true,
     title: "Smart Home Sensor System",
     caption: "esp32 sensor network connected to a pi",
     description:
       "• Built an ESP32 sensor network streaming room data to a Raspberry Pi hub; validated data within ±1°C and ±5% RH.\n• Implemented a Flask REST API to receive, store, and process telemetry; sustained 1000+ data points/hour.\n• Designed tolerance-driven enclosures in SolidWorks; iterated 4 revisions for cable routing, airflow, fit, and aesthetics.\n• Built a repeatable deployment workflow with sensor calibration, schema versioning, and basic trend/anomaly visualizations.",
     techStack: ["SolidWorks", "ESP32", "C++", "Python", "Flask", "Raspberry Pi"],
+    images: [
+      { src: "/assets/projects/smart-home/cover.png", alt: "HomeHUB display in its enclosure, showing room temperatures and weather", span: "large" as const },
+    ],
   },
 ];
