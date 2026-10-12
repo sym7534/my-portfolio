@@ -7,6 +7,7 @@ import {
   useState,
   useCallback,
 } from "react";
+import { flushSync } from "react-dom";
 
 type Theme = "light" | "dark";
 
@@ -57,9 +58,25 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     localStorage.setItem(STORAGE_KEY, theme);
   }, [theme, mounted]);
 
+  // Crossfade the whole page between themes with the View Transitions API.
+  // The update runs inside the transition callback (flushSync so React
+  // commits before the "new" snapshot is taken). Falls back to an instant
+  // switch where unsupported or when the visitor prefers reduced motion.
   const toggleTheme = useCallback(() => {
-    setThemeState((prev) => (prev === "light" ? "dark" : "light"));
-  }, []);
+    const next: Theme = theme === "light" ? "dark" : "light";
+    const apply = () => {
+      flushSync(() => setThemeState(next));
+      document.documentElement.classList.toggle("dark", next === "dark");
+    };
+    const reduceMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+    if (!document.startViewTransition || reduceMotion) {
+      apply();
+      return;
+    }
+    document.startViewTransition(apply);
+  }, [theme]);
 
   const setTheme = useCallback((newTheme: Theme) => {
     setThemeState(newTheme);

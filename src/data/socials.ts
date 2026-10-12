@@ -12,5 +12,4 @@ export const socialLinks: SocialLink[] = [
   { label: "linkedin", href: "https://www.linkedin.com/in/ryan-muxi-wang/" },
   { label: "github", href: "https://github.com/sym7534" },
   { label: "devpost", href: "https://devpost.com/ryan-muxiwang" },
-  { label: "email", href: "mailto:ryan.muxiwang@gmail.com" },
 ];

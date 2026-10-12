@@ -42,7 +42,19 @@ export function ProjectsSection() {
   const rest = filtered.filter((p) => !p.pinned);
   const leftCol: Project[] = [];
   const rightCol: Project[] = [];
-  rest.forEach((p, i) => (i % 2 === 0 ? leftCol : rightCol).push(p));
+  // projects with a thumbnail fill both columns first; text-only projects
+  // follow beneath them, so the quiet entries collect at the bottom
+  const ordered = [
+    ...rest.filter((p) => p.imageSrc),
+    ...rest.filter((p) => !p.imageSrc),
+  ];
+  // a project with `column` set goes there; the rest go to whichever
+  // column has fewer cards (left on a tie), which alternates by default
+  ordered.forEach((p) => {
+    const col =
+      p.column ?? (leftCol.length <= rightCol.length ? "left" : "right");
+    (col === "left" ? leftCol : rightCol).push(p);
+  });
   // pinned projects sit at the top of the right column
   rightCol.unshift(...pinned);
 
@@ -51,10 +63,12 @@ export function ProjectsSection() {
       key={project.slug}
       project={project}
       onOpen={() => openProject(project)}
-      className="mb-7"
+      className={project.imageSrc ? "mb-12" : "mb-4"}
     />
   );
 
+  // kept for the category filters, which are commented out in the header below
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const filterButton = (filter: Exclude<ProjectFilter, "all">) => (
     <button
       onClick={() => setProjectFilter(projectFilter === filter ? "all" : filter)}
@@ -72,8 +86,9 @@ export function ProjectsSection() {
   return (
     <Section className="mt-12">
       <QuietHeader label="projects">
+        {/* Category filters temporarily hidden; uncomment to restore.
         {filterButton("software")}
-        {filterButton("mechanical")}
+        {filterButton("mechanical")} */}
       </QuietHeader>
       <div className="flex gap-6">
         <div className="min-w-0 flex-1 flex flex-col">{leftCol.map(renderCard)}</div>

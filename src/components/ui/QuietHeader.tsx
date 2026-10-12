@@ -1,4 +1,4 @@
-/** Quiet section marker: lowercase serif, muted, trailing em dash. */
+/** Quiet section marker: lowercase serif, muted. */
 export function QuietHeader({
   label,
   children,
@@ -8,7 +8,7 @@ export function QuietHeader({
 }) {
   return (
     <div className="mb-4 flex items-baseline gap-4">
-      <p className="font-serif text-[15px] text-text-muted">{label} —</p>
+      <p className="font-serif text-[15px] text-text-muted">{label}</p>
       {children}
     </div>
   );

@@ -7,7 +7,7 @@ const BGM_VOLUME = 0.3;
 const hasAudio = Boolean(BGM_URL);
 
 const TRACK = {
-  title: "SUPERPOSITION (feat. John Mayer)",
+  title: "SUPERPOSITION",
   artist: "Daniel Caesar, John Mayer",
   art: "https://i.scdn.co/image/ab67616d00001e02969c21ea34fe372a3e468947",
   href: "https://open.spotify.com/track/1KA2JLeMi0Mo3hjO0442re",

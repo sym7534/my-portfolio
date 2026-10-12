@@ -196,3 +196,11 @@ html.lenis body {
     animation: none;
   }
 }
+
+/* Theme switch crossfade (see ThemeProvider.toggleTheme). The default
+   view-transition fade is 250ms; slow it down so the swap feels gentle. */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 600ms;
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}

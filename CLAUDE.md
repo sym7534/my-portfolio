@@ -16,9 +16,9 @@ Ryan Wang's personal portfolio (wangdynasty.ca). Next.js App Router + TypeScript
 ## Architecture
 
 - `src/app/page.tsx` — server component composing the two-panel layout from section components
-- `src/components/sections/` — page sections (hero, links, experience, about, projects, footer)
+- `src/components/sections/` — page sections (hero with handwritten intro, links, message box, projects, footer)
 - `src/components/ui/` — reusable UI primitives, barrel-exported from `index.ts`
-- `src/data/` — all content (projects, experience, about, socials, site strings). Content changes go here, not in components
+- `src/data/` — all content (intro passage, projects, socials, site strings). Content changes go here, not in components
 - `src/lib/` — hooks and helpers; `src/lib/api/` holds shared route helpers (client IP, rate limiting, Discord webhook)
 - `src/types/` — shared types
 - `src/app/api/` — routes that post to a Discord webhook (visit ping, secret-link unlock ping, message box)
