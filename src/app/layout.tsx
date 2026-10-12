@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { GeistSans } from "geist/font/sans";
@@ -12,10 +12,31 @@ const lora = Lora({
   style: ["normal", "italic"],
 });
 
+const DESCRIPTION =
+  "Robotics engineer. Humanoids, hands, and data-collection rigs.";
+
+// Link previews: the image comes from opengraph-image.tsx (Next adds the
+// og:image tags for it). Title is just the name; description is one flat line.
 export const metadata: Metadata = {
   title: "Ryan Wang",
-  description: "Mechatronics engineering @ UWaterloo",
+  description: DESCRIPTION,
   metadataBase: new URL("https://wangdynasty.ca"),
+  openGraph: {
+    title: "Ryan Wang",
+    description: DESCRIPTION,
+    siteName: "Ryan Wang",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Ryan Wang",
+    description: DESCRIPTION,
+  },
+};
+
+// Colours the stripe on Discord embeds and the mobile browser bar.
+export const viewport: Viewport = {
+  themeColor: "#0f0f0f",
 };
 
 // Blocking script to prevent flash of wrong theme (FOUC)
