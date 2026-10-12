@@ -18,14 +18,11 @@ export function ProjectDetailModal({
   // animation; `open` drives it instead of the old isOpen={false} hack.
   const aside = project && (
     <div className="py-2">
-      {/* Title + category badge */}
+      {/* Title */}
       <div className="flex items-center gap-3 mb-1">
         <h2 className="font-serif text-base text-white leading-tight">
           {project.title}
         </h2>
-        <span className="bg-white/10 rounded-sm px-2 py-0.5 text-[12px] text-white/80 font-sans shrink-0">
-          {project.category}
-        </span>
       </div>
 
       {/* Caption */}

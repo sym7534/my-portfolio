@@ -4,10 +4,11 @@ export const projects: Project[] = [
   {
     slug: "reflex",
     category: "both" as const,
-    imageSrc: "/assets/projects/reflex/portrait.png",
-    imageWidth: 2880,
-    imageHeight: 2160,
+    imageSrc: "/assets/projects/reflex/nobg.png",
+    imageWidth: 1448,
+    imageHeight: 1086,
     altText: "Reflex exoskeleton glove worn on a hand",
+    bareImage: true,
     title: "Reflex",
     caption: "exoskeleton glove controlled by AI",
     href: "https://github.com/zechariahwang/reflex",
@@ -24,10 +25,12 @@ export const projects: Project[] = [
   {
     slug: "pioneer",
     category: "both" as const,
-    imageSrc: "/assets/projects/pioneer/pioneer_soccer.png",
-    imageWidth: 1223,
-    imageHeight: 709,
+    imageSrc: "/assets/projects/pioneer/nobg-centered.png",
+    imageWidth: 843,
+    imageHeight: 829,
     altText: "Render of Pioneer's leg lining up a kick on a soccer ball",
+    bareImage: true,
+    imageScale: 0.76,
     title: "Pioneer",
     caption: "uwaterloo's first humanoid",
     description:
@@ -35,6 +38,9 @@ export const projects: Project[] = [
     techStack: ["Mechanical Design", "ROS 2", "URDF", "Gazebo"],
     images: [
       { src: "/assets/projects/pioneer/pioneer_soccer.png", alt: "Render of Pioneer's leg lining up a kick on a soccer ball", span: "large" as const },
+      { src: "/assets/projects/pioneer/image.png", alt: "Pioneer's two arms and stereo camera mounted on an aluminium test stand in the lab" },
+      { src: "/assets/projects/pioneer/1010 legs.png", alt: "Fusion 360 model of Pioneer's lower body and legs" },
+      { src: "/assets/projects/pioneer/hand proto.png", alt: "Render of a prototype tendon-driven hand and forearm for Pioneer" },
       { src: "/assets/projects/pioneer/pioneer arm.jpg", alt: "Pioneer's arm on its test stand outside the Pearl Sullivan Engineering Building" },
       { src: "/assets/projects/pioneer/pioneer 0923.png", alt: "CAD render of Pioneer's 12-DOF humanoid lower body" },
       { src: "/assets/projects/pioneer/leads.jpg", alt: "The Pioneer team with the arm on campus" },
@@ -52,10 +58,6 @@ export const projects: Project[] = [
   {
     slug: "canopi",
     category: "software" as const,
-    imageSrc: "/assets/projects/canopi/canopi.png",
-    imageWidth: 3839,
-    imageHeight: 2043,
-    altText: "Canopi",
     title: "Canopi",
     caption: "AI-powered rental discovery platform",
     description:
@@ -69,10 +71,12 @@ export const projects: Project[] = [
   {
     slug: "robot-hand",
     category: "mechanical" as const,
-    imageSrc: "/assets/projects/robot-hand/finalhand.png",
-    imageWidth: 1215,
-    imageHeight: 1620,
+    imageSrc: "/assets/projects/robot-hand/nobg.png",
+    imageWidth: 1086,
+    imageHeight: 1448,
     altText: "Anthropomorphic Robot Hand",
+    bareImage: true,
+    imageScale: 0.7,
     title: "Anthropomorphic Robot Hand",
     caption: "realistic robot hand controlled by OpenCV",
     description:
@@ -103,10 +107,12 @@ export const projects: Project[] = [
   {
     slug: "vex",
     category: "both" as const,
-    imageSrc: "/assets/projects/vex/cover.png",
-    imageWidth: 888,
-    imageHeight: 1199,
+    imageSrc: "/assets/projects/vex/nobg.png",
+    imageWidth: 1079,
+    imageHeight: 1457,
     altText: "VEX Robotics",
+    bareImage: true,
+    imageScale: 0.7,
     title: "VEX Robotics",
     caption: "competition robot design and programming",
     images: [
@@ -124,6 +130,7 @@ export const projects: Project[] = [
   {
     slug: "waterloowash",
     category: "software" as const,
+    hidden: true, // only shown once unlocked via the secret recruiter subdomain
     imageSrc: "/assets/projects/waterloowash/cover.png",
     imageWidth: 1299,
     imageHeight: 911,
@@ -155,10 +162,6 @@ export const projects: Project[] = [
   {
     slug: "tronring",
     category: "software" as const,
-    imageSrc: "/assets/projects/tronring/image.png",
-    imageWidth: 1919,
-    imageHeight: 1082,
-    altText: "Mechatronics Webring",
     title: "Mechatronics Webring",
     caption: "custom webring for tron students",
     href: "https://tronring.com",
@@ -174,10 +177,6 @@ export const projects: Project[] = [
   {
     slug: "self-driving-car",
     category: "software" as const,
-    imageSrc: "/assets/projects/self-driving-car/cover.png",
-    imageWidth: 836,
-    imageHeight: 713,
-    altText: "Self-Driving Car Sim",
     title: "Self-Driving Car Sim",
     caption: "watch video",
     href: "https://www.youtube.com/watch?v=mIYiKe8uu4Q",
@@ -189,17 +188,15 @@ export const projects: Project[] = [
   },
   {
     slug: "mars-rover",
-    pinned: true, // sits at the top of the right column
     category: "both" as const,
-    imageSrc: "/assets/projects/rover/cover.png",
-    imageWidth: 1919,
-    imageHeight: 1152,
-    altText: "Autonomous Mars Rover",
     title: "Autonomous Mars Rover",
     caption: "ROS 2 path tracking, tuned in simulation",
     description:
       "• Designed and tuned a PID controller for a Mars rover; implemented adaptive speed reduction to improve path tracking.\n• Built a URDF model with STL meshes for Foxglove visualization; calibrated a Gazebo physics simulation to better match real rover properties.",
     techStack: ["C++", "Python", "ROS 2", "LiDAR", "PID", "A*", "Pure Pursuit", "Gazebo", "Docker", "Linux"],
+    images: [
+      { src: "/assets/projects/rover/cover.png", alt: "Foxglove view of the rover's path tracking in a simulated Mars terrain", span: "large" as const },
+    ],
   },
   {
     slug: "valorant-fantasy",
@@ -213,6 +210,7 @@ export const projects: Project[] = [
   {
     slug: "portfolio",
     category: "software" as const,
+    hidden: true, // only shown once unlocked via the secret recruiter subdomain
     imageSrc: "/assets/projects/personal-site/cover.png",
     imageWidth: 994,
     imageHeight: 697,
@@ -253,14 +251,13 @@ export const projects: Project[] = [
   {
     slug: "smart-home",
     category: "both" as const,
-    imageSrc: "/assets/projects/smart-home/cover.png",
-    imageWidth: 1536,
-    imageHeight: 1024,
-    altText: "Smart Home",
     title: "Smart Home Sensor System",
     caption: "esp32 sensor network connected to a pi",
     description:
       "• Built an ESP32 sensor network streaming room data to a Raspberry Pi hub; validated data within ±1°C and ±5% RH.\n• Implemented a Flask REST API to receive, store, and process telemetry; sustained 1000+ data points/hour.\n• Designed tolerance-driven enclosures in SolidWorks; iterated 4 revisions for cable routing, airflow, fit, and aesthetics.\n• Built a repeatable deployment workflow with sensor calibration, schema versioning, and basic trend/anomaly visualizations.",
     techStack: ["SolidWorks", "ESP32", "C++", "Python", "Flask", "Raspberry Pi"],
+    images: [
+      { src: "/assets/projects/smart-home/cover.png", alt: "HomeHUB display in its enclosure, showing room temperatures and weather", span: "large" as const },
+    ],
   },
 ];

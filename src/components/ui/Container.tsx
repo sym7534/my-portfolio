@@ -8,6 +8,8 @@ interface ContainerProps {
 
 /**
  * Main layout container implementing the split-panel design.
+ * On desktop it occupies the centre 57.5% of the viewport (never narrower
+ * than 64rem), leaving about 21% empty on each side.
  * Left panel: white background for main content
  * Right panel: light gray background for secondary content
  */
@@ -15,7 +17,7 @@ export function Container({ children, className }: ContainerProps) {
   return (
     <div
       className={cn(
-        "grid min-h-screen lg:h-screen lg:overflow-hidden grid-cols-1 lg:grid-cols-[2fr_3fr]",
+        "grid min-h-screen lg:h-screen lg:overflow-hidden grid-cols-1 lg:grid-cols-[2fr_3fr] lg:mx-auto lg:w-[max(57.5vw,min(64rem,100%))]",
         className
       )}
     >

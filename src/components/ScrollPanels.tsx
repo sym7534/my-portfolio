@@ -31,7 +31,7 @@ export function ScrollPanels({
         <Panel
           side="right"
           ref={rightPanelRef}
-          className="lg:border-l lg:border-border-card"
+          className="lg:border-x lg:border-border-card"
         >
           {right}
         </Panel>

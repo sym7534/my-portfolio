@@ -5,13 +5,13 @@ import { NowPlaying } from "@/components/NowPlaying";
 import { Section } from "@/components/ui/Section";
 import { HeroSection } from "@/components/sections/HeroSection";
 import { LinksRow } from "@/components/sections/LinksRow";
-import { ExperienceSection } from "@/components/sections/ExperienceSection";
-import { MessageForm } from "@/components/sections/MessageForm";
+// Message box temporarily hidden — uncomment both this import and the
+// <MessageForm /> below to restore it.
+// import { MessageForm } from "@/components/sections/MessageForm";
 import { FooterSection } from "@/components/sections/FooterSection";
-// Masthead (halftone robot) temporarily hidden — uncomment both this import
+// Masthead (halftone robot) temporarily hidden â€” uncomment both this import
 // and the <Masthead /> below to restore it.
 // import { Masthead } from "@/components/sections/Masthead";
-import { AboutSection } from "@/components/sections/AboutSection";
 import { ProjectsSection } from "@/components/sections/ProjectsSection";
 
 // The original page-level stagger: delayChildren 0.15 + staggerChildren 0.08
@@ -21,8 +21,8 @@ const STAGGER_STEP = 0.08;
 const staggerDelay = (i: number) => STAGGER_BASE + i * STAGGER_STEP;
 
 /**
- * Landing page — a server component. Static sections render as RSC; the
- * interactive bits (experience expansion, message box, projects modal,
+ * Landing page â€” a server component. Static sections render as RSC; the
+ * interactive bits (message box, projects modal,
  * masthead, animations) are isolated client islands.
  */
 export default function Home() {
@@ -39,27 +39,19 @@ export default function Home() {
               <FadeUp delay={staggerDelay(1)}>
                 <LinksRow />
               </FadeUp>
+              {/* <MessageForm /> */}
               <FadeUp delay={staggerDelay(2)}>
-                <ExperienceSection />
-              </FadeUp>
-              <FadeUp delay={staggerDelay(3)}>
-                <MessageForm />
-              </FadeUp>
-              <FadeUp delay={staggerDelay(4)}>
                 <Section className="mt-[clamp(0.75rem,2vh,1.25rem)]">
                   <NowPlaying />
                 </Section>
               </FadeUp>
+              <FooterSection />
             </div>
-            <FooterSection />
           </>
         }
         right={
           <>
             {/* <Masthead /> */}
-            <ScrollReveal>
-              <AboutSection />
-            </ScrollReveal>
             <ScrollReveal>
               <ProjectsSection />
             </ScrollReveal>

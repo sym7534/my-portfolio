@@ -22,8 +22,16 @@ export function PhotoCard({ project, onOpen, className }: PhotoCardProps) {
       tabIndex={0}
       aria-haspopup="dialog"
       aria-label={`Open project: ${project.title}`}
+      data-text-only={project.imageSrc ? undefined : ""}
       className={cn(
         "group cursor-pointer",
+        // Text-only cards are ruled above and below, with the same 16px gap
+        // on both sides of every rule: they pull up so the top rule sits
+        // 16px under the previous card (whose margin is 48px), and their own
+        // bottom margin is 16px. In a run of them, each later card pulls up
+        // flush and drops its top rule, so neighbours share a single line.
+        !project.imageSrc &&
+          "border-y border-border-card -mt-8 [[data-text-only]+&]:-mt-4 [[data-text-only]+&]:border-t-0",
         "focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-2 focus-visible:outline-text-muted",
         className
       )}
@@ -36,7 +44,18 @@ export function PhotoCard({ project, onOpen, className }: PhotoCardProps) {
       }}
     >
       {project.imageSrc && (
-        <div className="overflow-hidden rounded-[3px] border border-border-card bg-bg-white">
+        <div
+          className={cn(
+            !project.bareImage &&
+              "overflow-hidden rounded-[3px] border border-border-card bg-bg-white",
+            project.imageScale && "mx-auto"
+          )}
+          style={
+            project.imageScale
+              ? { width: `${project.imageScale * 100}%` }
+              : undefined
+          }
+        >
           {project.imageWidth && project.imageHeight ? (
             <Image
               src={project.imageSrc}
@@ -57,7 +76,7 @@ export function PhotoCard({ project, onOpen, className }: PhotoCardProps) {
           )}
         </div>
       )}
-      <figcaption className={cn(project.imageSrc ? "mt-2" : "border-b border-border-card pb-3")}>
+      <figcaption className={cn(project.imageSrc ? "mt-3" : "py-4")}>
         <span className="font-serif text-[16px] leading-snug text-text-primary underline decoration-transparent decoration-1 underline-offset-[3px] transition-colors duration-200 group-hover:decoration-text-muted">
           {project.title}
         </span>
