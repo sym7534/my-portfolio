@@ -42,15 +42,13 @@ export function ProjectsSection() {
   const rest = filtered.filter((p) => !p.pinned);
   const leftCol: Project[] = [];
   const rightCol: Project[] = [];
-  // projects with a thumbnail fill both columns first; text-only projects
-  // follow beneath them, so the quiet entries collect at the bottom
-  const ordered = [
-    ...rest.filter((p) => p.imageSrc),
-    ...rest.filter((p) => !p.imageSrc),
-  ];
+  // projects with a thumbnail fill two independent columns; text-only
+  // projects go in a separate grid underneath so their rows line up
+  const withImage = rest.filter((p) => p.imageSrc);
+  const textOnly = rest.filter((p) => !p.imageSrc);
   // a project with `column` set goes there; the rest go to whichever
   // column has fewer cards (left on a tie), which alternates by default
-  ordered.forEach((p) => {
+  withImage.forEach((p) => {
     const col =
       p.column ?? (leftCol.length <= rightCol.length ? "left" : "right");
     (col === "left" ? leftCol : rightCol).push(p);
@@ -63,7 +61,7 @@ export function ProjectsSection() {
       key={project.slug}
       project={project}
       onOpen={() => openProject(project)}
-      className={project.imageSrc ? "mb-12" : "mb-4"}
+      className="mb-12"
     />
   );
 
@@ -94,6 +92,22 @@ export function ProjectsSection() {
         <div className="min-w-0 flex-1 flex flex-col">{leftCol.map(renderCard)}</div>
         <div className="min-w-0 flex-1 flex flex-col">{rightCol.map(renderCard)}</div>
       </div>
+      {/* Text-only projects: a ruled two-column list. A shared grid keeps each
+          row aligned across both columns. -mt-8 offsets the 48px card margin
+          above so the first rule sits 16px under the last caption, matching
+          the 16px padding inside each row. */}
+      {textOnly.length > 0 && (
+        <div className="-mt-8 grid grid-cols-2 gap-x-6">
+          {textOnly.map((project, i) => (
+            <PhotoCard
+              key={project.slug}
+              project={project}
+              onOpen={() => openProject(project)}
+              className={cn("border-b border-border-card", i < 2 && "border-t")}
+            />
+          ))}
+        </div>
+      )}
       <ProjectDetailModal
         project={selectedProject}
         onClose={() => openProject(null)}

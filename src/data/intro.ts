@@ -18,14 +18,16 @@ export const intro: IntroSegment[][] = [
     { text: "Waterloo", href: UWATERLOO_URL },
     ". I lead the humanoid team at ",
     { text: "WATonomous", href: "https://www.watonomous.ca" },
-    ", where we're building Pioneer, Waterloo's first humanoid. Previously, I worked on all kinds of robot hardware at ",
+    ", where we're building Pioneer, Waterloo's first humanoid. Previously, I worked on humanoids, hands, and data-collection rigs at ",
     { text: "AXIBO", href: "https://www.axibo.com/" },
     ".",
   ],
   [
-    "I think I have an obsession with enhancing the human form factor: building things that make us more capable, and robots that don't just mimic us, but are stronger, faster, more capable than us. Reflex, an exoskeleton glove that lets AI teach you skills, won Hack the North.",
+    "I have an obsession with enhancing the human form factor: building things that make us more capable, and robots that don't just mimic us, but are stronger, faster, and better than us. Reflex, an exoskeleton glove that lets AI teach you skills, won Hack the North.",
   ],
-  ["Outside of robots, I play piano and violin."],
+  [
+    "Outside of robots, I play piano and violin. Someday I'd like to build a hand better than my own.",
+  ],
 ];
 
 /** Lead-in for the goals list. */

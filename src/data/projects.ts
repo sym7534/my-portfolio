@@ -78,7 +78,7 @@ export const projects: Project[] = [
     bareImage: true,
     imageScale: 0.7,
     title: "Anthropomorphic Robot Hand",
-    caption: "realistic robot hand controlled by OpenCV",
+    caption: "tendon-driven hand, controlled by hand tracking",
     description:
       "• Designed a human-proportioned robotic hand in SolidWorks, using configurations to generate multiple finger variants.\n• Validated range of motion and interference in assemblies with evaluation tools; applied tolerance and DFM principles to improve 3D-printed joint performance.\n• Developing a 5-DOF actuation system using Arduino Nano + ESP32 + PCA9685 servo shields; integrating OpenCV-based hand tracking to map real hand motion to robot motion.",
     techStack: ["SolidWorks", "Arduino", "ESP32", "C++", "Python", "OpenCV"],
@@ -178,7 +178,7 @@ export const projects: Project[] = [
     slug: "self-driving-car",
     category: "software" as const,
     title: "Self-Driving Car Sim",
-    caption: "watch video",
+    caption: "ROS 2 navigation stack",
     href: "https://www.youtube.com/watch?v=mIYiKe8uu4Q",
     description:
       "• Developed a ROS 2 robot navigation stack in C++ on Linux, using LiDAR data to assist autonomous pathing.\n• Implemented and tested A* pathfinding and Pure Pursuit; debugged multi-node behavior via logs/telemetry and Foxglove.\n• Containerized builds and runtime dependencies with Docker to improve reproducibility across team environments.",
@@ -190,7 +190,7 @@ export const projects: Project[] = [
     slug: "mars-rover",
     category: "both" as const,
     title: "Autonomous Mars Rover",
-    caption: "ROS 2 path tracking, tuned in simulation",
+    caption: "autonomous path planning and simulation in ROS 2",
     description:
       "• Designed and tuned a PID controller for a Mars rover; implemented adaptive speed reduction to improve path tracking.\n• Built a URDF model with STL meshes for Foxglove visualization; calibrated a Gazebo physics simulation to better match real rover properties.",
     techStack: ["C++", "Python", "ROS 2", "LiDAR", "PID", "A*", "Pure Pursuit", "Gazebo", "Docker", "Linux"],

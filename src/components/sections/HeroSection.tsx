@@ -37,7 +37,7 @@ function renderSegments(segments: IntroSegment[]) {
 
 const prose = "font-serif text-[15px] leading-[1.63] text-text-secondary";
 
-/** Hero: name, divider, handwritten intro, lifetime goals and contact line. Server component. */
+/** Hero: name, handwritten intro, lifetime goals and contact line. Server component. */
 export function HeroSection() {
   return (
     <Section className="mb-[clamp(1rem,3vh,2rem)]">
@@ -45,8 +45,9 @@ export function HeroSection() {
       <h1 className="font-serif text-[clamp(2.1rem,1.8rem+1.2vw,2.5rem)] font-bold leading-[1.15] text-text-primary">
         {TYPED_NAME}
       </h1>
-      <div className="w-full max-w-md h-px bg-border-card my-[clamp(0.75rem,2.5vh,1.5rem)]" />
-      <div className="space-y-3">
+      {/* No rule under the name: spacing alone separates it from the intro,
+          slightly more than the 12px between paragraphs. */}
+      <div className="mt-5 space-y-3">
         {intro.map((paragraph, i) => (
           <p key={i} className={prose}>
             {renderSegments(paragraph)}
