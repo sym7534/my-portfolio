@@ -43,9 +43,9 @@ export function ProjectDetailModal({
         )}
       </div>
 
-      {/* Tech Stack */}
-      <div>
-        {project.techStack && project.techStack.length > 0 ? (
+      {/* Tech Stack (omitted entirely when a project lists none) */}
+      {project.techStack && project.techStack.length > 0 && (
+        <div>
           <div className="flex flex-wrap gap-2">
             {project.techStack.map((tech) => (
               <span
@@ -56,12 +56,8 @@ export function ProjectDetailModal({
               </span>
             ))}
           </div>
-        ) : (
-          <p className="font-sans font-light text-sm text-white/40 italic">
-            Tech stack coming soon...
-          </p>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 

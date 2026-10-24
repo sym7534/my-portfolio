@@ -56,6 +56,14 @@ export const projects: Project[] = [
     techStack: ["Fusion 360", "Python", "PyTorch", "nice!nano"],
   },
   {
+    slug: "contact-wearable",
+    category: "mechanical" as const,
+    title: "Contact Sport Wearable",
+    caption: "physiological sensing under full contact",
+    description:
+      "Designing wearable hardware that tracks heart rate, HRV and breathing in judo athletes and holds up in full-contact grappling.\n\nResearch at the University of Waterloo. In progress.",
+  },
+  {
     slug: "canopi",
     category: "software" as const,
     title: "Canopi",
